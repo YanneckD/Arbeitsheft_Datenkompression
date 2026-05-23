@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container hero-inner">
+      <div>
+        <p class="overline" data-lang="header.overline"></p>
+        <h1 data-lang="header.title"></h1>
+      </div>
+      <button class="nav-toggle" id="navToggle" type="button" data-lang="nav.toggle"></button>
+    </div>
+  </header>
+
+  <div class="page">
+    <aside class="side-nav" id="sideNav">
+      <nav aria-label="Inhalt">
+        <p class="nav-title" data-lang="nav.title"></p>
+        <a href="#intro" class="nav-link" data-lang="nav.intro"></a>
+        <a href="#lossless" class="nav-link" data-lang="nav.lossless"></a>
+        <a href="#lossy" class="nav-link" data-lang="nav.lossy"></a>
+        <a href="#filetypes" class="nav-link" data-lang="nav.filetypes"></a>
+        <a href="#final" class="nav-link" data-lang="nav.final"></a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <section class="panel" id="intro">
+        <h2 data-lang="intro.heading"></h2>
+        <div class="module-task">
+          <span class="task-label" data-lang="common.taskLabel"></span>
+          <p data-lang="intro.readTasks"></p>
+        </div>
+        <details class="article" open>
+          <summary data-lang="intro.articleSummary"></summary>
+          <div class="article-body">
+            <p data-lang="intro.article.p1"></p>
+            <p data-lang="intro.article.p2"></p>
+            <p data-lang="intro.article.p3"></p>
+            <p class="source">
+              <span data-lang="intro.article.sourceLabel"></span>
+              <a href="https://futurezone.at/netzpolitik/edward-snowden-schmuggelte-daten-mit-zauberwuerfeln-raus/400605791" target="_blank" rel="noreferrer" data-lang="intro.article.sourceLink"></a>
+            </p>
+          </div>
+        </details>
+        <details class="article quote-box" open>
+          <summary data-lang="intro.quoteSummary"></summary>
+          <div class="article-body">
+            <p data-lang="intro.article.p4"></p>
+          </div>
+        </details>
+        <div class="module-task">
+          <span class="task-label" data-lang="common.taskLabel"></span>
+          <p data-lang="intro.taskIntro"></p>
+
+          <div class="intro-task-grid">
+            <div>
+              <p data-lang="intro.taskText"></p>
+              <div class="intro-calc">
+                <label for="bitrateInput" data-lang="intro.inputBitrateLabel"></label>
+                <input id="bitrateInput" type="number" min="0" step="0.1" data-lang-attr="placeholder:intro.inputBitratePlaceholder">
+
+                <label for="durationInput" data-lang="intro.inputDurationLabel"></label>
+                <input id="durationInput" type="number" min="0" step="0.1" data-lang-attr="placeholder:intro.inputDurationPlaceholder">
+
+                <button id="introCalcBtn" type="button" data-lang="intro.calcButton"></button>
+              </div>
+              <p id="introCalcResult" class="intro-result" aria-live="polite"></p>
+              <div class="sd-card-bar" aria-label="Füllstand der SD-Karte">
+                <div id="sdCardBarFill" class="sd-card-bar-fill"></div>
+                <span id="sdCardBarText" class="sd-card-bar-text"></span>
+              </div>
+            </div>
+
+            <aside class="rate-info">
+              <p class="rate-info-title" data-lang="intro.ratesTitle"></p>
+              <p data-lang="intro.rates720pLow"></p>
+              <p data-lang="intro.rates720pHigh"></p>
+              <p data-lang="intro.rates720pStandard"></p>
+              <p data-lang="intro.rates4kLow"></p>
+              <p data-lang="intro.rates4kHigh"></p>
+              <p data-lang="intro.rates4kStandard"></p>
+              <p data-lang="intro.ratesSource"></p>
+            </aside>
+          </div>
+        </div>
+        <div class="module-task assumption-task">
+          <span class="task-label" data-lang="common.lastTaskLabel"></span>
+          <p data-lang="intro.assumptionLabel"></p>
+          <div class="help-row">
+            <button id="assumptionHelpToggle" class="help-toggle" type="button" data-lang="intro.assumptionHelpButton" aria-controls="assumptionHelpBox" aria-expanded="false"></button>
+            <div id="assumptionHelpBox" class="help-box" hidden>
+              <p data-lang="intro.assumptionHelpText"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="lossless">
+        <h2 data-lang="lossless.heading"></h2>
+        <p data-lang="lossless.body1"></p>
+        <p data-lang="lossless.body2"></p>
+        <div class="ui-mockup" data-lang="lossless.uiPlaceholder"></div>
+        <div class="module-task">
+          <span class="task-label" data-lang="common.lastTaskLabel"></span>
+          <p data-lang="lossless.task1"></p>
+          <p data-lang="lossless.task2"></p>
+        </div>
+      </section>
+
+      <section class="panel" id="lossy">
+        <h2 data-lang="lossy.heading"></h2>
+        <p data-lang="lossy.body1"></p>
+        <p data-lang="lossy.body2"></p>
+        <div class="ui-mockup" data-lang="lossy.uiPlaceholder"></div>
+        <div class="module-task">
+          <span class="task-label" data-lang="common.lastTaskLabel"></span>
+          <p data-lang="lossy.task1"></p>
+          <p data-lang="lossy.task2"></p>
+          <p data-lang="lossy.task3"></p>
+        </div>
+      </section>
+
+      <section class="panel" id="filetypes">
+        <h2 data-lang="filetypes.heading"></h2>
+        <p data-lang="filetypes.body1"></p>
+        <p data-lang="filetypes.body2"></p>
+        <div class="ui-mockup" data-lang="filetypes.uiPlaceholder"></div>
+        <div class="module-task">
+          <span class="task-label" data-lang="common.lastTaskLabel"></span>
+          <p data-lang="filetypes.task1"></p>
+          <p data-lang="filetypes.task2"></p>
+          <p data-lang="filetypes.task3"></p>
+        </div>
+      </section>
+
+      <section class="panel" id="final">
+        <h2 data-lang="final.heading"></h2>
+        <p data-lang="final.body1"></p>
+        <p data-lang="final.body2"></p>
+        <div class="ui-mockup" data-lang="final.uiPlaceholder"></div>
+        <div class="module-task">
+          <span class="task-label" data-lang="common.lastTaskLabel"></span>
+          <p data-lang="final.task1"></p>
+          <p data-lang="final.task2"></p>
+          <p data-lang="final.task3"></p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p data-lang="footer.text"></p>
+    </div>
+  </footer>
+
+  <script src="lang/de.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
