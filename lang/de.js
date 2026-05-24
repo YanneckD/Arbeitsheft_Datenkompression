@@ -56,16 +56,12 @@ window.LANG_DE = {
   },
   lossless: {
     heading: "Modul 1: Verlustfreie Kompression",
-    body1: "Die inhaltliche Erarbeitung (Beispiele, Erklärungen, Übungsdaten) erfolgt gemäß Planungsdokument.",
-    body2: "Wende zum Abschluss verlustfreie Verfahren (RLE/Wörterbuchidee) an und begründe, warum Bitgenauigkeit bei bestimmten Datentypen unverzichtbar ist.",
     uiPlaceholder: "<strong>UNFERTIG (geplant):</strong> Interaktives RLE-/Wörterbuch-Tool. Eingabe: Text oder Schwarz/Weiß-Grafik (Raster). Ausgaben: kodierte Folge, Bit-/Zeichenlänge, Kompressionsgrad und ein Umschalter für Best-Case/Worst-Case-Beispiele. Darunter liegen drei voneinander unabhängige Dateien (A/B/C), die nicht offensichtlich nah an den Beispielen der Erklärung sind.",
     task1: "<strong>a)</strong> Begründe, ob es sinnvoll ist, die folgenden Dateien zu komprimieren, und wähle das Verfahren mit der jeweils höchsten erwarteten Kompressionsrate: Datei A (Schwarz-Weiß-Scan eines Berichts), Datei B (verschlüsselter Berichtstext), Datei C (unverschlüsselter Berichtstext).",
     task2: "<strong>b)</strong> Führe die Kompression für alle drei Dateien durch und notiere den jeweils resultierenden, komprimierten Datenstrom. Überprüfe anschließend, ob deine Vorhersagen aus Teilaufgabe a) korrekt waren.",
   },
   lossy: {
     heading: "Modul 2: Verlustbehaftete Verfahren",
-    body1: "Die inhaltliche Erarbeitung (Block-Averaging als didaktisch reduziertes Prinzip, Wahrnehmungsbezug) erfolgt gemäß Planungsdokument.",
-    body2: "In der Abschlussaufgabe ermittelst du experimentell eine kritische Kompressionsschwelle und bewertest den verbleibenden Beweiswert – inklusive Gegenüberstellung zu Textdaten.",
     uiPlaceholder: "<strong>UNFERTIG (geplant):</strong> Block-Averaging-Simulation mit Regler für die Blockgröße. Links erscheint das Originalfoto, rechts die komprimierte Version.",
     task1: "<strong>a)</strong> Bestimme experimentell über die JavaScript-Nutzeroberfläche die maximale Blockgröße für das Beweisfoto, bei der der Text auf dem Dokument für dich gerade noch lesbar bleibt, und wähle in Abhängigkeit zur Dateigröße eine passende Blockgröße zum Speichern der Datei.",
     task2: "<strong>b)</strong> Vergleiche dein Ergebnis in einer Partnerarbeitsphase mit den Werten deines Sitznachbarn und arbeitet gemeinsame Unterschiede oder Gemeinsamkeiten bei der subjektiven Wahrnehmung dieser Lesbarkeitsgrenze heraus.",
@@ -73,8 +69,6 @@ window.LANG_DE = {
   },
   filetypes: {
     heading: "Modul 3: Kompression für verschiedene Dateitypen",
-    body1: "Die inhaltliche Erarbeitung (Overhead, Metadaten, offene Formate, Containerformate) erfolgt gemäß Planungsdokument.",
-    body2: "In der Abschlussaufgabe analysierst du Overhead und Metadatenrisiken und reduzierst beides durch bewusste Formatwahl und Archivierung.",
     uiPlaceholder: "<strong>UNFERTIG (geplant):</strong> Dateiformat-Inspektor mit Dateiliste, Größenvergleich, Metadatenanzeige (Autor, Pfad, Zeitstempel, Änderungsverlauf) und Schaltflächen zur Umwandlung in offene Minimalformate sowie zum Zusammenfassen in ein ZIP-Archiv.",
     task1: "<strong>a)</strong> Untersuche die bereitgestellten Office-Dokumente im Originalzustand auf ihre Struktur sowie Dateigröße und begründe, warum das direkte Kopieren dieser Dateien sowohl ein Sicherheitsrisiko als auch eine Platzverschwendung darstellt.",
     task2: "<strong>b)</strong> Bereite diese Dateisammlung so vor, dass sie geeignet für das Kopieren auf eine SD-Karte und das Weitergeben an internationale Journalisten ist.",
@@ -82,14 +76,12 @@ window.LANG_DE = {
   },
   final: {
     heading: "Modul 4: Abschlussaufgabe",
-    body1: "Die inhaltliche Ausgestaltung des Szenarios (heterogenes Datenpaket, Zeitdruck, Hardware-/Zeitfeedback, Plenumsdiskussion) erfolgt gemäß Planungsdokument.",
-    body2: "Du nutzt alle Konzepte aus den Modulen 1–3, um ein realistisches Datenpaket zu verwalten, die richtigen Werkzeuge auszuwählen und die benötigten Ressourcen zu begründen.",
     uiPlaceholder: "<strong>UNFERTIG (geplant):</strong> Datenpaket-Simulator mit Videos, Word-Dokumenten, proprietärem Datenbank-Dump, verschlüsselten Dateien und Präsentationsdateien. Pro Datei soll eine Maßnahme gewählt werden (komprimieren, konvertieren, bündeln, verschlüsseln oder unverändert lassen); zusätzlich werden Kopierzeit, Speicherbedarf und SD-Karten-Anzahl rückgemeldet.",
     task1: "<strong>a)</strong> Analysiere das bereitgestellte Datenpaket (aus Videos, Word-Dokumenten, direkten Datenbank-Dumps in einem proprietären Dateiformat, verschlüsselte Dateien und Präsentationsdateien) im Tool des Arbeitsheftes und triff eine erste eigene Zuordnung der Dateien zu verschiedenen Maßnahmen zur Speicherplatzreduktion, um die Kopierzeit und den Speicherplatzbedarf zu minimieren.",
     task2: "<strong>b)</strong> Schließt euch in Gruppen von zwei bis drei Personen zusammen, vergleicht eure ersten Ansätze, optimiert die Einstellungen im Arbeitsheft gemeinsam und formuliert aus dem Vergleich eurer Ergebnisse und eurem Wissen durch das Arbeitsheft eine gemeinsame Best-Practice-Strategie für dieses und ähnliche Szenarien.",
     task3: "<strong>c)</strong> Nutzt eure Gruppenstrategien als Basis für eine abschließende Diskussion im Plenum zur Leitfrage, warum ausgeprägte Kompetenzen im Bereich des Datenmanagements eine wichtige Fähigkeit für Informationsfreiheit und demokratische Resilienz darstellen."
   },
   footer: {
-    text: "Arbeitsheft: Datenkompression, Gesellschaft und Verantwortung"
+    text: "Yanneck Dimitrov, 2026"
   }
 };
