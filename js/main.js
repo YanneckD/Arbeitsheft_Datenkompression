@@ -1,0 +1,20 @@
+const langData = window.LANG_DE || {};
+const widgetLang = window.WIDGETS_DE || {};
+
+applyLang(langData);
+setupNavigation();
+setupSectionViews();
+setupIntroCalculator(langData);
+setupHiddenFollowups();
+setupGlossTooltips();
+setupHelpToggles(langData);
+setupBitflipWidget(widgetLang.bitflip);
+setupRLEWidget(widgetLang.rle);
+setupRLETextWidget(widgetLang.rleText);
+setupDictWidget(widgetLang.dict);
+setupBlockAvgWidget(widgetLang.blockAvg);
+setupBlockSizeWidget(widgetLang.blockSize);
+setupFileInspectorWidget(widgetLang.fileInspector);
+setupZipArchiveWidget(widgetLang.zipArchive);
+setupFilesystemWidget(widgetLang.filesystem);
+setupEfficiencyWidget(widgetLang.efficiency);

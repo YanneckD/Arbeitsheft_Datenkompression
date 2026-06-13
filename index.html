@@ -21,7 +21,7 @@
     <aside class="side-nav" id="sideNav">
       <nav aria-label="Inhalt">
         <p class="nav-title" data-lang="nav.title"></p>
-        <a href="#intro" class="nav-link" data-lang="nav.intro"></a>
+        <a href="#intro" class="nav-link is-active" aria-current="page" data-lang="nav.intro"></a>
         <a href="#lossless" class="nav-link" data-lang="nav.lossless"></a>
         <a href="#lossy" class="nav-link" data-lang="nav.lossy"></a>
         <a href="#filetypes" class="nav-link" data-lang="nav.filetypes"></a>
@@ -30,34 +30,40 @@
     </aside>
 
     <main class="content">
-      <section class="panel" id="intro">
+      <section class="panel is-active" id="intro">
         <h2 data-lang="intro.heading"></h2>
-        <div class="module-task">
-          <span class="task-label" data-lang="common.taskLabel"></span>
-          <p data-lang="intro.readTasks"></p>
+        <div class="section-task">
+          <p data-lang="intro.scenario"></p>
+          <blockquote class="task-quote" data-lang="intro.scenarioQuote"></blockquote>
+          <p data-lang="intro.scenarioQuestion"></p>
         </div>
-        <details class="article" open>
-          <summary data-lang="intro.articleSummary"></summary>
-          <div class="article-body">
-            <p data-lang="intro.article.p1"></p>
-            <p data-lang="intro.article.p2"></p>
-            <p data-lang="intro.article.p3"></p>
-            <p class="source">
-              <span data-lang="intro.article.sourceLabel"></span>
-              <a href="https://futurezone.at/netzpolitik/edward-snowden-schmuggelte-daten-mit-zauberwuerfeln-raus/400605791" target="_blank" rel="noreferrer" data-lang="intro.article.sourceLink"></a>
-            </p>
-          </div>
-        </details>
-        <details class="article quote-box" open>
-          <summary data-lang="intro.quoteSummary"></summary>
-          <div class="article-body">
-            <p data-lang="intro.article.p4"></p>
-          </div>
-        </details>
-        <div class="module-task">
-          <span class="task-label" data-lang="common.taskLabel"></span>
-          <p data-lang="intro.taskIntro"></p>
-
+        <div class="section-task">
+          <p data-lang="intro.answerTask"></p>
+          <textarea class="assumption-textarea" id="answer-intro"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+        <div class="section-task">
+          <p data-lang="intro.snowdenIntro"></p>
+          <details class="article" open>
+            <summary data-lang="intro.articleSummary"></summary>
+            <div class="article-body">
+              <p data-lang="intro.article.p1"></p>
+              <p data-lang="intro.article.p2"></p>
+              <p data-lang="intro.article.p3"></p>
+              <p class="source">
+                <span data-lang="intro.article.sourceLabel"></span>
+                <a href="https://futurezone.at/netzpolitik/edward-snowden-schmuggelte-daten-mit-zauberwuerfeln-raus/400605791" target="_blank" rel="noreferrer" data-lang="intro.article.sourceLink"></a>
+              </p>
+            </div>
+          </details>
+          <details class="article quote-box" open>
+            <summary data-lang="intro.quoteSummary"></summary>
+            <div class="article-body">
+              <p data-lang="intro.article.p4"></p>
+            </div>
+          </details>
+        </div>
+        <div class="section-task">
           <div class="intro-task-grid">
             <div>
               <p data-lang="intro.taskText"></p>
@@ -85,62 +91,293 @@
               <p data-lang="intro.rates4kLow"></p>
               <p data-lang="intro.rates4kHigh"></p>
               <p data-lang="intro.rates4kStandard"></p>
-              <p data-lang="intro.ratesSource"></p>
             </aside>
           </div>
-        </div>
-        <div class="module-task assumption-task">
-          <span class="task-label" data-lang="common.lastTaskLabel"></span>
-          <p data-lang="intro.assumptionLabel"></p>
+          <p class="assumption-task" data-lang="intro.reflectionTask"></p>
           <div class="help-row">
-            <button id="assumptionHelpToggle" class="help-toggle" type="button" data-lang="intro.assumptionHelpButton" aria-controls="assumptionHelpBox" aria-expanded="false"></button>
-            <div id="assumptionHelpBox" class="help-box" hidden>
-              <p data-lang="intro.assumptionHelpText"></p>
+            <button class="help-toggle" type="button"
+                    data-lang="common.showHint"
+                    aria-controls="hint-intro-reflection"
+                    aria-expanded="false"></button>
+            <div id="hint-intro-reflection" class="help-box" hidden>
+              <p data-lang="intro.reflectionHint"></p>
             </div>
           </div>
+          <textarea class="assumption-textarea" id="answer-intro-reflection"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
         </div>
       </section>
 
-      <section class="panel" id="lossless">
+      <section class="panel" id="lossless" hidden>
         <h2 data-lang="lossless.heading"></h2>
-        <div class="ui-mockup" data-lang="lossless.uiPlaceholder"></div>
-        <div class="module-task">
-          <span class="task-label" data-lang="common.lastTaskLabel"></span>
-          <p data-lang="lossless.task1"></p>
-          <p data-lang="lossless.task2"></p>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="lossless.task1.title"></p>
+          <p data-lang="lossless.task1.intro"></p>
+          <div class="widget-placeholder" id="widget-s1-bitflip"
+               data-lang="lossless.task1.widgetPlaceholder"></div>
+          <p data-lang="lossless.task1.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s1-1a"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossless.task1.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s1-1b"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <p data-lang="lossless.intro.p1"></p>
+        <p data-lang="lossless.transition"></p>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="lossless.task2.title"></p>
+          <p data-lang="lossless.task2.intro"></p>
+          <div class="widget-placeholder" id="widget-s1-rle"
+               data-lang="lossless.task2.widgetPlaceholder"></div>
+          <p data-lang="lossless.task2.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s1-2a"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossless.task2.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s1-2b"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossless.task2.c.text"></p>
+          <textarea class="assumption-textarea" id="answer-s1-2c"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="lossless.task3.title"></p>
+          <div class="widget-placeholder" id="widget-s1-rle-text"
+               data-lang="lossless.task2.a.widgetPlaceholder"></div>
+          <p data-lang="lossless.task3.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s1-3a"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossless.task3.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s1-3b"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossless.task3.c.text"></p>
+          <textarea class="assumption-textarea" id="answer-s1-3c"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <div class="widget-placeholder" id="widget-s1-dict"
+               data-lang="lossless.task3.widgetPlaceholder"></div>
+          <div class="help-row">
+            <button class="help-toggle" type="button"
+                    data-lang="common.showHint"
+                    aria-controls="hint-s1-3c-explanation"
+                    aria-expanded="false"></button>
+            <div id="hint-s1-3c-explanation" class="help-box" hidden>
+              <p data-lang="lossless.task3.c.explanation"></p>
+            </div>
+          </div>
+          <p data-lang="lossless.task3.d.text"></p>
+          <textarea class="assumption-textarea" id="answer-s1-3d"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="lossless.task4.title"></p>
+          <blockquote class="task-quote" data-lang="lossless.task4.quotePlain"></blockquote>
+          <p data-lang="lossless.task4.a.text"></p>
+          <blockquote class="task-quote" data-lang="lossless.task4.quoteEncrypted"></blockquote>
+          <textarea class="assumption-textarea" id="answer-s1-4a"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossless.task4.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s1-4b"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="lossless.closing.title"></p>
+          <p data-lang="lossless.closing.intro"></p>
+          <p data-lang="lossless.closing.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s1-cb"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossless.closing.b.text"></p>
+          <div class="widget-placeholder" id="widget-s1-efficiency"
+               data-lang="lossless.task4.widgetPlaceholder"></div>
         </div>
       </section>
 
-      <section class="panel" id="lossy">
+      <section class="panel" id="lossy" hidden>
         <h2 data-lang="lossy.heading"></h2>
-        <div class="ui-mockup" data-lang="lossy.uiPlaceholder"></div>
-        <div class="module-task">
-          <span class="task-label" data-lang="common.lastTaskLabel"></span>
-          <p data-lang="lossy.task1"></p>
-          <p data-lang="lossy.task2"></p>
-          <p data-lang="lossy.task3"></p>
+
+        <p data-lang="lossy.intro.p1"></p>
+        <p data-lang="lossy.intro.p2"></p>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="lossy.task1.title"></p>
+          <p data-lang="lossy.task1.intro"></p>
+          <div class="widget-placeholder" id="widget-s2-blockavg"
+               data-lang="lossy.task1.widgetPlaceholder"></div>
+          <p data-lang="lossy.task1.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s2-1a"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossy.task1.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s2-1b"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossy.task1.c.text"></p>
+          <textarea class="assumption-textarea" id="answer-s2-1c"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <div class="explanation-box">
+          <p data-lang="lossy.explanation.p1"></p>
+          <p data-lang="lossy.explanation.p2"></p>
+        </div>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="lossy.task2.title"></p>
+          <div class="widget-placeholder" id="widget-s2-blocksize"
+               data-lang="lossy.task2.widgetPlaceholder"></div>
+          <p data-lang="lossy.task2.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s2-2a"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossy.task2.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s2-2b"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="lossy.task3.title"></p>
+          <p data-lang="lossy.task3.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s2-3a"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossy.task3.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s2-3b"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossy.task3.c.text"></p>
+          <textarea class="assumption-textarea" id="answer-s2-3c"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="lossy.closing.title"></p>
+          <p data-lang="lossy.closing.intro"></p>
+          <p data-lang="lossy.closing.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s2-ca"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="lossy.closing.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s2-cb"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
         </div>
       </section>
 
-      <section class="panel" id="filetypes">
+      <section class="panel" id="filetypes" hidden>
         <h2 data-lang="filetypes.heading"></h2>
-        <div class="ui-mockup" data-lang="filetypes.uiPlaceholder"></div>
-        <div class="module-task">
-          <span class="task-label" data-lang="common.lastTaskLabel"></span>
-          <p data-lang="filetypes.task1"></p>
-          <p data-lang="filetypes.task2"></p>
-          <p data-lang="filetypes.task3"></p>
+
+        <p data-lang="filetypes.intro.p1"></p>
+        <p data-lang="filetypes.intro.p2"></p>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="filetypes.task1.title"></p>
+          <p data-lang="filetypes.task1.intro"></p>
+          <div class="widget-placeholder" id="widget-s3-fileinspector"
+               data-lang="filetypes.task1.widgetPlaceholder"></div>
+          <p data-lang="filetypes.task1.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s3-1a"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="filetypes.task1.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s3-1b"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="filetypes.task2.title"></p>
+          <p data-lang="filetypes.task2.intro"></p>
+          <p data-lang="filetypes.task2.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s3-2a"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="filetypes.task2.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s3-2b"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="filetypes.task3.title"></p>
+          <p data-lang="filetypes.task3.intro"></p>
+          <p data-lang="filetypes.task3.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s3-3a"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="filetypes.task3.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s3-3b"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="filetypes.task4.title"></p>
+          <p data-lang="filetypes.task4.intro"></p>
+          <div class="widget-placeholder" id="widget-s3-zip"
+               data-lang="filetypes.task4.widgetPlaceholder"></div>
+          <p data-lang="filetypes.task4.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s3-4a"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="filetypes.task4.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s3-4b"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="filetypes.task4.c.text"></p>
+          <textarea class="assumption-textarea" id="answer-s3-4c"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="filetypes.closing.title"></p>
+          <p data-lang="filetypes.closing.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s3-ca"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="filetypes.closing.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s3-cb"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
         </div>
       </section>
 
-      <section class="panel" id="final">
+      <section class="panel" id="final" hidden>
         <h2 data-lang="final.heading"></h2>
-        <div class="ui-mockup" data-lang="final.uiPlaceholder"></div>
-        <div class="module-task">
-          <span class="task-label" data-lang="common.lastTaskLabel"></span>
-          <p data-lang="final.task1"></p>
-          <p data-lang="final.task2"></p>
-          <p data-lang="final.task3"></p>
+
+        <p data-lang="final.intro.p1"></p>
+        <p data-lang="final.intro.p2"></p>
+        <p data-lang="final.intro.p3"></p>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="final.task1.title"></p>
+          <p data-lang="final.task1.note"></p>
+          <div class="widget-placeholder" id="widget-s4-filesystem"
+               data-lang="final.task1.widgetPlaceholder"></div>
+          <p data-lang="final.task1.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s4-1a"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="final.task1.b.text"></p>
+          <textarea class="assumption-textarea" id="answer-s4-1b"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="final.closing.title"></p>
+          <p data-lang="final.closing.a.text"></p>
+          <textarea class="assumption-textarea" id="answer-s4-ca"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="final.closing.b.text"></p>
+          <div class="help-row">
+            <button class="help-toggle" type="button"
+                    data-lang="common.showHint"
+                    aria-controls="hint-s4-cb"
+                    aria-expanded="false"></button>
+            <div id="hint-s4-cb" class="help-box" hidden>
+              <p data-lang="final.closing.b.hint"></p>
+            </div>
+          </div>
+          <textarea class="assumption-textarea" id="answer-s4-cb"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="final.closing.c.text"></p>
+          <textarea class="assumption-textarea" id="answer-s4-cc"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+        </div>
+
+        <div class="section-task">
+          <p class="task-title" data-lang="final.plenum.title"></p>
+          <p data-lang="final.plenum.note"></p>
+          <ul class="plenum-list">
+            <li data-lang="final.plenum.q1"></li>
+            <li data-lang="final.plenum.q2"></li>
+            <li data-lang="final.plenum.q3"></li>
+          </ul>
         </div>
       </section>
     </main>
@@ -153,6 +390,22 @@
   </footer>
 
   <script src="lang/de.js"></script>
-  <script src="script.js"></script>
+  <script src="lang/widgets_de.js"></script>
+  <script src="img/katze-data.js"></script>
+  <script src="js/lang.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/widgets/bitflip.js"></script>
+  <script src="js/widgets/rle.js"></script>
+  <script src="js/widgets/rle-text.js"></script>
+  <script src="js/widgets/dict.js"></script>
+  <script src="js/widgets/block-avg.js"></script>
+  <script src="js/widgets/block-size.js"></script>
+  <script src="js/widgets/file-inspector.js"></script>
+  <script src="js/widgets/zip-archive.js"></script>
+  <script src="js/widgets/filesystem.js"></script>
+  <script src="js/widgets/efficiency.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
