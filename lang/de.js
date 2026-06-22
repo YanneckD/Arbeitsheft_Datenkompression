@@ -20,17 +20,18 @@ window.LANG_DE = {
   common: {
     answerPlaceholder: "Deine Antwort ...",
     showHint: "Tipp anzeigen",
-    hideHint: "Tipp ausblenden"
+    hideHint: "Tipp ausblenden",
+    materialFolderGloss: "Wenn vom Materialordner gesprochen wird, ist der Ordner \"Material\" gemeint, welcher im gleichen Ordner, wie die index.html Datei liegt. Darin sind die Dateien nach Sektion und Aufgabe sortiert."
   },
   intro: {
     heading: "Einstieg",
-    scenario: "Ein Freund arbeitet bei einem staatlichem Geheimdienst und hat mitbekommen, dass schwere Verbrechen an der Gesellschaft verheimlicht werden sollen. Er hat Zugriff auf Videoaufnahmen, Berichte und Fotos, welche diese Umstände zeigen und ist entschlossen diese an die Presse weiterzugeben, da ihm in einem Gespräch mit seinem Vorgesetzten gesagt wurde, er solle das einfach ignorieren. Da diese Daten jedoch auf Computern in einer sehr gut bewachten Anlage mit stark überwachter Internetanbindung sind, ist es ihm nicht möglich diese einfach an Journalisten zu senden. Außerdem handelt es sich um tausende Dateien, welche sehr viel Speicherplatz einnehmen und deshalb hunderte USB-Sticks füllen könnten. Da das Herausschmuggeln durch die Taschenkontrolle am Ausgang sehr riskant ist, will er nach Möglichkeit so wenig Gegenstände wie möglich bei sich haben, die auf sein Vorhaben hindeuten. Er weiß, dass du technisch fit bist und bittet dich um Hilfe:",
+    scenario: "Ein Freund arbeitet bei einem staatlichem Geheimdienst und hat mitbekommen, dass schwere Verbrechen an der Gesellschaft verheimlicht werden sollen. Er hat Zugriff auf Videoaufnahmen, Berichte und Fotos, welche diese Umstände zeigen und ist entschlossen, diese an die Presse weiterzugeben, da ihm in einem Gespräch mit seinem Vorgesetzten gesagt wurde, er solle das einfach ignorieren. Da diese Daten jedoch auf Computern in einer sehr gut bewachten Anlage mit stark überwachter Internetanbindung sind, ist es ihm nicht möglich diese einfach an Journalisten zu senden. Außerdem handelt es sich um tausende Dateien, welche sehr viel Speicherplatz einnehmen und deshalb hunderte USB-Sticks füllen könnten. Da das Herausschmuggeln durch die Taschenkontrolle am Ausgang sehr riskant ist, will er nach Möglichkeit so wenig Gegenstände wie möglich bei sich haben, die auf sein Vorhaben hindeuten. Er weiß, dass du technisch fit bist und bittet dich um Hilfe:",
     scenarioQuote: "Was soll ich tun? Wie kriege ich diese riesigen Datenmengen unbemerkt aus dem Gebäude?",
     scenarioQuestion: "→ Was würdest du deinem Freund raten?",
     answerTask: "Schreibe deine Antwort auf und speichere sie ab, damit du sie dir nach der Bearbeitung des Arbeitsheftes nochmal ansehen kannst.",
-    snowdenIntro: "Dieses Einstiegsbeispiel ist nicht völlig realitätsfern. Es basiert auf der wahren Geschichte von Edward Snowden, der als technischer Mitarbeiter der NSA Daten gestohlen hat und sie an die Presse weitergegeben hat. Diese Daten enthalten Informationen über die Überwachung der Menschen und die Verletzung von Privatsphäre und Menschenrechten. Edward Snowden ist ein herausragender Fall von Whistleblowing und hat die Welt durch seine Enthüllungen verändert. Im Folgenden findest du einen Artikel aus einer Zeitung, der über die Geschehnisse berichtet.",
+    snowdenIntro: "Dieses Einstiegsbeispiel ist nicht völlig realitätsfern. Es basiert auf der wahren Geschichte von Edward Snowden, der als technischer Mitarbeiter der <span class=\"gloss\" title=\"Die National Security Agency (deutsch Nationale Sicherheitsbehörde) ist der größte Auslandsgeheimdienst der Vereinigten Staaten. Die NSA ist für die weltweite Überwachung, Entzifferung und Auswertung elektronischer Kommunikation zuständig.\">NSA</span> Daten gestohlen hat und sie an die Presse weitergegeben hat. Diese Daten enthalten Informationen über die Überwachung der Menschen und die Verletzung von Privatsphäre und Menschenrechten. Edward Snowden ist ein herausragender Fall von Whistleblowing und hat die Welt durch seine Enthüllungen verändert. Im Folgenden findest du einen Artikel aus einer Zeitung, der über die Geschehnisse berichtet.",
     articleSummary: "Artikeltext (Futurezone, 2019)",
-    quoteSummary: "Ausschnitt aus Permanent Record (Edward Snowden, 2019)",
+    quoteSummary: "Ausschnitt aus Autobiografie: Permanent Record (Edward Snowden, 2019)",
     article: {
       p1: "Der amerikanische Whistleblower Edward Snowden hat die beim US-Geheimdienst NSA kopierten Daten unter den Aufklebern von Zauberwürfeln, in Socken oder in seiner Backe aus dem Gebäude geschmuggelt. Das berichtete die \"Süddeutsche Zeitung\" am Samstag nach einem Interview mit Snowden über einen verschlüsselten Video-Chat. Der 36-Jährige veröffentlicht in wenigen Tagen seine Memoiren.",
       p2: "Snowden hatte 2013 die ausufernde Überwachung durch den US-Geheimdienst NSA öffentlich gemacht. Die US-Behörden wollen ihm den Prozess machen. Deshalb lebt er in Russland im Exil.",
@@ -40,7 +41,7 @@ window.LANG_DE = {
       sourceLink: "futurezone.at/netzpolitik/edward-snowden-schmuggelte-daten-mit-zauberwuerfeln-raus/400605791"
     },
     taskText: "Hätte Snowden ein 5-minütiges Video als Beweismaterial auf eine 2 GB-SD-Karte kopieren können? Wie sieht es mit 10 oder 100 Videos aus? Mit dem unten stehenden Rechner kannst du das für verschiedene Qualitätseinstellungen berechnen.",
-    reflectionTask: "Inwiefern hat es Edward Snowden geholfen, dass er u.a. durch sein umfangreiches Wissen über Datenkompression Dateigrößen reduzieren konnte? Fällt dir mehr ein, als dass große Dateien sonst nicht auf die SD-Karte passen? Schreibe deine Vermutungen auf.",
+    reflectionTask: "Inwiefern hat es Edward Snowden geholfen, dass er u.a. durch sein umfangreiches Wissen über Datenkompression Dateigrößen reduzieren konnte? Gib mindestens zwei Antworten. Schreibe deine Vermutungen auf.",
     reflectionHint: "Nutze den Inhalt aus dem Buchzitat: Welchen Vorteil bringt ein kleineres Datenvolumen, wenn man unter Zeitdruck Daten auf einen langsamen Chip kopieren muss? Außerdem musste Snowden die SD-Karten aus dem Gebäude schmuggeln. Welchen Vorteil haben hier kleinere Dateien?",
     inputBitrateLabel: "Datenrate (Mbps)",
     inputBitratePlaceholder: "z. B. 99",
@@ -49,7 +50,7 @@ window.LANG_DE = {
     calcButton: "Größe berechnen",
     resultTemplate: "Gesamtgröße: {sizeMb} Mb (ca. {sizeMB} MB). Das entspricht {percent}% einer 2 GB-Karte. Auf die Karte passen etwa {videoCount} solcher Videos.",
     resultInvalid: "Bitte gib gültige Zahlen größer als 0 ein.",
-    ratesTitle: "Kurzinfo Bitraten",
+    ratesTitle: "Kurzinfo <span class=\"gloss\" title=\"Die Bitrate bezeichnet die Datenmenge, die in einer bestimmten Zeitspanne in einer Mediendatei gespeichert wird. Sie wird in Bit pro Sekunde (Bit/s) angegeben. Eine höhere Bitrate bedeutet grundsätzlich eine bessere Bild-/Tonqualität, führt aber auch zu größeren Dateigrößen.\">Bitraten</span>",
     rates720pLow: "720p@30fps: ca. 660 Mbps unkomprimiert",
     rates720pHigh: "720p@30fps: ca. 99 Mbps bei <span class=\"gloss\" title=\"Vorgang zur Verkleinerung von Daten, meist durch Entfernen von überflüssigen oder unwichtigen Informationen; die Videos verlieren an diesem Punkt keine sichtbare Qualität und werden oft direkt so gespeichert\">leichter Kompression</span>",
     rates720pStandard: "720p@30fps: ca. 5 Mbps bei <span class=\"gloss\" title=\"Standardkompression meint hier typische Kameraeinstellungen im Alltag, etwa bei Überwachungskameras oder Handykameras. Die Videos sind etwas stärker komprimiert und werden oft direkt so gespeichert, damit sie weniger Speicher brauchen\">Standardkompression</span>",
@@ -60,9 +61,9 @@ window.LANG_DE = {
     lossless: {
     heading: "Sektion 1: Verlustfreie Kompression",
     intro: {
-      p1: "Ein einfaches Schwarz-Weiß-Bild mit 64×64 Pixeln lässt sich mit 4.096 Bits beschreiben, eines pro Pixel. Dabei steht jedes Bit für Schwarz oder Weiß. Wie viel Platz eine Datei benötigt, hängt aber nicht nur von ihrem Inhalt ab, sondern auch davon, wie dieser Inhalt beschrieben wird. Es gibt Strategien, denselben Inhalt mit weniger Bits darzustellen, ohne irgendetwas wegzulassen."
+      p1: "Ein einfaches Schwarz-Weiß-Bild mit 64×64 Pixeln lässt sich mit 4.096 Bits beschreiben, eines pro Pixel. Dabei steht jedes Bit für Schwarz oder Weiß. Wie viel Platz eine Datei benötigt, hängt aber nicht nur von ihrem Inhalt ab, sondern auch davon, wie dieser Inhalt beschrieben wird. Es gibt Strategien, denselben Inhalt mit weniger Bits darzustellen, ohne irgendetwas wegzulassen. Solche Verfahren nennt man Kompression."
     },
-    transition: "Aufgabe 1 hat gezeigt: Bei manchen Dateitypen ist es entscheidend, dass nach der Kompression exakt dieselben Bits wiederhergestellt werden können. Ein Verfahren, das das garantiert, nennt man verlustfrei. Doch wie funktionieren solche Verfahren?",
+    transition: "Aufgabe 1 hat gezeigt: Bei manchen Dateitypen ist es entscheidend, dass die gespeicherten Bits exakt stimmen. Das gilt auch für Kompression: Bei manchen Dateitypen müssen sich nach dem Verfahren exakt dieselben Bits wiederherstellen lassen. Ein Verfahren, das das garantiert, nennt man verlustfrei. Doch wie funktionieren solche Verfahren?",
     task1: {
       title: "Aufgabe 1 - Reversibilität",
       intro: "Das Werkzeug zeigt dir ein Passwort und ein Bild in ihrer Binärdarstellung. Verändere in beiden Fällen genau ein einzelnes Bit.",
@@ -139,10 +140,10 @@ window.LANG_DE = {
       intro: "Das Werkzeug zeigt dir dasselbe Bild mit zwei unabhängigen Reglern.",
       widgetPlaceholder: "[Platzhalter: Widget Block-Averaging mit zwei Reglern (Helligkeitsstufen und Farbgenauigkeit)]",
       a: {
-        text: "a) Reduziere zunächst nur die Helligkeitsstufen stark und lasse den anderen Regler auf Maximum. Beschreibe, ab wann du das Bild schwerer zu erkennen findest, und halte den Wert fest."
+        text: "a) Reduziere zunächst nur die Helligkeitsstufen und lasse den anderen Regler auf Maximum. Beobachte, wie sich das Bild mit jeder Vergrößerung der Blockgröße verändert. Notiere den Wert, ab dem du den Bildinhalt nicht mehr sofort eindeutig erkennen kannst."
       },
       b: {
-        text: "b) Stelle die Helligkeitsstufen zurück auf Maximum und reduziere nun nur die Farbgenauigkeit stark. Beschreibe, ab wann du das Bild schwerer zu erkennen findest, und halte den Wert fest."
+        text: "b) Stelle die Helligkeitsstufen zurück auf Maximum und reduziere nun nur die Farbgenauigkeit. Beobachte, wie sich das Bild mit jeder Vergrößerung der Blockgröße verändert. Notiere den Wert, ab dem du den Bildinhalt nicht mehr sofort eindeutig erkennen kannst."
       },
       c: {
         text: "c) Vergleiche beide Beobachtungen anhand des Kriteriums, ab welchem Wert jeweils die Benutzbarkeit des Bilds eingeschränkt wird. Erläutere, wie ein Bildkompressionsverfahren diese Eigenschaften des menschlichen Auges ausnutzen könnte, um Dateien zu verkleinern."
@@ -150,7 +151,7 @@ window.LANG_DE = {
     },
     explanation: {
       p1: "JPEG ist ein solches Verfahren und komprimiert ein Bild, indem es dieses zunächst in gleichmäßige Blöcke aufteilt. Statt jeden Pixel einzeln zu speichern, wird für jeden Block nur eine grobe Zusammenfassung seiner Farb- und Helligkeitswerte gespeichert. Je größer der Block, desto weniger Einzelinformationen müssen abgelegt werden und desto kleiner wird die Datei. Gleichzeitig gehen dabei Details innerhalb des Blocks verloren, weil alle Pixel eines Blocks durch eine gemeinsame Annäherung ersetzt werden.",
-      p2: "In Wirklichkeit arbeitet JPEG mit einer Reihe weiterer Schritte, unter anderem einer mathematischen Transformation und einer anschließenden verlustfreien Kompression. Die Blockgröße allein erklärt das Verfahren also nicht vollständig. Für das Grundprinzip „mehr Blöcke bedeuten mehr Details, weniger Blöcke bedeuten kleinere Dateien“ ist dieses Modell jedoch ausreichend. Auch Videos werden sehr ähnlich komprimiert, einige simple Verfahren, wie MJPEG funktionieren sogar so, dass jedes Einzelbild des Videos als JPEG komprimiert wird."
+      p2: "JPEG arbeitet noch mit einer Reihe weiterer Schritte, unter anderem einer mathematischen Transformation und einer anschließenden verlustfreien Kompression. Die Blockgröße allein erklärt das Verfahren also nicht vollständig. Für das Grundprinzip „mehr Blöcke bedeuten mehr Details, weniger Blöcke bedeuten kleinere Dateien“ ist dieses Modell jedoch ausreichend. Auch Videos werden sehr ähnlich komprimiert, einige simple Verfahren, wie MJPEG funktionieren sogar so, dass jedes Einzelbild des Videos als JPEG komprimiert wird."
     },
     task2: {
       title: "Aufgabe 2 - Wie viel Ersparnis, und wann?",
@@ -164,14 +165,17 @@ window.LANG_DE = {
     },
     task3: {
       title: "Aufgabe 3 - Verlustbehaftete Kompression bei Texten",
+      intro: "Bisher hast du verlustbehaftete Verfahren am Bild kennengelernt: Sie entfernen Informationen, die das Auge kaum wahrnimmt. Ob dasselbe bei Textdokumenten sinnvoll ist, hängt von einer anderen Frage ab, nämlich einer, die du in Sektion 1 schon untersucht hast: Was passiert, wenn einzelne Bits verändert werden?",
       a: {
-        text: "a) In Sektion 1 hast du beobachtet, was passiert, wenn man ein einzelnes Bit in einem Passwort verändert. Überlege nun: Was würde bei einem Textdokument passieren, wenn ein verlustbehaftetes Verfahren einzelne Bits verändert oder entfernt? Welchen Unterschied macht es, ob es sich um lesbaren oder verschlüsselten Text handelt?"
+        text: "a) In Sektion 1, Aufgabe 1, hast du gesehen, was passiert, wenn genau ein Bit in einem Passwort oder Bild verändert wird. Stelle dir nun vor, ein <span class=\"gloss\" title=\"Verfahren, die Daten verkleinern, indem sie Informationen absichtlich entfernen oder verändern, wie bei den Bildreglern in Aufgabe 1 und 2.\">verlustbehaftetes Verfahren</span> würde dasselbe mit einem Text tun und einzelne Bits verändern oder entfernen.<br><br>Was würde bei einem <span class=\"gloss\" title=\"Ein normaler Fließtext, den du mit einem Textprogramm lesen kannst, wie z. B. eine .txt-Datei mit einem Bericht.\">lesbaren Text</span> passieren? Und was bei einem <span class=\"gloss\" title=\"Text, der mit einem Schlüssel verschlüsselt wurde und ohne diesen Schlüssel wie eine zufällige Zeichenfolge aussieht, wie in Sektion 1, Aufgabe 4.\">verschlüsselten Text</span>? Beschreibe den Unterschied.",
+        hint: "Orientiere dich an deinen Beobachtungen aus Sektion 1, Aufgabe 1: Bei welchem Dateityp war ein einzelner Bitfehler sofort sichtbar bzw. fatal? Bei lesbarem Text hängt jeder Buchstabe von exakt den richtigen Bits ab, was passiert, wenn eines davon verändert wird? <br><br>Beispiel: Aus dem Satz «Die Überwachung wurde fortgesetzt» könnte «Die Üxerwachung wurde fortgesetzt» werden.<br><br> Verschlüsselter Text ist ohne Schlüssel ohnehin nicht lesbar; überlege, ob ein Bitfehler dort denselben Effekt hat wie bei einem Passwort."
       },
       b: {
-        text: "b) Dein Freund meint, verlustfreie Kompression scheitere bei verschlüsselten Dateien, aber verlustbehaftete Kompression erziele doch immer eine positive Rate. Beurteile den Vorschlag, verlustbehaftete Verfahren auf Texte anzuwenden und erkläre, woran du deine Entscheidung orientierst."
+        text: "b) Dein Freund erinnert sich: Bei verschlüsselten Dateien hat <span class=\"gloss\" title=\"Verfahren, die Dateien verkleinern, ohne Informationen zu verlieren – wie RLE und Wörterbuchkompression aus Sektion 1.\">verlustfreie Kompression</span> in Sektion 1 nicht funktioniert. Er schlägt deshalb vor, stattdessen verlustbehaftete Verfahren auf Texte anzuwenden und meint, diese würden die Datei auf jeden Fall verkleinern. Beurteile diesen Vorschlag: Lässt sich Text sinnvoll verlustbehaftet komprimieren? Und wird die Datei dabei wirklich immer kleiner?",
+        hint: "Geh in zwei Schritten vor: (1) Was ist das Ziel beim Weitergeben eines Berichts, muss er danach noch genau lesbar und verständlich sein? (2) Denke an Sektion 1, Aufgabe 4: Kompression nutzt Wiederholungen und Muster im Dateninhalt. Enthält verschlüsselter Text noch solche Muster? Was passiert, wenn man trotzdem Bits entfernt?"
       },
       c: {
-        text: "c) Dein Freund schlägt daraufhin vor, statt der Textdatei ein Foto des Textes zu verwenden, da Bilder verlustbehaftet gut komprimiert werden können. Schaue dir die gegebenen Dateien an, welche eine .txt-Datei und ein bereits komprimierter Screenshot im JPEG-Format von einem Ausschnitt des Textes sind. Betrachte die Dateigrößen im Explorer. Erläutere anhand dieser Zahlen, ob er damit wirklich Speicherplatz einsparen kann."
+        text: "c) Dein Freund schlägt daraufhin vor, statt der Textdatei ein Foto des Textes zu verwenden, da Bilder verlustbehaftet gut komprimiert werden können. Schaue dir im Material-Ordner (<code>Sektion 2</code>) die beiden Dateien im Dateiexplorer an: <code>test.txt</code> und einen JPEG-Screenshot eines Ausschnitts desselben Textes. Betrachte die Dateigrößen. Erläutere anhand dieser Zahlen, ob er damit wirklich Speicherplatz einsparen kann."
       }
     },
     closing: {
@@ -181,7 +185,8 @@ window.LANG_DE = {
         text: "a) Beurteile für jede Datei, ob verlustbehaftete Kompression eingesetzt werden kann, und wenn ja, mit welcher Einschränkung."
       },
       b: {
-        text: "b) Entwirf eine Entscheidungsregel: Wann ist verlustbehaftete Kompression verantwortungsvoll einsetzbar, und wann nicht? Die Regel soll auf alle Dateitypen anwendbar sein, die dein Freund in seiner Situation vorfinden könnte."
+        text: "b) Entwirf eine Entscheidungsregel: Wann ist verlustbehaftete Kompression verantwortungsvoll einsetzbar, und wann nicht? Die Regel soll auf alle Dateitypen anwendbar sein, die dein Freund in seiner Situation vorfinden könnte.",
+        hint: "Denke an die drei Dateien aus der Einleitung: Ein <strong>Beweisfoto</strong> ist ein Bild – Wofür eignet sich verlustbehaftete Kompression laut Aufgabe 1 und 2? Ein <strong>verschlüsseltes Dokument</strong> sieht aus wie Zufallsdaten – Was hast du in Aufgabe 3 darüber gelernt? Ein <strong>unverschlüsselter Textbericht</strong> muss danach noch exakt lesbar sein – Was passiert dort, wenn Bits verändert werden? Leite aus diesen Unterschieden eine allgemeine Regel ab."
       }
     }
   },
@@ -199,7 +204,8 @@ window.LANG_DE = {
         text: "a) Beschreibe deine Beobachtungen: Was unterscheidet die beiden Dateien, obwohl ihr Inhalt gleich ist? Betrachte die interne Struktur der .docx-Datei. Welche Bestandteile sind nicht Teil des sichtbaren Texts?"
       },
       b: {
-        text: "b) Erläutere, inwiefern Metadaten in einer Datei für deinen Freund ein Problem darstellen könnten."
+        text: "b) Erläutere, inwiefern Metadaten in einer Datei für deinen Freund ein Problem darstellen könnten.",
+        hint: "Orientiere dich an deinen Beobachtungen aus Teil a): Welche Informationen speichert die .docx-Datei zusätzlich zum eigentlichen Text? Überlege: Wenn Journalisten oder Behörden diese Datei erhalten: Welche dieser Zusatzinformationen könnten Rückschlüsse auf die Person zulassen, die die Datei erstellt hat oder allgemein darauf, woher sie stammt?"
       }
     },
     task2: {
@@ -214,12 +220,12 @@ window.LANG_DE = {
     },
     task3: {
       title: "Aufgabe 3 - Proprietäre Formate als Sonderfall",
-      intro: "Im Material-Ordner befinden sich zwei Dateien mit denselben Kontaktdaten: <code>kontakte.csv</code> (offenes Format) und <code>kontakte.accdb</code> (proprietäres Format). Öffne beide Dateien mit einem Texteditor (z. B. Notepad, VS Code) und vergleiche deren Inhalt.",
+      intro: "Im Material-Ordner befinden sich zwei Dateien mit denselben Kontaktdaten: <code>kontakte.csv</code> (offenes Format) und <code>kontakte.accdb</code> (proprietäres Format). Öffne beide Dateien mit einem Texteditor (z. B. Notepad, VS Code) und vergleiche deren Inhalt. Der Aufbau offener Formate ist frei einsehbar, weshalb diese mit vielen Programmen lesbar sind, während <span class=\"gloss\" title=\"Ein proprietäres Format gehört zu einer bestimmten Software bzw. Firma, welche die Struktur dieses Formats nicht öffentlich machen muss. So eine Datei lässt sich oft nur mit dieser oder kompatiblen Programmen vollständig öffnen.\">proprietäre</span> Formate, an bestimmte Anwendungen gebunden sind.",
       a: {
         text: "a) Erläutere das Problem: Was passiert, wenn die empfangende Person die benötigte Software für die .accdb-Datei nicht hat?"
       },
       b: {
-        text: "b) Vergleiche offene Formate mit proprietären (softwaregebundenen) Formaten anhand der folgenden drei Dateitypen:<br><br>Textdokumente: <span class=\"gloss\" data-tooltip=\".txt – Enthält ausschließlich den reinen Text, keine Formatierung, keine Metadaten. Kann mit jedem Textprogramm auf jedem Betriebssystem geöffnet werden.\">.txt</span> (offen) vs. <span class=\"gloss\" data-tooltip=\".docx – Speichert neben dem Text auch Formatierung, Layoutinformationen und Metadaten wie Autor, Bearbeitungsdatum und Kommentare. Ist primär für Microsoft Word ausgelegt, kann aber auch mit z.B. LibreOffice geöffnet werden.\">.docx</span> (Microsoft Word)<br>Bilder: <span class=\"gloss\" data-tooltip=\".png – Speichert Bilddaten verlustfrei und mit Metadaten zur Entstehung. Kann auf nahezu allen Geräten und Betriebssystemen ohne zusätzliche Software geöffnet werden.\">.png</span> (offen) vs. <span class=\"gloss\" data-tooltip=\".psd – Das native Format von Adobe Photoshop. Speichert neben dem Bild auch Ebenen, Bearbeitungshistorie und weitere interne Daten. Kann ohne Photoshop oder kompatible Software nicht vollständig geöffnet werden.\">.psd</span> (Adobe Photoshop)<br><br>Vergleiche diese Formate hinsichtlich Plattformunabhängigkeit, Anonymisierbarkeit und Verfügbarkeit und beurteile anschließend, welche Formatkategorie du für die sichere Weitergabe an die Journalisten wählen würdest. Benenne dabei die Nachteile, die du bei dieser Wahl in Kauf nimmst."
+        text: "b) Vergleiche offene Formate mit proprietären Formaten anhand der folgenden drei Dateitypen:<br><br>Textdokumente: <span class=\"gloss\" data-tooltip=\".txt – Enthält ausschließlich den reinen Text, keine Formatierung, keine Metadaten. Kann mit jedem Textprogramm auf jedem Betriebssystem geöffnet werden.\">.txt</span> (offen) vs. <span class=\"gloss\" data-tooltip=\".docx – Speichert neben dem Text auch Formatierung, Layoutinformationen und Metadaten wie Autor, Bearbeitungsdatum und Kommentare. Ist primär für Microsoft Word ausgelegt, kann aber auch mit z.B. LibreOffice geöffnet werden.\">.docx</span> (Microsoft Word)<br>Bilder: <span class=\"gloss\" data-tooltip=\".png – Speichert Bilddaten verlustfrei und mit Metadaten zur Entstehung. Kann auf nahezu allen Geräten und Betriebssystemen ohne zusätzliche Software geöffnet werden.\">.png</span> (offen) vs. <span class=\"gloss\" data-tooltip=\".psd – Das native Format von Adobe Photoshop. Speichert neben dem Bild auch Ebenen, Bearbeitungshistorie, Autor und weitere interne Daten. Eine .psd-Datei kann ohne Photoshop oder kompatible Software nicht vollständig geöffnet werden und Photoshop ist nur über ein kostenpflichtiges Abomodell verfügbar.\">.psd</span> (Adobe Photoshop)<br><br>Vergleiche diese Formate hinsichtlich Plattformunabhängigkeit, Anonymisierbarkeit und Verfügbarkeit und beurteile anschließend, welche Formatkategorie du für die sichere Weitergabe an die Journalisten wählen würdest. Benenne dabei die Nachteile, die du bei dieser Wahl in Kauf nimmst."
       }
     },
     task4: {
@@ -239,10 +245,10 @@ window.LANG_DE = {
     closing: {
       title: "Abschlussaufgabe",
       a: {
-        text: "a) Schaue dir im Material-Ordner die Dateien im Dateiexplorer an. Analysiere die Dokumente und beurteile für jedes, ob eine Formatkonvertierung ausreicht oder ob eine händische Bereinigung notwendig ist. Begründe jede Entscheidung, bevor du sie umsetzt."
+        text: "a) Schaue dir im Material-Ordner die Dateien im Dateiexplorer an. Analysiere die Dokumente und beurteile für jedes, ob eine Formatkonvertierung ausreicht oder ob eine händische Bereinigung notwendig ist. Begründe jede Entscheidung. Optional: Wenn du (z.B. aus dem ITG-Unterricht) bereits mit Word und Excel (oder alternativer Office-Software) vertraut bist, kannst du diese Maßnahmen auch direkt umsetzen."
       },
       b: {
-        text: "b) Fasse alle Dateien in einem Archiv zusammen. Verfasse anschließend eine Erklärung für die empfangenden Journalisten ohne Informatikkenntnisse: Was hast du getan, was hast du entfernt, und was bedeutet das? Die Erklärung soll ihr ermöglichen, in einer ähnlichen Situation eigenständig zu handeln. Du musst hierbei keine vollständige Erklärung für die Funktion von Kompression geben, sondern sollst die Prinzipien und Kriterien vermitteln, die du bei deinen Entscheidungen angewendet hast."
+        text: "b) Fasse alle Dateien in einem Archiv zusammen. Verfasse anschließend eine Erklärung für die empfangenden Journalisten ohne Informatikkenntnisse: Was hast du getan, was hast du entfernt, und was bedeutet das? Die Erklärung soll ihnen ermöglichen, in einer ähnlichen Situation eigenständig zu handeln. Du musst hierbei keine vollständige Erklärung für die Funktion von Kompression geben, sondern sollst die Prinzipien und Kriterien vermitteln, die du bei deinen Entscheidungen angewendet hast."
       }
     }
   },
@@ -258,7 +264,10 @@ window.LANG_DE = {
       note: "Es gibt drei verschiedene Pakete auf unterschiedlichen Datenträgern. Dein Ziel ist es, die jeweiligen Daten vollständig auf eine 32-GB-Speicherkarte zu bekommen. Jedes Paket erfordert dafür andere Maßnahmen. Genauere Informationen zu den Dateien erhälst du beim drüberhovern.",
       widgetPlaceholder: "[Widget: Dateisystem-Treemap mit drei Szenarien]",
       a: {
-        text: "a) Beschreibe für jede Datei (bzw. jede Dateigruppe) in der Treemap, welche Maßnahmen aus den Sektionen 1 bis 3 hier in Frage kommen, und begründe deine Einschätzung kurz."
+        text: "a) Beschreibe für jede Datei (bzw. jede Dateigruppe) in der Treemap, welche Maßnahmen aus den Sektionen 1 bis 3 hier in Frage kommen, und begründe deine Einschätzung kurz.",
+        s1: "Szenario 1",
+        s2: "Szenario 2",
+        s3: "Szenario 3"
       },
       b: {
         text: "b) Überlege, wie viel Speicherplatz fehlt, damit alles auf die Karte passt. Überlege dann: Welche Dateien solltest du zuerst bearbeiten, um mit möglichst wenig Aufwand den größten Effekt zu erzielen? Natürlich könnte man alles komprimieren, aber denk daran, dass dein Freund in dieser Situation unter Zeitdruck steht und die Daten einfach nur auf die Karte passen sollen. Erläutere, wie du priorisierst."
@@ -274,7 +283,7 @@ window.LANG_DE = {
         hint: "Zu abstrakt wäre: Ich weiß jetzt, was Kompression ist. Konkreter wäre: Ich kann jetzt entscheiden, welches Format und welches Verfahren ich wähle, wenn ich Dateien sicher und anonym weitergeben will."
       },
       c: {
-        text: "c) Dein Freund hatte dich ganz am Anfang um Rat gebeten, bevor du dieses Heft bearbeitet hast. Was hast du ihm damals empfohlen, und was kannst du ihm jetzt empfehlen?"
+        text: "c) Dein Freund hatte dich ganz am Anfang um Rat gebeten, bevor du dieses Heft bearbeitet hast. Was hast du ihm damals empfohlen und was kannst du ihm jetzt empfehlen?"
       }
     },
     plenum: {

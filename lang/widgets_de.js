@@ -128,7 +128,7 @@ window.WIDGETS_DE = {
       {
         id: "scan",
         label: "Schwarz-Weiß-Scan eines Dokuments",
-        desc: "Ein eingescanntes Schriftstück in Schwarz-Weiß (z. B. ein handschriftlicher Brief als TIFF, also in einem Bildformat). Große weiße Flächen mit schwarzer Textspur.",
+        desc: "Ein eingescanntes Schriftstück in Schwarz-Weiß (z. B. ein handschriftlicher Brief in einem Bildformat). Große weiße Flächen mit schwarzer Textspur.",
         correct: "rle",
         feedbackCorrect: "Richtig! Ein Schwarz-Weiß-Scan besteht aus vielen aufeinanderfolgenden Pixeln derselben Farbe, also ideale Voraussetzung für RLE.",
         feedbackWrong: "Ein Scan in Schwarz-Weiß hat viele lange Läufe identischer Pixel (weiße Flächen, schwarze Linien). Welches Verfahren nutzt genau solche Wiederholungen auf Pixelebene aus?"
@@ -217,8 +217,59 @@ window.WIDGETS_DE = {
   },
   filesystem: {
     memoryCard: "Speicherkarte:",
-    hint:
-      "Hinweis: Falls du eine Dateiendung nicht kennst, google sie kurz. So findest du heraus, welches Format vorliegt und welche Eigenschaften es hat.",
+    fileTypesOverview: {
+      title: "Dateitypen im Paket",
+      items: [
+        {
+          ext: ".mp4",
+          label: "Videodatei",
+          text:
+            "Bündelt Bild- und Tonspuren zusammen. Metadaten wie Aufnahmedauer, Autor und oft Erstellungsdatum werden zusammen mit den Bilddaten gespeichert."
+        },
+        {
+          ext: ".txt",
+          label: "Textdokument",
+          text:
+            "Enthält nur Klartext ohne Formatierung. Keine eingebetteten Metadaten im Dateiinhalt, nur der Dateisystem-Eintrag (Name, Änderungsdatum) liefert Zusatzinfos."
+        },
+        {
+          ext: ".csv",
+          label: "Tabellenkalkulation",
+          text:
+            "Textformat mit Trennzeichen zwischen Spalten und wie .txt ohne eingebettete Metadaten"
+        },
+        {
+          ext: ".docx",
+          label: "Textdokument (Word)",
+          text:
+            "Ein Archiv mit mehreren XML-Dateien. Enthält ausführliche Metadaten (Autor, Erstellungsdatum, Anwendung) in separaten XML-Dateien und Formatierungsinformationen."
+        },
+        {
+          ext: ".raw",
+          label: "Bilddatei (Rohdaten)",
+          text:
+            "Unbearbeitete Daten der Kamera, sehr groß. Metadaten wie Belichtung und Kameramodell sind oft eingebettet oder in einer separaten Datei gespeichert."
+        },
+        {
+          ext: ".tiff",
+          label: "Bilddatei",
+          text:
+            "Verlustfreies Bildformat, oft für Scans und Archivierung. Metadaten (z. B. Auflösung, Aufnahmezeitpunkt, Standort) werden gespeichert."
+        },
+        {
+          ext: ".psd",
+          label: "Bilddatei (Photoshop)",
+          text:
+            "Speichert Ebenen, Bearbeitungsstände und Arbeitsinformationen neben dem Bild, daher sehr groß. Metadaten und Bearbeitungshistorie sind fester Bestandteil des Formats."
+        },
+        {
+          ext: ".enc + .7z / .zip / .rar",
+          label: "Verschlüsseltes Archiv",
+          text:
+            "Bündelt mehrere Dateien in einem Container mit Verzeichnisliste (Dateinamen, Größen). Verschlüsselter Inhalt ist ohne Schlüssel nicht lesbar; darauf greift Kompression kaum."
+        }
+      ]
+    },
     typeLabels: {
       video: "Videodatei",
       text: "Textdokument",

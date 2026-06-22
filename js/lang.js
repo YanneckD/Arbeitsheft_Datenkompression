@@ -38,10 +38,20 @@ function applyLang(source) {
     document.title = source.meta.title;
   }
 
+  const materialFolderGloss = getLangValue(source, "common.materialFolderGloss");
+
   document.querySelectorAll("[data-lang]").forEach((element) => {
     const value = getLangValue(source, element.dataset.lang);
     if (typeof value === "string") {
-      element.innerHTML = value;
+      let html = value;
+      if (materialFolderGloss) {
+        const glossTitle = materialFolderGloss.replace(/"/g, "&quot;");
+        html = html.replace(
+          /Material-Ordner/g,
+          '<span class="gloss" title="' + glossTitle + '">Material-Ordner</span>'
+        );
+      }
+      element.innerHTML = html;
     }
   });
 

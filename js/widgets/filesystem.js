@@ -108,9 +108,9 @@ function setupFilesystemWidget(source) {
         { name: "planung.csv", bytes: 340 * MB, type: "text" },
         { name: "kosten.csv", bytes: 310 * MB, type: "text" },
         { name: "auswertung.csv", bytes: 280 * MB, type: "text" },
-        { name: "beweis_01.png", bytes: 620 * MB, type: "image" },
-        { name: "beweis_02.png", bytes: 580 * MB, type: "image" },
-        { name: "beweis_03.png", bytes: 540 * MB, type: "image" },
+        { name: "beweis_01.tiff", bytes: 620 * MB, type: "image" },
+        { name: "beweis_02.tiff", bytes: 580 * MB, type: "image" },
+        { name: "beweis_03.tiff", bytes: 540 * MB, type: "image" },
         { name: "scan.psd", bytes: 1.8 * GB, type: "image" },
         { name: "montage.psd", bytes: 1.5 * GB, type: "image" },
         { name: "gespraech_01.mp4", bytes: 3.2 * GB, type: "video" },
@@ -118,10 +118,10 @@ function setupFilesystemWidget(source) {
         { name: "aufnahme_hof.mp4", bytes: 2.5 * GB, type: "video" },
         { name: "nachtaufnahme.mp4", bytes: 2.2 * GB, type: "video" },
         { name: "dokumente.enc.7z", bytes: 4.2 * GB, type: "encrypted" },
-        { name: "datenbank.enc.zip", bytes: 3.6 * GB, type: "encrypted" },
+        { name: "datenbanken.enc.zip", bytes: 3.6 * GB, type: "encrypted" },
         { name: "schluessel.enc.rar", bytes: 3.1 * GB, type: "encrypted" }
       ]
-    }
+    } 
   ];
 
   function formatSize(bytes) {
@@ -289,6 +289,28 @@ function setupFilesystemWidget(source) {
     }).join("");
   }
 
+  function fileTypesOverviewHtml() {
+    var overview = t.fileTypesOverview;
+    if (!overview || !overview.items || !overview.items.length) { return ""; }
+    var rows = overview.items.map(function (item) {
+      return (
+        '<li style="margin:0 0 0.55rem 0">' +
+          '<span style="font-family:monospace;font-weight:600">' + item.ext + '</span>' +
+          ' <span style="font-weight:600">(' + item.label + '):</span> ' +
+          item.text +
+        '</li>'
+      );
+    }).join("");
+    return (
+      '<details class="article" style="margin-top:12px;margin-bottom:0">' +
+        '<summary>' + overview.title + '</summary>' +
+        '<div class="article-body">' +
+          '<ul style="margin:0;padding-left:1.2rem;font-size:13px;line-height:1.55">' + rows + '</ul>' +
+        '</div>' +
+      '</details>'
+    );
+  }
+
   container.classList.remove("widget-placeholder");
   container.style.cssText = "border:1px solid var(--border);background:#fffdf8;padding:0.8rem 1rem 1rem;border-radius:3px;margin:0.75rem 0";
 
@@ -320,9 +342,7 @@ function setupFilesystemWidget(source) {
     '<div style="display:flex;flex-wrap:wrap;gap:14px 20px;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">' +
       legendHtml() +
     '</div>' +
-    '<div style="margin-top:12px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:3px;font-size:13px;color:var(--muted);font-style:italic;line-height:1.6">' +
-      t.hint +
-    '</div>' +
+    fileTypesOverviewHtml() +
     '<div id="fs-tooltip" role="tooltip" hidden style="' +
       "position:fixed;z-index:9999;pointer-events:none;" +
       "background:#122;color:#fff;padding:8px 10px;border-radius:4px;" +

@@ -220,7 +220,6 @@
 
         <div class="explanation-box">
           <p data-lang="lossy.explanation.p1"></p>
-          <p data-lang="lossy.explanation.p2"></p>
         </div>
 
         <div class="section-task">
@@ -235,12 +234,35 @@
                     data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
         </div>
 
+        <div class="explanation-box">
+          <p data-lang="lossy.explanation.p2"></p>
+        </div>
+
         <div class="section-task">
           <p class="task-title" data-lang="lossy.task3.title"></p>
+          <p data-lang="lossy.task3.intro"></p>
           <p data-lang="lossy.task3.a.text"></p>
+          <div class="help-row">
+            <button class="help-toggle" type="button"
+                    data-lang="common.showHint"
+                    aria-controls="hint-s2-3a"
+                    aria-expanded="false"></button>
+            <div id="hint-s2-3a" class="help-box" hidden>
+              <p data-lang="lossy.task3.a.hint"></p>
+            </div>
+          </div>
           <textarea class="assumption-textarea" id="answer-s2-3a"
                     data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
           <p data-lang="lossy.task3.b.text"></p>
+          <div class="help-row">
+            <button class="help-toggle" type="button"
+                    data-lang="common.showHint"
+                    aria-controls="hint-s2-3b"
+                    aria-expanded="false"></button>
+            <div id="hint-s2-3b" class="help-box" hidden>
+              <p data-lang="lossy.task3.b.hint"></p>
+            </div>
+          </div>
           <textarea class="assumption-textarea" id="answer-s2-3b"
                     data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
           <p data-lang="lossy.task3.c.text"></p>
@@ -255,6 +277,15 @@
           <textarea class="assumption-textarea" id="answer-s2-ca"
                     data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
           <p data-lang="lossy.closing.b.text"></p>
+          <div class="help-row">
+            <button class="help-toggle" type="button"
+                    data-lang="common.showHint"
+                    aria-controls="hint-s2-cb"
+                    aria-expanded="false"></button>
+            <div id="hint-s2-cb" class="help-box" hidden>
+              <p data-lang="lossy.closing.b.hint"></p>
+            </div>
+          </div>
           <textarea class="assumption-textarea" id="answer-s2-cb"
                     data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
         </div>
@@ -275,6 +306,15 @@
           <textarea class="assumption-textarea" id="answer-s3-1a"
                     data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
           <p data-lang="filetypes.task1.b.text"></p>
+          <div class="help-row">
+            <button class="help-toggle" type="button"
+                    data-lang="common.showHint"
+                    aria-controls="hint-s3-1b"
+                    aria-expanded="false"></button>
+            <div id="hint-s3-1b" class="help-box" hidden>
+              <p data-lang="filetypes.task1.b.hint"></p>
+            </div>
+          </div>
           <textarea class="assumption-textarea" id="answer-s3-1b"
                     data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
         </div>
@@ -341,7 +381,14 @@
           <div class="widget-placeholder" id="widget-s4-filesystem"
                data-lang="final.task1.widgetPlaceholder"></div>
           <p data-lang="final.task1.a.text"></p>
-          <textarea class="assumption-textarea" id="answer-s4-1a"
+          <p data-lang="final.task1.a.s1"></p>
+          <textarea class="assumption-textarea" id="answer-s4-1a-s1"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="final.task1.a.s2"></p>
+          <textarea class="assumption-textarea" id="answer-s4-1a-s2"
+                    data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
+          <p data-lang="final.task1.a.s3"></p>
+          <textarea class="assumption-textarea" id="answer-s4-1a-s3"
                     data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
           <p data-lang="final.task1.b.text"></p>
           <textarea class="assumption-textarea" id="answer-s4-1b"
