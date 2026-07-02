@@ -31,7 +31,8 @@ function setupZipArchiveWidget(source) {
   }
 
   var overheadGlossHtml =
-    '<span class="gloss" title="' + t.overheadGloss + '">Overhead</span>';
+    '<span class="gloss" title="' + t.overheadGloss + '">' + t.overheadLabel + '</span>';
+  var pendingMark = t.pendingMark || getWidgetLang("common").emptyValue || "";
 
   var hintText = formatLang(t.hint, {
     sizeHint: formatTotalHint(totalBytes),
@@ -47,7 +48,7 @@ function setupZipArchiveWidget(source) {
         "display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:3px;" +
         "border-bottom:1px solid var(--border);font-family:monospace;font-size:13px" +
       '">' +
-        '<span class="zip-file-status" style="width:18px;text-align:center;font-size:12px;color:var(--muted)">\u2013</span>' +
+        '<span class="zip-file-status" style="width:18px;text-align:center;font-size:12px;color:var(--muted)">' + pendingMark + '</span>' +
         '<span style="font-size:14px;flex-shrink:0">\uD83D\uDCC4</span>' +
         '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + f.name + '</span>' +
         '<span style="font-size:12px;color:var(--muted);flex-shrink:0">' + formatBytes(f.bytes) + '</span>' +
@@ -103,7 +104,7 @@ function setupZipArchiveWidget(source) {
             "background:#f5f2f0;border-radius:3px;border:1px solid var(--border);margin-bottom:8px" +
           '">' +
             '<div style="display:flex;align-items:center;gap:8px">' +
-              '<span id="zip-archive-status" style="width:18px;text-align:center;font-size:12px;color:var(--muted)">\u2013</span>' +
+              '<span id="zip-archive-status" style="width:18px;text-align:center;font-size:12px;color:var(--muted)">' + pendingMark + '</span>' +
               '<span style="font-size:16px">\uD83D\uDCE6</span>' +
               '<span style="font-weight:600;font-family:monospace;font-size:14px">' + t.archiveName + '</span>' +
             '</div>' +
@@ -144,7 +145,7 @@ function setupZipArchiveWidget(source) {
       var row = document.getElementById("zip-file-" + i);
       var status = row.querySelector(".zip-file-status");
       row.style.background = "";
-      status.textContent = "\u2013";
+      status.textContent = pendingMark;
       status.style.color = "var(--muted)";
 
       var inner = document.getElementById("zip-inner-" + i);
@@ -154,7 +155,7 @@ function setupZipArchiveWidget(source) {
     }
     archiveHeader.style.background = "#f5f2f0";
     archiveHeader.style.borderColor = "var(--border)";
-    archiveStatus.textContent = "\u2013";
+    archiveStatus.textContent = pendingMark;
     archiveStatus.style.color = "var(--muted)";
     statsA.style.outline = "";
     statsB.style.outline = "";
@@ -176,7 +177,9 @@ function setupZipArchiveWidget(source) {
 
     var delay = 0;
     var stepMs = 300;
-    var archiveDoneMs = 2 * stepMs;
+    var archiveDoneIndex = FILES.findIndex(function (f) { return f.name === "notiz_06.txt"; });
+    if (archiveDoneIndex < 0) { archiveDoneIndex = 5; }
+    var archiveDoneMs = archiveDoneIndex * stepMs;
 
     FILES.forEach(function (_f, i) {
       timers.push(setTimeout(function () {

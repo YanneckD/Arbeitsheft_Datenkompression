@@ -1,5 +1,6 @@
 ﻿function setupBlockSizeWidget(source) {
   const t = source || getWidgetLang("blockSize");
+  const emptyValue = t.emptyValue || getWidgetLang("common").emptyValue || "";
   var container = document.getElementById("widget-s2-blocksize");
   if (!container) { return; }
 
@@ -41,29 +42,23 @@
             '<span style="min-width:2.5em;text-align:center">64\u00d764</span>' +
           '</div>' +
         '</div>' +
-        '<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px">' +
+        '<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px">' +
           '<div style="background:var(--bg);border-radius:3px;padding:10px 12px;min-width:0">' +
             '<div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-family:sans-serif">' + t.original + '</div>' +
-            '<div id="bs-orig" style="font-size:15px;font-weight:500;min-height:2.6em;font-variant-numeric:tabular-nums;line-height:1.3">\u2013</div>' +
+            '<div id="bs-orig" style="font-size:15px;font-weight:500;min-height:2.6em;font-variant-numeric:tabular-nums;line-height:1.3">' + emptyValue + '</div>' +
           '</div>' +
           '<div style="background:var(--bg);border-radius:3px;padding:10px 12px;min-width:0">' +
             '<div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-family:sans-serif">' + t.compressed + '</div>' +
-            '<div id="bs-comp" style="font-size:15px;font-weight:500;min-height:2.6em;font-variant-numeric:tabular-nums;line-height:1.3">\u2013</div>' +
-          '</div>' +
-          '<div style="background:var(--bg);border-radius:3px;padding:10px 12px;min-width:0">' +
-            '<div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-family:sans-serif">' + t.saving + '</div>' +
-            '<div id="bs-save" style="font-size:15px;font-weight:500;min-height:2.6em;font-variant-numeric:tabular-nums;line-height:1.3">\u2013</div>' +
+            '<div id="bs-comp" style="font-size:15px;font-weight:500;min-height:2.6em;font-variant-numeric:tabular-nums;line-height:1.3">' + emptyValue + '</div>' +
           '</div>' +
         '</div>' +
         '<div style="margin-top:6px">' +
-          '<div style="font-size:12px;color:var(--muted);margin-bottom:3px;font-family:sans-serif;min-height:1.2em">' + t.savingBits + '<span id="bs-delta-label" style="font-weight:600;font-variant-numeric:tabular-nums"></span></div>' +
           '<div style="position:relative;height:16px;border:0.5px solid var(--border);background:var(--bg);overflow:hidden;border-radius:3px">' +
-            '<div id="bs-bar-orig" style="position:absolute;inset:0;background:var(--accent);opacity:0.25"></div>' +
-            '<div id="bs-bar-save" style="position:absolute;inset:0 auto 0 0;background:#3f8f4b;transition:width 150ms ease"></div>' +
+            '<div id="bs-bar-comp" style="position:absolute;inset:0 auto 0 0;background:#3f8f4b;transition:width 150ms ease"></div>' +
           '</div>' +
           '<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-family:monospace;margin-top:2px;font-variant-numeric:tabular-nums">' +
             '<span style="min-width:3em">' + t.zeroBit + '</span>' +
-            '<span id="bs-bar-max-label" style="min-width:6em;text-align:right">\u2013</span>' +
+            '<span id="bs-bar-max-label" style="min-width:6em;text-align:right">' + emptyValue + '</span>' +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -76,13 +71,16 @@
   var blockLabel = document.getElementById("bs-block-label");
   var origEl = document.getElementById("bs-orig");
   var compEl = document.getElementById("bs-comp");
-  var saveEl = document.getElementById("bs-save");
-  var deltaLabel = document.getElementById("bs-delta-label");
-  var barSave = document.getElementById("bs-bar-save");
+  var barComp = document.getElementById("bs-bar-comp");
   var barMaxLabel = document.getElementById("bs-bar-max-label");
 
   function formatBits(bits) {
     return Math.round(bits).toLocaleString("de-DE") + t.bitUnit;
+  }
+
+  function formatCompressed(compBits) {
+    var pct = ((compBits / ORIG_BITS) * 100).toFixed(1).replace(".", ",");
+    return pct + " % (" + formatBits(compBits) + ")";
   }
 
   function sliderToBlockSize(val) {
@@ -177,28 +175,15 @@
     var idx = parseInt(slider.value, 10);
     var blockSize = sliderToBlockSize(idx);
     var compBits = computeCompressedBits(blockSize);
-    var saving = ORIG_BITS - compBits;
-    var pct = ((saving / ORIG_BITS) * 100).toFixed(1);
 
     sliderVal.textContent = blockSize + "\u00d7" + blockSize;
     drawPreview(blockSize);
 
     origEl.textContent = formatBits(ORIG_BITS);
-    compEl.textContent = formatBits(compBits);
+    compEl.textContent = formatCompressed(compBits);
 
-    if (saving > 0) {
-      saveEl.textContent = formatLang(t.savingPositive, { count: saving.toLocaleString("de-DE"), pct });
-      saveEl.style.color = "#3f8f4b";
-    } else if (saving < 0) {
-      saveEl.textContent = formatLang(t.savingNegative, { count: Math.abs(saving).toLocaleString("de-DE"), pct: Math.abs(pct) });
-      saveEl.style.color = "#a92f2f";
-    } else {
-      saveEl.textContent = t.savingZero;
-      saveEl.style.color = "var(--muted)";
-    }
-
-    deltaLabel.textContent = formatLang(t.deltaLabel, { count: saving.toLocaleString("de-DE"), pct });
-    barSave.style.width = Math.min(saving / ORIG_BITS * 100, 100) + "%";
+    var compPct = Math.min((compBits / ORIG_BITS) * 100, 100);
+    barComp.style.width = compPct + "%";
     barMaxLabel.textContent = formatBits(ORIG_BITS);
   }
 

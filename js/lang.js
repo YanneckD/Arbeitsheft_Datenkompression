@@ -48,7 +48,7 @@ function applyLang(source) {
         const glossTitle = materialFolderGloss.replace(/"/g, "&quot;");
         html = html.replace(
           /Material-Ordner/g,
-          '<span class="gloss" title="' + glossTitle + '">Material-Ordner</span>'
+          '<span class="gloss gloss-material-folder" title="' + glossTitle + '" role="link" tabindex="0">Material-Ordner</span>'
         );
       }
       element.innerHTML = html;

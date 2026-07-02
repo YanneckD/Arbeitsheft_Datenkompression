@@ -1,13 +1,21 @@
 window.WIDGETS_DE = {
+  common: {
+    emptyValue: "…"
+  },
   bitflip: {
     passwordLabel: "Passwort",
     imageLabel: "Bild (128 × 128 Pixel)",
-    flipButton: "Zufälliges Bit flippen",
+    encodingLabel: "UTF-8",
+    flipButton: "Ein Bit flippen",
     resetButton: "Zurücksetzen",
     bitsInfo: "{bits} Bits zur Darstellung · {changed} Bit{plural} geändert",
-    passwordCorrect: "✓ Passwort korrekt",
-    pixelChanged: "1 Pixel geändert – Bild noch erkennbar?",
-    password: "M3inGeh3im!"
+    passwordCorrect: "✓ Passwort wiederhergestellt",
+    passwordChanged: "Passwort verändert, nicht mehr lesbar",
+    pixelChanged: "1 Pixel geändert, Bild noch erkennbar?",
+    pixelChangedAt: "1 Pixel geändert (Bit {bit}), Bild noch erkennbar?",
+    password: "M3inGeh3im!",
+    flipBitsPassword: [47, 12, 83, 31, 96],
+    flipBitsImage: [8192, 1337, 12000, 2048, 10000]
   },
   rle: {
     inputLabel: "Zeichenkette",
@@ -20,11 +28,17 @@ window.WIDGETS_DE = {
     savingNegative: "+{count} Zeichen ({pct}% mehr)",
     savingPositive: "−{count} Zeichen ({pct}%)",
     savingZero: "±0 Zeichen",
-    default: "AAABBBCCDDDDDA"
+    emptyValue: "…",
+    default: "AAABBBCCDDDDDA",
+    challenges: {
+      save50: "Mindestens 50 % Ersparnis erzielen.",
+      negativeSaving: "Negative Ersparnis erzielen (mehr Zeichen als vorher).",
+      longRun: "Gib eine Zeichenkette mit mindestens 10 gleichen Zeichen hintereinander ein."
+    }
   },
   rleText: {
-    originalLabel: "Originaltext – Wiederholungsläufe hervorgehoben",
-    tuplesLabel: "RLE-Tupel (Zeichen, Länge) – nur Läufe > 1 sind hervorgehoben",
+    originalLabel: "Originaltext, Wiederholungsläufe hervorgehoben",
+    tuplesLabel: "RLE-Tupel (Zeichen, Länge), nur Läufe > 1 sind hervorgehoben",
     originalChars: "Originaltext: <strong>{count}</strong> Zeichen",
     rleChars: "RLE: <strong>{tuples}</strong> Tupel × 2 = <strong>{units}</strong> Zeichen",
     savingSmaller: "−{count} ({pct}% kleiner)",
@@ -38,18 +52,24 @@ window.WIDGETS_DE = {
       "Eine Löschung der Daten der Überwachung ist nicht vorgesehen."
   },
   dict: {
-    originalLabel: "Originaltext – aktuell verarbeitetes Wort hervorgehoben",
+    originalLabel: "Originaltext, aktuell verarbeitetes Wort hervorgehoben",
     dictTableLabel: "Wörterbuchtabelle",
     codeHeader: "Code",
     wordHeader: "Wort",
     compressedLabel: "Komprimierter Text",
-    originalChars: "Originaltext: <strong id=\"dict-orig-len\">–</strong> Zeichen",
-    compressedChars: "Komprimiert: <strong id=\"dict-comp-len\">–</strong> Zeichen",
+    originalChars: "Originaltext: <strong id=\"dict-orig-len\">…</strong> Zeichen",
+    compressedChars: "Komprimiert: <strong id=\"dict-comp-len\">…</strong> Zeichen",
     playStart: "▶ Start",
     playContinue: "▶ Fortfahren",
     playPause: "⏸ Pause",
     playDone: "✓ Fertig",
     stepButton: "Schritt vor",
+    stepBackButton: "Schritt zurück",
+    speedLabel: "Tempo",
+    speedSlow: "Langsam",
+    speedFast: "Schnell",
+    tableToggleExpand: "Ganze Tabelle",
+    tableToggleCollapse: "Gekürzt anzeigen",
     resetButton: "↺ Zurücksetzen",
     progress: "{current} / {total} Wörter",
     progressStart: "0 / {total} Wörter",
@@ -71,7 +91,14 @@ window.WIDGETS_DE = {
     colorLabel: "Farbgenauigkeit",
     blockSingle: "1×1 px",
     blockPlural: "{size}×{size} px Blöcke",
-    loadError: "Bilddaten konnten nicht geladen werden."
+    loadError: "Bilddaten konnten nicht geladen werden.",
+    sizeEstimate: "Geschätzte Dateigröße:",
+    sizePct: "~{pct} % des Originals",
+    challenges: {
+      sizeUnder20: "Dateigröße unter 20 % des Originals.",
+      faceDetails: "Gesichtsdetails erkennbar.",
+      eyeColor: "Augenfarbe erkennbar."
+    }
   },
   blockSize: {
     loading: "Bild wird geladen …",
@@ -88,18 +115,39 @@ window.WIDGETS_DE = {
     savingPositive: "−{count} Bit ({pct}%)",
     savingNegative: "+{count} Bit ({pct}%)",
     savingZero: "±0 Bit",
-    deltaLabel: "{count} Bit ({pct}%)"
+    deltaLabel: "{count} Bit ({pct}%)",
+    emptyValue: "…"
+  },
+  sortWidget: {
+    poolLabel: "Noch nicht zugeordnet",
+    submitButton: "Zuordnung prüfen",
+    resetButton: "Zurücksetzen",
+    placeAllFirst: "Bitte ordne zuerst alle Karten zu.",
+    errorCountTemplate: "{count} Fehler",
+    guessNote: "Für diese Datei zuerst eine Vermutung mit Begründung eintragen:",
+    guessPrompt: "Deine Vermutung mit Begründung:",
+    guessRequired: "Bitte zuerst eine Vermutung mit Begründung eintragen.",
+    reasonPrompt: "Begründung für deine Zuordnung:",
+    reasonRequired: "Bitte gib für jede Datei eine Begründung an.",
+    summaryAllCorrect: "Alles richtig!",
+    columnPrefix: "→ "
   },
   efficiency: {
     submitButton: "Auswertung",
     resetButton: "↺ Zurücksetzen",
+    poolLabel: "Noch nicht zugeordnet",
+    placeAllFirst: "Bitte ordne zuerst alle Dateien zu.",
+    errorCountTemplate: "{count} Fehler",
+    columnPrefix: "→ ",
+    reasonPrompt: "Begründung für deine Zuordnung:",
+    reasonRequired: "Bitte gib für jede Datei eine Begründung an.",
     optionRle: "RLE",
     optionDict: "Wörterbuch",
     optionNone: "Keines",
     selectAllFirst: "Bitte wähle für jede Datei ein Verfahren aus, bevor du die Auswertung startest.",
     summaryCorrect: "{correct} von {total} richtig",
     summaryAllCorrect: "✓ Alle Zuordnungen sind korrekt!",
-    summaryWrongLine: "✗ {label}: <span style=\"font-weight:600\">{answer}</span> (richtig: <span style=\"font-weight:600\">{correct}</span>)",
+    summaryWrongLine: "✗ {label}: <span style=\"font-weight:600\">{answer}</span>",
     files: [
       {
         id: "report",
@@ -151,9 +199,79 @@ window.WIDGETS_DE = {
     coreDesc: "Autor, Erstelldatum, Änderungsdatum",
     appDesc: "Anwendungsdetails (Word-Version, Seiten)",
     documentDesc: "Der formatierte Text (welcher dann in Word angezeigt wird)",
-    stylesDesc: "Schriftarten und Layout"
+    stylesDesc: "Schriftarten und Layout",
+    visualLabel: "So wirkt der sichtbare Inhalt",
+    structureLabel: "Interne Struktur (.docx als ZIP-Container)"
+  },
+  textVsJpeg: {
+    brightnessLabel: "Helligkeitsstufen",
+    colorLabel: "Farbgenauigkeit",
+    blockSingle: "1×1 px",
+    blockPlural: "{size}×{size} px Blöcke",
+    loadError: "Screenshot konnte nicht geladen werden.",
+    sizeEstimate: "Geschätzte Dateigröße:",
+    sizePct: "~{pct} % des Originals",
+    textCompare: "Textdatei test.txt: {textSize} · Screenshot: {jpegSize}: {verdict}",
+    compareLarger: "größer als die Textdatei (+{diff})",
+    compareSmaller: "kleiner als die Textdatei (−{diff})",
+    compareEqual: "ungefähr gleich groß wie die Textdatei",
+    zoomLabel: "Zoom",
+    zoomHint: "Mausrad über dem Bild zum Zoomen · bei Vergrößerung scrollen"
+  },
+  lossyClosing: {
+    submitButton: "Auswertung",
+    resetButton: "↺ Zurücksetzen",
+    poolLabel: "Noch nicht zugeordnet",
+    placeAllFirst: "Bitte ordne zuerst alle Dateitypen zu.",
+    errorCountTemplate: "{count} Fehler",
+    columnPrefix: "→ ",
+    reasonPrompt: "Begründung für deine Zuordnung:",
+    reasonRequired: "Bitte gib für jeden Dateityp eine Begründung an.",
+    optionLossy: "Verlustbehaftet",
+    optionLossless: "Nur verlustfrei",
+    optionNone: "Nicht sinnvoll",
+    selectAllFirst: "Bitte ordne zuerst alle Dateitypen zu, bevor du die Auswertung startest.",
+    summaryCorrect: "{correct} von {total} richtig",
+    summaryAllCorrect: "✓ Alle Zuordnungen sind korrekt!",
+    summaryWrongLine: "✗ {label}: <span style=\"font-weight:600\">{answer}</span>",
+    files: [
+      {
+        id: "photos",
+        label: "Beweisfotos",
+        desc: "Drei Fotos mit unterschiedlichem Zweck: Tatort mit Kennzeichen, Person zur Identifikation, Dokument als Bild.",
+        correct: "lossy",
+        feedbackCorrect: "Richtig! Bei Fotos nutzt verlustbehaftete Kompression Eigenschaften des Auges. Wichtig ist nur, kritische Details nicht zu stark zu reduzieren.",
+        feedbackWrong: "In dieser Sektion hast du Bilder mit Reglern komprimiert. Bei welchem Dateityp ist gezieltes Weglassen von Bildinformationen sinnvoll?"
+      },
+      {
+        id: "video",
+        label: "Überwachungsvideo",
+        desc: "Ein kurzes Video aus der Überwachung (z. B. MJPEG).",
+        correct: "lossy",
+        feedbackCorrect: "Richtig! Video besteht aus vielen Einzelbildern. Verfahren wie MJPEG komprimieren jedes Bild verlustbehaftet, ähnlich wie JPEG bei Fotos.",
+        feedbackWrong: "Ein Video ist eine Folge von Bildern. Welche Kompressionsart hast du in dieser Sektion bei Bildern ausprobiert?"
+      },
+      {
+        id: "report",
+        label: "Kurzer unverschlüsselter Bericht",
+        desc: "Ein Textdokument (.txt) mit lesbarem Fließtext. Jeder Buchstabe hängt von exakt den richtigen Bits ab.",
+        correct: "lossless",
+        feedbackCorrect: "Richtig! Lesbarer Text verträgt keine veränderten Bits. Verlustfreie Verfahren wie das Wörterbuch aus Sektion 1 können aber Wiederholungen nutzen.",
+        feedbackWrong: "Was passiert bei lesbarem Text, wenn einzelne Bits verändert werden? Welche Kompressionsart aus Sektion 1 wäre hier passend?"
+      },
+      {
+        id: "encrypted",
+        label: "Verschlüsseltes Dokument",
+        desc: "Eine verschlüsselte Datei. Der Inhalt ist ohne Schlüssel nicht lesbar und erscheint als zufällige Bitfolge.",
+        correct: "none",
+        feedbackCorrect: "Richtig! Verschlüsselte Daten enthalten keine nutzbaren Muster. Verlustbehaftete Kompression würde Bits verändern und den Inhalt unbrauchbar machen, verlustfreie bringt kaum Ersparnis.",
+        feedbackWrong: "Wie sieht verschlüsselter Inhalt aus? Enthält er Muster, die Kompression nutzen könnte? Was passiert, wenn Bits verändert werden?"
+      }
+    ]
   },
   zipArchive: {
+    overheadLabel: "Overhead",
+    pendingMark: "…",
     simulateButton: "Versand simulieren",
     simulateAgain: "Erneut simulieren",
     scenarioA: "Szenario A: Einzelversand",
@@ -171,7 +289,7 @@ window.WIDGETS_DE = {
     hint:
       "Hinweis: Die Gesamtgröße ist in beiden Szenarien fast gleich ({sizeHint}). Hier wird noch nicht komprimiert, sondern nur die Dateien in einen Container gebündelt.  " +
       "Der Unterschied beim Kopieren von Dateien ist, dass der {overhead} zum Kopieren einer neuen Datei bei Archiven nur einmal berechnet wird, während bei einzelnen Dateien der Overhead für jede Datei einzeln berechnet wird. Je mehr Dateien, desto bemerkbarer der Unterschied. " +
-      "Für diese kleinen Dateien hier, wäre der Unterschied auf modernen Festplatten kaum beobachtbar, weshalb die Simulation hier eine stark verlangsamte Darstellung des Kopierens zeigt. Falls du viele große Dateien (in Summe >10 GB, bei einer SSD) hast, kannst du das auch auf deinem Rechner nachvollziehen, indem du die einzelnen Dateien auf einmal kopierst und das mit der Kopierdauer für das Archiv vergleichst.",
+      "Für diese kleinen, wenigen Dateien hier, wäre der Unterschied auf modernen Festplatten kaum beobachtbar, weshalb die Simulation hier eine stark verlangsamte Darstellung des Kopierens zeigt. Falls du viele kleine Dateien (in Summe >10 GB, bei einer SSD) hast, kannst du das auch auf deinem Rechner nachvollziehen, indem du die einzelnen Dateien auf einmal kopierst und das mit der Kopierdauer für das Archiv vergleichst.",
     files: [
       {
         name: "notiz_01.txt",
@@ -287,6 +405,75 @@ window.WIDGETS_DE = {
     statsOver: "+{size} über Kapazität",
     statsFree: "{size} frei",
     statsFull: "exakt voll",
-    tooltipFiles: "{count} Dateien"
+    tooltipFiles: "{count} Dateien",
+    tooltipMetadata: "Metadaten:"
+  },
+  filesystemSimulator: {
+    scenarios: {
+      s1: "Szenario 1",
+      s2: "Szenario 2",
+      s3: "Szenario 3"
+    },
+    noToolHint: "Wähle zuerst eine Maßnahme. Dateiinfos siehst du beim Überfahren mit der Maus.",
+    tools: {
+      convert: {
+        label: "In metadatenfreies Format umwandeln / Metadaten entfernen",
+        hint: "Entfernt alle Metadaten und wandelt das Format um, z. B. .docx → .txt oder .raw → .png. Klicke eine Datei an."
+      },
+      lossless: {
+        label: "Verlustfrei komprimieren",
+        hint: "Wörterbuchverfahren oder verlustfreie Bildformate. Klicke eine Datei an."
+      },
+      lossy: {
+        label: "Verlustbehaftet komprimieren",
+        hint: "Stärkere Reduktion, z. B. Video neu encodieren oder JPEG. Klicke eine Datei an."
+      },
+      archive: {
+        label: "Archivieren",
+        hint: "Mehrere Dateien auswählen (gelber Rahmen), dann „RAR-Archiv erstellen“."
+      }
+    },
+    statsUsed: "Belegt:",
+    statsFiles: "Dateien",
+    statsOver: "+{size} über Kapazität",
+    statsFree: "{size} frei",
+    steps: "Schritte: {count}",
+    metadataLabel: "Metadaten:",
+    metadataYes: "noch vorhanden",
+    metadataNo: "keine mehr",
+    archiveSelected: "{count} ausgewählt",
+    archiveCreate: "RAR-Archiv erstellen",
+    archiveMetadataError: "Im Archiv siehst du die Metadaten nicht mehr. Beim Entpacken wären sie aber wieder da. Entferne die Metadaten zuerst.",
+    reset: "Zurücksetzen",
+    success: "Geschafft! Alles passt auf die Karte und es sind keine Metadaten mehr übrig! Du hast {steps} Schritte gebraucht.",
+    empty: "Keine Dateien"
+  },
+  s4Scenarios: {
+    meta: {
+      authorKeller: "Autor: M. Keller",
+      gpsParkSouth: "GPS: Park Süd, Leipzig",
+      cameraIdNorth: "Kamera-ID: CAM-04-Nord",
+      authorSecurityNorth: "Autor: Sicherheitsdienst Nord",
+      cameraNikon: "Kamera: Nikon D780",
+      iso6400: "ISO 6400",
+      captureTime: "Aufnahmezeit: 23:41",
+      authorEditorial: "Autor: Redaktion",
+      editedByWeber: "Bearbeitet von: A. Weber",
+      authorUnknown: "Autor: Unbekannt",
+      comments14: "14 Kommentare",
+      authorHoffmann: "Autor: L. Hoffmann",
+      authorSecretariat: "Autor: Sekretariat",
+      authorGuest: "Autor: Gast",
+      gpsWorkyard: "GPS: Werkshof Tor 2",
+      scannerFujitsu: "Scanner: Fujitsu fi-7160",
+      layers28: "Ebenen: 28",
+      editHistory96: "Bearbeitungshistorie: 96 Schritte",
+      layers12: "Ebenen: 12",
+      authorPhoneRecording: "Autor: Tonaufnahme Handy",
+      gpsEmbedded: "GPS eingebettet"
+    },
+    resolutionRaw: "Auflösung: 4032×3024",
+    resolutionTiff: "Auflösung: 4960×7016",
+    logGroupName: "log_{start}.txt … log_{end}.txt"
   }
 };

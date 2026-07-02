@@ -1,3 +1,47 @@
+function setupTextareaTabIndent(selector) {
+  const indent = "  ";
+
+  document.querySelectorAll(selector || ".assumption-textarea").forEach(function(textarea) {
+    textarea.addEventListener("keydown", function(e) {
+      if (e.key !== "Tab") { return; }
+      e.preventDefault();
+
+      const value = textarea.value;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const lineStart = value.lastIndexOf("\n", start - 1) + 1;
+      const lineEndIndex = value.indexOf("\n", end);
+      const blockEnd = lineEndIndex === -1 ? value.length : lineEndIndex;
+      const lines = value.slice(lineStart, blockEnd).split("\n");
+
+      if (e.shiftKey) {
+        const updated = lines.map(function(line) {
+          if (line.startsWith(indent)) { return line.slice(indent.length); }
+          if (line.startsWith("\t")) { return line.slice(1); }
+          return line.replace(/^ /, "");
+        });
+        const newBlock = updated.join("\n");
+        const removed = value.slice(lineStart, blockEnd).length - newBlock.length;
+        textarea.value = value.slice(0, lineStart) + newBlock + value.slice(blockEnd);
+        textarea.selectionStart = Math.max(lineStart, start - Math.min(removed, indent.length));
+        textarea.selectionEnd = Math.max(lineStart, end - removed);
+      } else if (start === end) {
+        textarea.value = value.slice(0, start) + indent + value.slice(end);
+        const pos = start + indent.length;
+        textarea.selectionStart = pos;
+        textarea.selectionEnd = pos;
+      } else {
+        const newBlock = lines.map(function(line) { return indent + line; }).join("\n");
+        textarea.value = value.slice(0, lineStart) + newBlock + value.slice(blockEnd);
+        textarea.selectionStart = lineStart;
+        textarea.selectionEnd = lineStart + newBlock.length;
+      }
+
+      textarea.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+  });
+}
+
 function setupHiddenFollowups() {
   document.querySelectorAll("[data-reveals]").forEach(function(textarea) {
     var targetId = textarea.dataset.reveals;
@@ -35,6 +79,33 @@ function setupGlossTooltips() {
         this.classList.add("gloss-tt-bottom");
       }
     });
+  });
+}
+
+function setupMaterialFolderDownload() {
+  var zipPath = "Material.zip";
+
+  function triggerDownload() {
+    var link = document.createElement("a");
+    link.href = zipPath;
+    link.download = "Material.zip";
+    link.rel = "noopener";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
+  function onActivate(event) {
+    var target = event.target.closest(".gloss-material-folder");
+    if (!target) { return; }
+    event.preventDefault();
+    triggerDownload();
+  }
+
+  document.addEventListener("click", onActivate);
+  document.addEventListener("keydown", function(event) {
+    if (event.key !== "Enter" && event.key !== " ") { return; }
+    onActivate(event);
   });
 }
 

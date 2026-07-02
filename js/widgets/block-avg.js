@@ -41,6 +41,8 @@
                style="width:100%;accent-color:var(--accent)">
       </div>
 
+      <p id="bav-size-estimate" style="font-size:12px;color:var(--muted);margin:0;font-family:sans-serif"></p>
+
     </div>
   `;
 
@@ -53,6 +55,12 @@
   const brightVal = document.getElementById("bav-brightness-val");
   const colorVal = document.getElementById("bav-colorbits-val");
   const imageWrap = document.getElementById("bav-image-wrap");
+  const sizeEstimate = document.getElementById("bav-size-estimate");
+
+  function estimateSizePct(yBlock, cBlock) {
+    if (yBlock <= 1 && cBlock <= 1) { return 100; }
+    return Math.round(100 * 16 / (yBlock * cBlock + 15));
+  }
 
   function sliderToBlockSize(sliderValue) {
     return 1 << (8 - parseInt(sliderValue, 10));
@@ -157,9 +165,30 @@
     colorVal.textContent = blockSizeLabel(sliderToBlockSize(colorSlider.value));
   }
 
+  function getMetrics() {
+    const yBlock = sliderToBlockSize(brightSlider.value);
+    const cBlock = sliderToBlockSize(colorSlider.value);
+    return {
+      sizePct: estimateSizePct(yBlock, cBlock),
+      yBlock: yBlock,
+      cBlock: cBlock
+    };
+  }
+
+  function resetWidget() {
+    brightSlider.value = "8";
+    colorSlider.value = "8";
+    onSliderInput();
+  }
+
   function onSliderInput() {
     updateLabels();
     render();
+    const metrics = getMetrics();
+    if (sizeEstimate) {
+      sizeEstimate.textContent = t.sizeEstimate + " " + formatLang(t.sizePct, { pct: metrics.sizePct });
+    }
+    refreshWidgetChallenges("widget-s2-blockavg");
   }
 
   function loadImageFromBitmap() {
@@ -176,9 +205,7 @@
     srcCtx.drawImage(img, 0, 0, imgW, imgH);
     origPixels = new Uint8ClampedArray(srcCtx.getImageData(0, 0, imgW, imgH).data);
     buildYCbCrChannels();
-
-    updateLabels();
-    render();
+    onSliderInput();
   }
 
   function showLoadError() {
@@ -203,4 +230,14 @@
   if (img.complete && img.naturalWidth) {
     loadImageFromBitmap();
   }
+
+  registerWidgetChallenges("widget-s2-blockavg", {
+    challenges: [
+      { prompt: t.challenges.sizeUnder20, test: function(m) { return m.sizePct <= 20; } },
+      { prompt: t.challenges.faceDetails, test: function(m) { return m.yBlock <= 4; } },
+      { prompt: t.challenges.eyeColor, test: function(m) { return m.cBlock <= 32; } }
+    ],
+    getMetrics: getMetrics,
+    onReset: resetWidget
+  });
 }

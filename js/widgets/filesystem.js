@@ -3,7 +3,7 @@ function setupFilesystemWidget(source) {
   var container = document.getElementById("widget-s4-filesystem");
   if (!container) { return; }
 
-  var CARD_BYTES = 32 * 1024 * 1024 * 1024;
+  var CARD_BYTES = 16 * 1024 * 1024 * 1024;
   var GB = 1024 * 1024 * 1024;
   var MB = 1024 * 1024;
 
@@ -17,112 +17,14 @@ function setupFilesystemWidget(source) {
 
   var TYPE_LABELS = t.typeLabels || {};
 
-  function buildLogGroups(totalFiles, groupSize, bytesPerFile) {
-    var groups = [];
-    var remaining = totalFiles;
-    var idx = 1;
-    while (remaining > 0) {
-      var n = Math.min(groupSize, remaining);
-      var start = idx;
-      var end = idx + n - 1;
-      groups.push({
-        name: "log_" + String(start).padStart(4, "0") + ".txt \u2026 log_" + String(end).padStart(4, "0") + ".txt",
-        bytes: n * bytesPerFile,
-        type: "text",
-        count: n
-      });
-      idx += n;
-      remaining -= n;
-    }
-    return groups;
-  }
-
-  var SCENARIOS = [
-    {
-      id: "s1",
-      label: (t.scenarios && t.scenarios.s1) || "Szenario 1",
-      layout: "s1",
-      files: [
-        { name: "interview_keller.mp4", bytes: 8 * GB, type: "video" },
-        { name: "ueberwachung_hof.mp4", bytes: 7 * GB, type: "video" },
-        { name: "treffen_park.mp4", bytes: 6 * GB, type: "video" },
-        { name: "hintereingang.mp4", bytes: 6 * GB, type: "video" },
-        { name: "parkplatz_nacht.mp4", bytes: 5.5 * GB, type: "video" },
-        { name: "empfang_halle.mp4", bytes: 5 * GB, type: "video" },
-        { name: "fluchtweg.mp4", bytes: 4.5 * GB, type: "video" },
-        { name: "notiz_01.txt", bytes: 450 * MB, type: "text" },
-        { name: "notiz_02.txt", bytes: 420 * MB, type: "text" },
-        { name: "notiz_03.txt", bytes: 380 * MB, type: "text" },
-        { name: "notiz_04.txt", bytes: 350 * MB, type: "text" },
-        { name: "notiz_05.txt", bytes: 320 * MB, type: "text" },
-        { name: "notiz_06.txt", bytes: 290 * MB, type: "text" },
-        { name: "notiz_07.txt", bytes: 260 * MB, type: "text" },
-        { name: "notiz_08.txt", bytes: 230 * MB, type: "text" },
-        { name: "kontakte.csv", bytes: 750 * MB, type: "text" },
-        { name: "zeitplan.csv", bytes: 680 * MB, type: "text" },
-        { name: "abrechnung.csv", bytes: 620 * MB, type: "text" },
-        { name: "protokoll.csv", bytes: 580 * MB, type: "text" }
-      ]
-    },
-    {
-      id: "s2",
-      label: (t.scenarios && t.scenarios.s2) || "Szenario 2",
-      layout: "s2",
-      files: (function () {
-        var files = buildLogGroups(4200, 100, 8 * MB);
-        files.push(
-          { name: "beweis_foto_01.raw", bytes: 2.4 * GB, type: "image" },
-          { name: "beweis_foto_02.raw", bytes: 2.1 * GB, type: "image" },
-          { name: "beweis_foto_03.raw", bytes: 1.9 * GB, type: "image" },
-          { name: "beweis_foto_04.raw", bytes: 1.6 * GB, type: "image" },
-          { name: "bericht_entwurf.docx", bytes: 220 * MB, type: "text" },
-          { name: "zusammenfassung.docx", bytes: 195 * MB, type: "text" },
-          { name: "protokoll_sitzung.docx", bytes: 180 * MB, type: "text" },
-          { name: "notizen_redaktion.docx", bytes: 165 * MB, type: "text" },
-          { name: "anhang_office.docx", bytes: 150 * MB, type: "text" },
-          { name: "kontakte.csv", bytes: 140 * MB, type: "text" },
-          { name: "zeitplan.csv", bytes: 125 * MB, type: "text" },
-          { name: "abrechnung.csv", bytes: 110 * MB, type: "text" },
-          { name: "auswertung.csv", bytes: 95 * MB, type: "text" }
-        );
-        return files;
-      })()
-    },
-    {
-      id: "s3",
-      label: (t.scenarios && t.scenarios.s3) || "Szenario 3",
-      layout: "s3",
-      files: [
-        { name: "bericht_1.txt", bytes: 1.2 * GB, type: "text" },
-        { name: "bericht_2.txt", bytes: 1.1 * GB, type: "text" },
-        { name: "protokoll.txt", bytes: 1 * GB, type: "text" },
-        { name: "notizen.txt", bytes: 950 * MB, type: "text" },
-        { name: "anhang.txt", bytes: 900 * MB, type: "text" },
-        { name: "kontakte.csv", bytes: 850 * MB, type: "text" },
-        { name: "zusammenfassung.txt", bytes: 800 * MB, type: "text" },
-        { name: "anmerkungen.txt", bytes: 750 * MB, type: "text" },
-        { name: "bericht_redaktion.docx", bytes: 480 * MB, type: "text" },
-        { name: "notizen_office.docx", bytes: 420 * MB, type: "text" },
-        { name: "protokoll_final.docx", bytes: 390 * MB, type: "text" },
-        { name: "anhang_word.docx", bytes: 360 * MB, type: "text" },
-        { name: "planung.csv", bytes: 340 * MB, type: "text" },
-        { name: "kosten.csv", bytes: 310 * MB, type: "text" },
-        { name: "auswertung.csv", bytes: 280 * MB, type: "text" },
-        { name: "beweis_01.tiff", bytes: 620 * MB, type: "image" },
-        { name: "beweis_02.tiff", bytes: 580 * MB, type: "image" },
-        { name: "beweis_03.tiff", bytes: 540 * MB, type: "image" },
-        { name: "scan.psd", bytes: 1.8 * GB, type: "image" },
-        { name: "montage.psd", bytes: 1.5 * GB, type: "image" },
-        { name: "gespraech_01.mp4", bytes: 3.2 * GB, type: "video" },
-        { name: "gespraech_02.mp4", bytes: 2.8 * GB, type: "video" },
-        { name: "aufnahme_hof.mp4", bytes: 2.5 * GB, type: "video" },
-        { name: "nachtaufnahme.mp4", bytes: 2.2 * GB, type: "video" },
-        { name: "dokumente.enc.7z", bytes: 4.2 * GB, type: "encrypted" },
-        { name: "datenbanken.enc.zip", bytes: 3.6 * GB, type: "encrypted" },
-        { name: "schluessel.enc.rar", bytes: 3.1 * GB, type: "encrypted" }
-      ]
-    } 
-  ];
+  var SCENARIOS = (window.S4_SCENARIOS || []).map(function (def) {
+    return {
+      id: def.id,
+      label: (t.scenarios && t.scenarios[def.id]) || def.id,
+      layout: def.layout,
+      files: def.files
+    };
+  });
 
   function formatSize(bytes) {
     if (bytes >= 1048576) {
@@ -172,19 +74,31 @@ function setupFilesystemWidget(source) {
       "background:" + color + ";" +
       "border:1px solid rgba(0,0,0,0.12);" +
       "box-sizing:border-box;cursor:pointer;" +
-      "min-width:2px;min-height:2px;overflow:hidden;" +
+      "min-width:12px;min-height:12px;overflow:hidden;" +
       "transition:filter 120ms ease"
     );
   }
 
+  function flexPctStyle(share, direction) {
+    var pct = share.toFixed(4) + "%";
+    if (direction === "col") {
+      return "flex:0 0 " + pct + ";height:" + pct + ";width:100%;min-height:12px;";
+    }
+    return "flex:0 0 " + pct + ";width:" + pct + ";height:100%;min-width:12px;";
+  }
+
   function renderLeaf(file, flexStyle, extraStyle) {
     var countAttr = file.count ? ' data-count="' + file.count + '"' : "";
+    var metaAttr = "";
+    if (file.metadata && file.metadata.length) {
+      metaAttr = ' data-metadata="' + encodeURIComponent(JSON.stringify(file.metadata)) + '"';
+    }
     return (
       '<div class="fs-segment" tabindex="0"' +
         ' data-name="' + file.name + '"' +
         ' data-type="' + file.type + '"' +
         ' data-bytes="' + file.bytes + '"' +
-        countAttr +
+        countAttr + metaAttr +
         ' style="' + segmentStyle(FILE_COLORS[file.type]) + flexStyle + (extraStyle || "") + '"' +
         ' aria-label="' + file.name + ", " + TYPE_LABELS[file.type] + ", " + formatSize(file.bytes) + '"' +
       '></div>'
@@ -193,11 +107,14 @@ function setupFilesystemWidget(source) {
 
   function renderFlexGroup(files, direction, outerFlex) {
     if (!files.length) { return ""; }
-    var total = sumBytes(files);
     var flexDir = direction === "col" ? "column" : "row";
-    var inner = files.map(function (f) {
-      var share = pct(f.bytes, total);
-      return renderLeaf(f, "flex:0 0 " + share.toFixed(4) + "%;width:" + (direction === "col" ? "100%" : share.toFixed(4) + "%") + ";height:" + (direction === "col" ? share.toFixed(4) + "%" : "100%") + ";");
+    var computeShares = window.s4ComputeDisplayShares || function (list) {
+      var total = sumBytes(list);
+      return list.map(function (f) { return pct(f.bytes, total); });
+    };
+    var shares = computeShares(files);
+    var inner = files.map(function (f, i) {
+      return renderLeaf(f, flexPctStyle(shares[i], direction));
     }).join("");
     return (
       '<div style="display:flex;flex-direction:' + flexDir + ";" + outerFlex + '">' +
@@ -210,20 +127,18 @@ function setupFilesystemWidget(source) {
     var videos = filterType(files, "video");
     var texts = filterType(files, "text");
     var sheets = filterType(files, "spreadsheet");
-    var total = sumBytes(files);
-    var restBytes = sumBytes(texts) + sumBytes(sheets);
-    var videoPct = pct(sumBytes(videos), total).toFixed(4);
-    var textInRestPct = restBytes > 0 ? pct(sumBytes(texts), restBytes).toFixed(4) : "0";
-    var sheetInRestPct = restBytes > 0 ? pct(sumBytes(sheets), restBytes).toFixed(4) : "0";
-    var restPct = (100 - parseFloat(videoPct)).toFixed(4);
+    var computeGroupShares = window.s4ComputeGroupShares || function (groups) {
+      var totals = groups.map(sumBytes);
+      var total = totals.reduce(function (s, b) { return s + b; }, 0);
+      return totals.map(function (b) { return pct(b, total); });
+    };
+    var textGroup = texts.concat(sheets);
+    var groupShares = computeGroupShares([videos, textGroup]);
 
     return (
       '<div style="display:flex;flex-direction:row;width:100%;height:100%">' +
-        renderFlexGroup(videos, "col", "flex:0 0 " + videoPct + "%;height:100%") +
-        '<div style="display:flex;flex-direction:column;flex:0 0 ' + restPct + '%;height:100%">' +
-          renderFlexGroup(texts, "col", "flex:0 0 " + textInRestPct + "%;width:100%") +
-          renderFlexGroup(sheets, "col", "flex:0 0 " + sheetInRestPct + "%;width:100%") +
-        '</div>' +
+        renderFlexGroup(videos, "col", "flex:0 0 " + groupShares[0].toFixed(4) + "%;height:100%") +
+        renderFlexGroup(textGroup, "col", "flex:0 0 " + groupShares[1].toFixed(4) + "%;height:100%") +
       '</div>'
     );
   }
@@ -231,24 +146,27 @@ function setupFilesystemWidget(source) {
   function renderScenario2(files) {
     var texts = filterType(files, "text");
     var others = files.filter(function (f) { return f.type !== "text"; });
-    var total = sumBytes(files);
-    var textPct = pct(sumBytes(texts), total).toFixed(4);
-    var otherPct = pct(sumBytes(others), total).toFixed(4);
+    var computeGroupShares = window.s4ComputeGroupShares || function (groups) {
+      var totals = groups.map(sumBytes);
+      var total = totals.reduce(function (s, b) { return s + b; }, 0);
+      return totals.map(function (b) { return pct(b, total); });
+    };
+    var groupShares = computeGroupShares([texts, others]);
     var cols = 7;
     var rows = Math.ceil(texts.length / cols);
     var gridCells = texts.map(function (f) {
-      return renderLeaf(f, "", "width:100%;height:100%;min-width:0;min-height:0");
+      return renderLeaf(f, "", "width:100%;height:100%;min-width:12px;min-height:12px");
     }).join("");
 
     return (
       '<div style="display:flex;flex-direction:row;width:100%;height:100%">' +
-        '<div style="flex:0 0 ' + textPct + '%;height:100%;display:grid;' +
+        '<div style="flex:0 0 ' + groupShares[0].toFixed(4) + '%;height:100%;display:grid;' +
           "grid-template-columns:repeat(" + cols + ",1fr);" +
           "grid-template-rows:repeat(" + rows + ",1fr);" +
           'gap:1px;padding:1px;background:rgba(0,0,0,0.08)">' +
           gridCells +
         '</div>' +
-        renderFlexGroup(others, "col", "flex:0 0 " + otherPct + "%;height:100%") +
+        renderFlexGroup(others, "col", "flex:0 0 " + groupShares[1].toFixed(4) + "%;height:100%") +
       '</div>'
     );
   }
@@ -257,16 +175,23 @@ function setupFilesystemWidget(source) {
     var docs = filterTypes(files, ["text", "spreadsheet"]);
     var media = filterTypes(files, ["image", "video"]);
     var encrypted = filterType(files, "encrypted");
-    var total = sumBytes(files);
-    var docsPct = pct(sumBytes(docs), total).toFixed(4);
-    var mediaPct = pct(sumBytes(media), total).toFixed(4);
-    var encPct = pct(sumBytes(encrypted), total).toFixed(4);
+    var groupDefs = [
+      { items: docs },
+      { items: media },
+      { items: encrypted }
+    ].filter(function (g) { return g.items.length; });
+    var computeGroupShares = window.s4ComputeGroupShares || function (groups) {
+      var totals = groups.map(sumBytes);
+      var total = totals.reduce(function (s, b) { return s + b; }, 0);
+      return totals.map(function (b) { return pct(b, total); });
+    };
+    var groupShares = computeGroupShares(groupDefs.map(function (g) { return g.items; }));
 
     return (
       '<div style="display:flex;flex-direction:row;width:100%;height:100%">' +
-        renderFlexGroup(docs, "col", "flex:0 0 " + docsPct + "%;height:100%") +
-        renderFlexGroup(media, "col", "flex:0 0 " + mediaPct + "%;height:100%") +
-        renderFlexGroup(encrypted, "col", "flex:0 0 " + encPct + "%;height:100%") +
+        groupDefs.map(function (g, i) {
+          return renderFlexGroup(g.items, "col", "flex:0 0 " + groupShares[i].toFixed(4) + "%;height:100%");
+        }).join("") +
       '</div>'
     );
   }
@@ -424,6 +349,11 @@ function setupFilesystemWidget(source) {
     var type = seg.getAttribute("data-type");
     var bytes = parseInt(seg.getAttribute("data-bytes"), 10);
     var count = seg.getAttribute("data-count");
+    var metadata = [];
+    var rawMeta = seg.getAttribute("data-metadata");
+    if (rawMeta) {
+      try { metadata = JSON.parse(decodeURIComponent(rawMeta)); } catch (err) { metadata = []; }
+    }
     var html =
       "<strong style=\"display:block;margin-bottom:2px;font-family:monospace;font-size:11px\">" + name + "</strong>" +
       TYPE_LABELS[type];
@@ -431,6 +361,12 @@ function setupFilesystemWidget(source) {
       html += "<br>" + formatLang(t.tooltipFiles, { count: parseInt(count, 10).toLocaleString("de-DE") });
     }
     html += "<br>" + formatSize(bytes);
+    var metaHtml = typeof getS4MetadataTooltip === "function"
+      ? getS4MetadataTooltip({ name: name, type: type, metadata: metadata }, t)
+      : "";
+    if (metaHtml) {
+      html += "<br><span style=\"opacity:0.92\">" + metaHtml + "</span>";
+    }
     tooltip.innerHTML = html;
     seg.style.filter = "brightness(1.12)";
     positionTooltip(e);

@@ -26,6 +26,8 @@
     return "(" + sym + "," + len + ")";
   }
 
+  container.classList.remove("widget-placeholder");
+
   container.innerHTML = `
     <div style="padding:0.75rem 0">
       <div style="margin-bottom:10px">
@@ -65,6 +67,25 @@
 
   const input = document.getElementById("rle-input");
 
+  function getMetrics() {
+    const text = input.value;
+    const tuples = computeRLE(text);
+    const origUnits = text.length;
+    const rleUnits = tuples.reduce(function(sum, tup) { return sum + tupleCost(tup[1]); }, 0);
+    const saving = origUnits - rleUnits;
+    const hasLongRun = /(.)\1{9,}/.test(text);
+    return {
+      saving: saving,
+      savingPct: origUnits > 0 ? (saving / origUnits) * 100 : 0,
+      hasLongRun: hasLongRun
+    };
+  }
+
+  function resetWidget() {
+    input.value = DEFAULT;
+    update();
+  }
+
   function update() {
     const text = input.value;
     const tuples = computeRLE(text);
@@ -90,7 +111,7 @@
 
     const tupleEl = document.getElementById("rle-tuples");
     if (text.length === 0) {
-      tupleEl.textContent = "\u2014";
+      tupleEl.textContent = t.emptyValue || getWidgetLang("common").emptyValue || "";
     } else if (tuples.length > 80) {
       tupleEl.innerHTML = tuples.slice(0, 80).map(function(tup) {
         const cls = tup[1] > 1 ? "color:var(--accent);font-weight:600" : "";
@@ -102,12 +123,24 @@
         return "<span style=\"" + cls + "\">" + formatTuple(tup) + "</span>";
       }).join(" ");
     }
+
+    refreshWidgetChallenges("widget-s1-rle");
   }
 
   input.addEventListener("input", update);
   document.getElementById("rle-reset").addEventListener("click", function() {
-    input.value = DEFAULT;
-    update();
+    resetWidget();
+  });
+
+  registerWidgetChallenges("widget-s1-rle", {
+    stickyComplete: true,
+    challenges: [
+      { prompt: t.challenges.save50, test: function(m) { return m.savingPct >= 50; } },
+      { prompt: t.challenges.negativeSaving, test: function(m) { return m.saving < 0; } },
+      { prompt: t.challenges.longRun, test: function(m) { return m.hasLongRun; } }
+    ],
+    getMetrics: getMetrics,
+    onReset: resetWidget
   });
 
   update();

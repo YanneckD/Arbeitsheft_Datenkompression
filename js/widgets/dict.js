@@ -1,5 +1,6 @@
 ﻿function setupDictWidget(source) {
   const t = source || getWidgetLang("dict");
+  const emptyValue = t.emptyValue || getWidgetLang("common").emptyValue || "…";
   const container = document.getElementById("widget-s1-dict");
   if (!container) { return; }
 
@@ -54,8 +55,12 @@
   let currentStep = -1;
   let playing = false;
   let timer = null;
-  const SPEED_MS = 700;
+  let speedMs = 700;
+  const HEAD_ROWS = 3;
+  const TAIL_ROWS = 2;
+  let tableExpanded = false;
 
+  container.classList.remove("widget-placeholder");
   container.innerHTML = `
     <div style="padding:0.75rem 0">
 
@@ -74,7 +79,10 @@
       <div style="display:grid;grid-template-columns:minmax(180px,260px) 1fr;gap:12px;margin-bottom:12px">
 
         <div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:5px;font-family:sans-serif">${t.dictTableLabel}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+          <span style="font-size:12px;color:var(--muted);font-family:sans-serif">${t.dictTableLabel}</span>
+          <button id="dict-table-toggle" type="button" style="font-size:11px;padding:2px 8px">${t.tableToggleExpand}</button>
+        </div>
           <div style="border:1px solid var(--border);background:#fffdf8;border-radius:3px;overflow:hidden;min-height:80px">
             <table style="width:100%;border-collapse:collapse;font-size:0.88rem">
               <thead>
@@ -109,16 +117,22 @@
         border:1px solid var(--border);background:#fffdf8;padding:0.55rem 0.8rem;border-radius:3px;
         font-size:0.88rem;font-family:sans-serif;align-items:center;
       ">
-        <span>${t.originalChars}</span>
+        ${t.originalChars}
         <span style="color:var(--muted)">→</span>
-        <span>${t.compressedChars}</span>
+        ${t.compressedChars}
         <span id="dict-saving-badge" style="margin-left:4px"></span>
       </div>
 
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px">
         <button id="dict-play-pause" type="button" style="padding:5px 14px;font-size:13px;min-width:80px">${t.playStart}</button>
+        <button id="dict-step-back" type="button" style="padding:5px 14px;font-size:13px">${t.stepBackButton}</button>
         <button id="dict-step" type="button" style="padding:5px 14px;font-size:13px">${t.stepButton}</button>
         <button id="dict-reset" type="button" style="padding:5px 14px;font-size:13px">${t.resetButton}</button>
+        <label style="font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;margin-left:4px;flex:1;min-width:180px">
+          <span>${t.speedSlow}</span>
+          <input id="dict-speed" type="range" min="200" max="1400" step="100" value="700" style="flex:1;accent-color:var(--accent)">
+          <span>${t.speedFast}</span>
+        </label>
         <span id="dict-progress" style="font-size:12px;color:var(--muted);margin-left:4px;font-family:sans-serif"></span>
       </div>
     </div>`;
@@ -149,25 +163,33 @@
     el.innerHTML = html;
   }
 
-  function renderDict(dict, newWord, isFinal) {
+  function renderDict(dict, newWord) {
     const tbody = document.getElementById("dict-table-body");
-    let html = "";
-    const unusedInFinal = [];
-    Object.entries(dict).forEach(([word, code]) => {
-      if (isFinal && !usedWords.has(word)) {
-        unusedInFinal.push(word);
-        return;
-      }
-      const isNew = word === newWord;
+    const entries = Object.entries(dict);
+
+    function rowHtml(word, code, isNew) {
       const rowStyle = isNew ? "background:rgba(28,93,140,0.12);" : "";
-      html += `<tr style="${rowStyle}">
+      return `<tr style="${rowStyle}">
         <td style="padding:4px 8px;border-bottom:1px solid var(--border);font-family:monospace;color:var(--accent);font-weight:600">${escHtml(code)}</td>
         <td style="padding:4px 8px;border-bottom:1px solid var(--border)">${escHtml(word)}</td>
       </tr>`;
-    });
-    if (isFinal && unusedInFinal.length > 0) {
-      html += `<tr><td colspan="2" style="padding:5px 8px;font-size:0.8rem;color:var(--muted);font-style:italic;border-top:1px dashed var(--border)">${formatLang(t.unusedRemoved, { count: unusedInFinal.length })}</td></tr>`;
     }
+
+    let html = "";
+    if (tableExpanded || entries.length <= HEAD_ROWS + TAIL_ROWS + 1) {
+      entries.forEach(function(pair) {
+        html += rowHtml(pair[0], pair[1], pair[0] === newWord);
+      });
+    } else {
+      entries.slice(0, HEAD_ROWS).forEach(function(pair) {
+        html += rowHtml(pair[0], pair[1], pair[0] === newWord);
+      });
+      html += `<tr><td colspan="2" style="padding:4px 8px;text-align:center;color:var(--muted);font-style:italic;border-bottom:1px solid var(--border)">…</td></tr>`;
+      entries.slice(-TAIL_ROWS).forEach(function(pair) {
+        html += rowHtml(pair[0], pair[1], pair[0] === newWord);
+      });
+    }
+
     tbody.innerHTML = html || `<tr><td colspan="2" style="padding:6px 8px;color:var(--muted);font-size:0.85rem">${t.noEntries}</td></tr>`;
   }
 
@@ -208,7 +230,7 @@
     document.getElementById("dict-orig-len").textContent = origLen;
 
     if (!compressedSoFar || compressedSoFar.length === 0) {
-      document.getElementById("dict-comp-len").textContent = "–";
+      document.getElementById("dict-comp-len").textContent = emptyValue;
       document.getElementById("dict-saving-badge").textContent = "";
       return;
     }
@@ -264,7 +286,7 @@
     const step = steps[currentStep];
     renderText(step.tokenIndex);
     const isFinal = currentStep === steps.length - 1;
-    renderDict(step.dict, step.isNew ? step.word : null, isFinal);
+    renderDict(step.dict, step.isNew ? step.word : null);
     renderCompressed(step.compressedSoFar);
     renderStats(step.compressedSoFar);
     renderProgress();
@@ -277,6 +299,13 @@
       return true;
     }
     return false;
+  }
+
+  function stepBack() {
+    if (currentStep >= 0) {
+      currentStep--;
+      render();
+    }
   }
 
   function stopPlay() {
@@ -293,8 +322,25 @@
     timer = setInterval(() => {
       const hasMore = advance();
       if (!hasMore) { stopPlay(); }
-    }, SPEED_MS);
+    }, speedMs);
   }
+
+  document.getElementById("dict-speed").addEventListener("input", function(e) {
+    const raw = parseInt(e.target.value, 10) || 700;
+    speedMs = 1600 - raw;
+    if (playing) {
+      stopPlay();
+      startPlay();
+    }
+  });
+
+  document.getElementById("dict-table-toggle").addEventListener("click", function() {
+    tableExpanded = !tableExpanded;
+    this.textContent = tableExpanded
+      ? t.tableToggleCollapse
+      : t.tableToggleExpand;
+    render();
+  });
 
   document.getElementById("dict-play-pause").addEventListener("click", () => {
     if (playing) {
@@ -303,6 +349,11 @@
       if (currentStep >= steps.length - 1) { return; }
       startPlay();
     }
+  });
+
+  document.getElementById("dict-step-back").addEventListener("click", () => {
+    if (playing) { stopPlay(); }
+    stepBack();
   });
 
   document.getElementById("dict-step").addEventListener("click", () => {
