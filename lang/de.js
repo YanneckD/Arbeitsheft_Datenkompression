@@ -273,7 +273,7 @@ window.LANG_DE = {
         text: "a) Beschreibe deine Beobachtungen: Was unterscheidet die beiden Dateien, obwohl ihr Inhalt gleich ist? Betrachte die interne Struktur der .docx-Datei. Welche Bestandteile sind nicht Teil des sichtbaren Texts?"
       },
       b: {
-        text: "b) Erläutere, inwiefern Metadaten in einer Datei für deinen Freund ein Problem darstellen könnten."
+        text: "b) Erläutere, inwiefern <span class=\"gloss\" title=\"Metadaten sind Zusatzinformationen zu einer Datei, z. B. Autor, Erstellungsdatum, Kameraeinstellungen oder Bearbeitungshistorie. Sie sind nicht der eigentliche Inhalt, können aber Rückschlüsse auf die Quelle zulassen.\">Metadaten</span> in einer Datei für deinen Freund ein Problem darstellen könnten."
       },
       c: {
         text: "c) Dein Freund sagt nun: \"Für Textdokumente reicht dann doch immer .txt.\" Überlege dir einen Fall, in dem .docx trotzdem sinnvoller wäre.",
@@ -292,17 +292,17 @@ window.LANG_DE = {
       }
     },
     task3: {
-      title: "Aufgabe 3 - Offene vs. proprietäre Formate",
+      title: "Aufgabe 3 - Offene vs. <span class=\"gloss\" title=\"Proprietär bedeutet „im (alleinigen) Eigentum befindlich“ oder „herstellerspezifisch“. Es beschreibt Produkte, Technologien, Formate oder Systeme, die rechtlich geschützt sind und deren Kontrolle ausschließlich beim jeweiligen Entwickler oder Unternehmen liegt.\">proprietäre</span> Formate",
       intro: "Im Material-Ordner liegen <code>kontakte.csv</code> und <code>kontakte.accdb</code> mit denselben Daten. Öffne beide mit einem Texteditor und vergleiche.",
       a: {
         text: "a) Was passiert, wenn die empfangende Person die Software für .accdb nicht hat?"
       }
     },
     task3optional: {
-      title: "Optional: Proprietäre Formate vertiefen",
-      intro: "Dieser Abschnitt ist optional. Er vertieft den Unterschied zwischen offenen und proprietären Formaten anhand konkreter Dateitypen.",
+      title: "Optional: <span class=\"gloss\" title=\"Proprietär bedeutet „im (alleinigen) Eigentum befindlich“ oder „herstellerspezifisch“. Es beschreibt Produkte, Technologien, Formate oder Systeme, die rechtlich geschützt sind und deren Kontrolle ausschließlich beim jeweiligen Entwickler oder Unternehmen liegt.\">Proprietäre</span> Formate vertiefen",
+      intro: "Dieser Abschnitt ist optional. Er vertieft den Unterschied zwischen offenen und <span class=\"gloss\" title=\"Proprietär bedeutet „im (alleinigen) Eigentum befindlich“ oder „herstellerspezifisch“. Es beschreibt Produkte, Technologien, Formate oder Systeme, die rechtlich geschützt sind und deren Kontrolle ausschließlich beim jeweiligen Entwickler oder Unternehmen liegt.\">proprietären</span> Formaten anhand konkreter Dateitypen.",
       b: {
-        text: "b) Vergleiche offene und proprietäre Formate. Welche Kategorie würdest du für die Weitergabe wählen, und welche Nachteile nimmst du in Kauf?"
+        text: "b) Vergleiche offene und <span class=\"gloss\" title=\"Proprietär bedeutet „im (alleinigen) Eigentum befindlich“ oder „herstellerspezifisch“. Es beschreibt Produkte, Technologien, Formate oder Systeme, die rechtlich geschützt sind und deren Kontrolle ausschließlich beim jeweiligen Entwickler oder Unternehmen liegt.\">proprietäre</span> Formate. Welche Kategorie würdest du für die Weitergabe wählen, und welche Nachteile nimmst du in Kauf?"
       },
       formatsSummary: "Formatinfos zu den Dateitypen ein- und ausklappen",
       formats: {
@@ -319,19 +319,19 @@ window.LANG_DE = {
           text: "Tabellendaten als Klartext mit Trennzeichen (meist Komma oder Semikolon). In jedem Texteditor lesbar, ohne Spezialsoftware. Gut für den Datenaustausch, wenn Struktur einfach bleiben soll. Keine Formeln, keine Datenbanklogik, keine Benutzeroberfläche."
         },
         accdb: {
-          title: ".accdb (proprietär)",
-          text: "Microsoft-Access-Datenbankformat. Speichert Tabellen, Abfragen, Formulare und Makros in einer proprietären Struktur. Ohne Access oder kompatible Software lässt sich die Datei nicht sinnvoll nutzen. Für den Empfänger ein hohes Abhängigkeitsrisiko."
+          title: ".accdb (<span class=\"gloss\" title=\"Proprietär bedeutet „im (alleinigen) Eigentum befindlich“ oder „herstellerspezifisch“. Es beschreibt Produkte, Technologien, Formate oder Systeme, die rechtlich geschützt sind und deren Kontrolle ausschließlich beim jeweiligen Entwickler oder Unternehmen liegt.\">proprietär</span>)",
+          text: "Microsoft-Access-Datenbankformat. Speichert Tabellen, Abfragen, Formulare und Makros in einer <span class=\"gloss\" title=\"Proprietär bedeutet „im (alleinigen) Eigentum befindlich“ oder „herstellerspezifisch“. Es beschreibt Produkte, Technologien, Formate oder Systeme, die rechtlich geschützt sind und deren Kontrolle ausschließlich beim jeweiligen Entwickler oder Unternehmen liegt.\">proprietären</span> Struktur. Ohne Access oder kompatible Software lässt sich die Datei nicht sinnvoll nutzen. Für den Empfänger ein hohes Abhängigkeitsrisiko."
         },
         png: {
           title: ".png (offen)",
           text: "Verlustfreies Bildformat mit weit verbreiteter Unterstützung. Geeignet für Screenshots, Grafiken und Beweisfotos, wenn keine Bearbeitungshistorie mitgeschickt werden soll. Dateien sind meist größer als stark komprimierte JPEGs, aber universell lesbar."
         },
         psd: {
-          title: ".psd (proprietär)",
+          title: ".psd (<span class=\"gloss\" title=\"Proprietär bedeutet „im (alleinigen) Eigentum befindlich“ oder „herstellerspezifisch“. Es beschreibt Produkte, Technologien, Formate oder Systeme, die rechtlich geschützt sind und deren Kontrolle ausschließlich beim jeweiligen Entwickler oder Unternehmen liegt.\">proprietär</span>)",
           text: "Adobe-Photoshop-Format mit Ebenen, Masken, Bearbeitungshistorie und weiteren Arbeitsdaten. Nur mit passender Software vollständig nutzbar, oft deutlich größer als .png. Ein Whistleblower müsste es nur weitergeben, wenn genau diese Arbeitsdaten für den Beweis nötig sind."
         }
       },
-      psdQuestion: "c) In welcher Situation könnte ein Whistleblower trotzdem ein proprietäres Format wie .psd weitergeben müssen?"
+      psdQuestion: "c) In welcher Situation könnte ein Whistleblower trotzdem ein <span class=\"gloss\" title=\"Proprietär bedeutet „im (alleinigen) Eigentum befindlich“ oder „herstellerspezifisch“. Es beschreibt Produkte, Technologien, Formate oder Systeme, die rechtlich geschützt sind und deren Kontrolle ausschließlich beim jeweiligen Entwickler oder Unternehmen liegt.\">proprietäres</span> Format wie .psd weitergeben müssen?"
     },
     task4: {
       title: "Aufgabe 4 - Containerformate",

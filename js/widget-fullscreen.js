@@ -23,6 +23,22 @@ function setupWidgetFullscreen(langData) {
 
     setShellPreviewMode(body, true);
 
+    function open() {
+      openWidgetOverlay(shell, closeLabel, challengeTitle, challengeReset);
+    }
+
+    const scenario = shell.closest(".fss-scenario");
+    if (scenario) {
+      const launchBtn = scenario.querySelector(".fss-scenario-open");
+      if (launchBtn) {
+        launchBtn.addEventListener("click", function(e) {
+          e.preventDefault();
+          open();
+        });
+      }
+      return;
+    }
+
     let toolbar = shell.querySelector(".widget-shell-toolbar");
     if (!toolbar) {
       toolbar = document.createElement("div");
@@ -37,10 +53,6 @@ function setupWidgetFullscreen(langData) {
       openBtn.className = "widget-fullscreen-open";
       openBtn.textContent = openLabel;
       toolbar.appendChild(openBtn);
-    }
-
-    function open() {
-      openWidgetOverlay(shell, closeLabel, challengeTitle, challengeReset);
     }
 
     openBtn.addEventListener("click", function(e) {

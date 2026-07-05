@@ -258,13 +258,16 @@ function setupFilesystemSimulator(source) {
 
   function ensureTooltip() {
     var tip = document.getElementById("fss-tooltip");
-    if (tip) { return tip; }
+    if (tip) {
+      tip.style.zIndex = "10001";
+      return tip;
+    }
     tip = document.createElement("div");
     tip.id = "fss-tooltip";
     tip.setAttribute("role", "tooltip");
     tip.hidden = true;
     tip.style.cssText =
-      "position:fixed;z-index:9999;pointer-events:none;background:#122;color:#fff;" +
+      "position:fixed;z-index:10001;pointer-events:none;background:#122;color:#fff;" +
       "padding:8px 10px;border-radius:4px;font-size:12px;line-height:1.5;font-family:sans-serif;" +
       "box-shadow:0 4px 12px rgba(0,0,0,0.2);max-width:min(320px,90vw)";
     document.body.appendChild(tip);
@@ -649,13 +652,17 @@ function setupFilesystemSimulator(source) {
     );
   }
 
+  function findScenarioContainer(def) {
+    return document.querySelector('.fss-scenario[data-scenario="' + def.id + '"]');
+  }
+
   function updateSuccessChrome(host, def) {
     var state = states[def.id];
     var succeeded = !!state.won;
     host.classList.toggle("fss-sim--success", succeeded);
-    var details = host.closest(".fss-scenario");
-    if (details) {
-      details.classList.toggle("fss-scenario--success", succeeded);
+    var scenario = findScenarioContainer(def);
+    if (scenario) {
+      scenario.classList.toggle("fss-scenario--success", succeeded);
     }
   }
 

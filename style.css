@@ -1445,12 +1445,30 @@ body.widget-fullscreen-active {
   background: #fffdf8;
 }
 
-.fss-scenario > summary {
+.fss-scenario > summary,
+.fss-scenario-open {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
   cursor: pointer;
   padding: 0.55rem 0.85rem;
   font-weight: 600;
   font-family: "Source Sans 3", "Gill Sans", sans-serif;
   list-style-position: outside;
+  text-align: left;
+}
+
+.fss-scenario-open {
+  margin: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.fss-scenario .widget-shell {
+  display: none;
 }
 
 .fss-scenario[open] > summary {
@@ -1458,20 +1476,37 @@ body.widget-fullscreen-active {
 }
 
 .fss-scenario--success {
-  background: rgba(63, 143, 75, 0.16);
-  border-color: rgba(63, 143, 75, 0.55);
+  background: #d8ecd9;
+  border-color: #3f8f4b;
 }
 
-.fss-scenario--success > summary {
-  border-bottom-color: rgba(63, 143, 75, 0.35);
+.fss-scenario--success > summary,
+.fss-scenario--success .fss-scenario-open {
+  color: #2d6a3a;
+  background: #d8ecd9;
+}
+
+.widget-fullscreen-panel:has(.fss-sim--success) {
+  background: #d8ecd9;
+  border-color: #3f8f4b;
+}
+
+.widget-fullscreen-panel:has(.fss-sim--success) .widget-fullscreen-header {
+  background: #c8e6cc;
+  border-bottom-color: #3f8f4b;
+}
+
+.widget-fullscreen-panel:has(.fss-sim--success) .widget-fullscreen-content,
+.widget-fullscreen-panel:has(.fss-sim--success) .widget-shell-body--overlay {
+  background: #d8ecd9;
 }
 
 .fss-sim--success {
-  background: rgba(63, 143, 75, 0.12);
+  background: #d8ecd9;
 }
 
 .fss-panel--success {
-  background: transparent;
+  background: #d8ecd9;
 }
 
 .fss-panel {
@@ -1559,8 +1594,8 @@ body.widget-fullscreen-active {
 }
 
 .fss-result--success {
-  background: rgba(63, 143, 75, 0.12);
-  border: 1px solid rgba(63, 143, 75, 0.35);
+  background: #d8ecd9;
+  border: 1px solid #3f8f4b;
   color: #2d6a3a;
 }
 
