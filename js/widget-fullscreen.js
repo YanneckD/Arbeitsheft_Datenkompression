@@ -14,6 +14,8 @@ function setupWidgetFullscreen(langData) {
   const closeLabel = getLangValue(langData, "common.closeSimulation") || "";
   const challengeTitle = getLangValue(langData, "common.challengeTitle") || "";
   const challengeReset = getLangValue(langData, "common.challengeReset") || "";
+  const challengeCloseWarning = getLangValue(langData, "common.challengeCloseWarning") || "";
+  const challengeCloseOpen = getLangValue(langData, "common.challengeCloseOpen") || closeLabel;
 
   document.querySelectorAll(".widget-shell").forEach(function(shell) {
     if (shell.hasAttribute("data-no-fullscreen")) { return; }
@@ -24,7 +26,13 @@ function setupWidgetFullscreen(langData) {
     setShellPreviewMode(body, true);
 
     function open() {
-      openWidgetOverlay(shell, closeLabel, challengeTitle, challengeReset);
+      openWidgetOverlay(shell, {
+        closeLabel: closeLabel,
+        challengeTitle: challengeTitle,
+        challengeReset: challengeReset,
+        challengeCloseWarning: challengeCloseWarning,
+        challengeCloseOpen: challengeCloseOpen
+      });
     }
 
     const scenario = shell.closest(".fss-scenario");
@@ -72,8 +80,15 @@ function findWidgetIdInShell(body) {
   return el ? el.id : null;
 }
 
-function openWidgetOverlay(shell, closeLabel, challengeTitle, challengeReset) {
+function openWidgetOverlay(shell, options) {
   if (document.getElementById("widget-fullscreen-overlay")) { return; }
+
+  const opts = options || {};
+  const closeLabel = opts.closeLabel || "";
+  const challengeTitle = opts.challengeTitle || "";
+  const challengeReset = opts.challengeReset || "";
+  const challengeCloseWarning = opts.challengeCloseWarning || "";
+  const challengeCloseOpen = opts.challengeCloseOpen || closeLabel;
 
   const body = shell.querySelector(".widget-shell-body");
   if (!body) { return; }
@@ -81,7 +96,9 @@ function openWidgetOverlay(shell, closeLabel, challengeTitle, challengeReset) {
   setShellPreviewMode(body, false);
 
   const widgetId = findWidgetIdInShell(body);
-  const challengeEntry = widgetId ? window.WidgetChallengeRegistry[widgetId] : null;
+  const challengeEntry = widgetId && window.WidgetChallengeRegistry
+    ? window.WidgetChallengeRegistry[widgetId]
+    : null;
 
   const overlay = document.createElement("div");
   overlay.id = "widget-fullscreen-overlay";
@@ -105,17 +122,49 @@ function openWidgetOverlay(shell, closeLabel, challengeTitle, challengeReset) {
   bodyRow.className = "widget-fullscreen-body-row";
 
   let sidebarPanel = null;
+
+  function updateCloseButton() {
+    if (!challengeEntry) {
+      closeBtn.textContent = closeLabel;
+      closeBtn.classList.remove("widget-fullscreen-close--challenges-open");
+      return;
+    }
+    const done = !!challengeEntry.allCompletedThisSession;
+    closeBtn.textContent = done ? closeLabel : challengeCloseOpen;
+    closeBtn.classList.toggle("widget-fullscreen-close--challenges-open", !done);
+    panel.classList.toggle("widget-fullscreen-panel--challenges-done", done);
+  }
+
   if (challengeEntry && challengeEntry.challenges) {
     const sidebar = document.createElement("aside");
     sidebar.className = "challenge-sidebar";
     sidebar.setAttribute("aria-label", challengeTitle);
     bodyRow.appendChild(sidebar);
+
+    const userOnReset = challengeEntry.onReset;
     sidebarPanel = createChallengePanel(sidebar, {
       title: challengeTitle,
       resetLabel: challengeReset,
       challenges: challengeEntry.challenges,
-      onReset: challengeEntry.onReset,
-      stickyComplete: challengeEntry.stickyComplete
+      stickyComplete: challengeEntry.stickyComplete,
+      onReset: function() {
+        challengeEntry.allCompletedThisSession = false;
+        updateCloseButton();
+        if (typeof userOnReset === "function") {
+          userOnReset();
+        }
+      },
+      onAllCompleteChange: function(allPassed, newlyAllPassed) {
+        if (allPassed) {
+          challengeEntry.allCompletedThisSession = true;
+        }
+        if (newlyAllPassed) {
+          panel.classList.remove("widget-fullscreen-panel--challenges-flash");
+          void panel.offsetWidth;
+          panel.classList.add("widget-fullscreen-panel--challenges-flash");
+        }
+        updateCloseButton();
+      }
     });
     challengeEntry.panel = sidebarPanel;
   }
@@ -142,6 +191,7 @@ function openWidgetOverlay(shell, closeLabel, challengeTitle, challengeReset) {
   shell._fsWidgetId = widgetId;
 
   document.body.classList.add("widget-fullscreen-active");
+  updateCloseButton();
 
   function syncChallenges() {
     if (!challengeEntry || !sidebarPanel) { return; }
@@ -154,7 +204,12 @@ function openWidgetOverlay(shell, closeLabel, challengeTitle, challengeReset) {
     shell._fsChallengeInterval = window.setInterval(syncChallenges, 400);
   }
 
-  function close() {
+  // Let canvas widgets remeasure after the overlay layout is ready
+  window.requestAnimationFrame(function() {
+    window.dispatchEvent(new Event("resize"));
+  });
+
+  function doClose() {
     if (shell._fsChallengeInterval) {
       window.clearInterval(shell._fsChallengeInterval);
       shell._fsChallengeInterval = null;
@@ -176,15 +231,27 @@ function openWidgetOverlay(shell, closeLabel, challengeTitle, challengeReset) {
     shell._fsPlaceholder = null;
     shell._fsOriginalBody = null;
     shell._fsWidgetId = null;
+    window.requestAnimationFrame(function() {
+      window.dispatchEvent(new Event("resize"));
+    });
+  }
+
+  function requestClose() {
+    if (challengeEntry && !challengeEntry.allCompletedThisSession && challengeCloseWarning) {
+      if (!window.confirm(challengeCloseWarning)) {
+        return;
+      }
+    }
+    doClose();
   }
 
   function onKey(e) {
-    if (e.key === "Escape") { close(); }
+    if (e.key === "Escape") { requestClose(); }
   }
 
-  closeBtn.addEventListener("click", close);
+  closeBtn.addEventListener("click", requestClose);
   overlay.addEventListener("click", function(e) {
-    if (e.target === overlay) { close(); }
+    if (e.target === overlay) { requestClose(); }
   });
   document.addEventListener("keydown", onKey);
   closeBtn.focus();

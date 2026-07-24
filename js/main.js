@@ -2,6 +2,7 @@ const langData = window.LANG_DE || {};
 const widgetLang = window.WIDGETS_DE || {};
 
 applyLang(langData);
+applyAnswerSkeletons(langData);
 window.S4_SCENARIOS = typeof buildS4Scenarios === "function"
   ? buildS4Scenarios(widgetLang.s4Scenarios)
   : [];

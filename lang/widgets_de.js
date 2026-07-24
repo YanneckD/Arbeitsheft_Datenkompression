@@ -31,8 +31,8 @@ window.WIDGETS_DE = {
     emptyValue: "…",
     default: "AAABBBCCDDDDDA",
     challenges: {
-      save50: "Mindestens 50 % Ersparnis erzielen.",
-      negativeSaving: "Negative Ersparnis erzielen (mehr Zeichen als vorher).",
+      save50: "Mindestens 50 % Ersparnis erzielen (Zeichenkette mindestens 5 Zeichen lang).",
+      negativeSaving: "Negative Ersparnis erzielen (mehr Zeichen als vorher; Zeichenkette mindestens 5 Zeichen lang).",
       longRun: "Gib eine Zeichenkette mit mindestens 10 gleichen Zeichen hintereinander ein."
     }
   },
@@ -282,14 +282,37 @@ window.WIDGETS_DE = {
     filesToSend: "Dateien zum Versand:",
     transfers: "Übertragungsvorgänge:",
     totalSize: "Gesamtgröße:",
+    processIdle: "Bereit",
+    processDone: "Fertig",
+    processSteps: [
+      "Speicher reservieren",
+      "Datei öffnen",
+      "Daten kopieren",
+      "Datei schließen"
+    ],
     overheadGloss:
       "Beim Kopieren vieler kleiner Dateien muss das Betriebssystem für jede einzelne Datei extra Verwaltungsarbeit leisten, " +
       "wie zum Beispiel sie im Dateisystem suchen, öffnen und wieder schließen. Dieser Overhead summiert sich bei Hunderten oder Tausenden von Dateien. " +
       "Packt man sie vorher in ein ZIP-Archiv, fällt diese Arbeit beim Kopieren nur einmal für eine einzige Datei an, was deutlich schneller ist.",
-    hint:
-      "Hinweis: Die Gesamtgröße ist in beiden Szenarien fast gleich ({sizeHint}). Hier wird noch nicht komprimiert, sondern nur die Dateien in einen Container gebündelt.  " +
-      "Der Unterschied beim Kopieren von Dateien ist, dass der {overhead} zum Kopieren einer neuen Datei bei Archiven nur einmal berechnet wird, während bei einzelnen Dateien der Overhead für jede Datei einzeln berechnet wird. Je mehr Dateien, desto bemerkbarer der Unterschied. " +
-      "Für diese kleinen, wenigen Dateien hier, wäre der Unterschied auf modernen Festplatten kaum beobachtbar, weshalb die Simulation hier eine stark verlangsamte Darstellung des Kopierens zeigt. Falls du viele kleine Dateien (in Summe >10 GB, bei einer SSD) hast, kannst du das auch auf deinem Rechner nachvollziehen, indem du die einzelnen Dateien auf einmal kopierst und das mit der Kopierdauer für das Archiv vergleichst.",
+    faqSummary: "Hinweise zur Simulation ein- und ausklappen",
+    faq: [
+      {
+        q: "Warum sind die Gesamtgrößen fast gleich?",
+        a: "Die Gesamtgröße ist in beiden Szenarien fast gleich ({sizeHint}). Hier wird noch nicht komprimiert, sondern nur die Dateien in einen Container gebündelt."
+      },
+      {
+        q: "Warum ist der Archivversand beim Kopieren schneller?",
+        a: "Der {overhead} zum Kopieren einer neuen Datei fällt bei Archiven nur einmal an, während bei einzelnen Dateien der Overhead für jede Datei einzeln berechnet wird. Je mehr Dateien, desto bemerkbarer der Unterschied."
+      },
+      {
+        q: "Warum wirkt die Simulation so langsam?",
+        a: "Für diese kleinen, wenigen Dateien wäre der Unterschied auf modernen Festplatten kaum beobachtbar. Die Simulation zeigt deshalb eine stark verlangsamte Darstellung des Kopierens."
+      },
+      {
+        q: "Kann ich den Unterschied auf meinem Rechner nachvollziehen?",
+        a: "Falls du viele kleine Dateien (in Summe >10 GB, bei einer SSD) hast, kannst du das nachvollziehen, indem du die einzelnen Dateien auf einmal kopierst und das mit der Kopierdauer für das Archiv vergleichst."
+      }
+    ],
     files: [
       {
         name: "notiz_01.txt",
@@ -410,6 +433,7 @@ window.WIDGETS_DE = {
   },
   filesystemSimulator: {
     scenarios: {
+      s0: "Tutorial",
       s1: "Szenario 1",
       s2: "Szenario 2",
       s3: "Szenario 3"
@@ -438,15 +462,26 @@ window.WIDGETS_DE = {
     statsOver: "+{size} über Kapazität",
     statsFree: "{size} frei",
     steps: "Schritte: {count}",
-    metadataLabel: "Metadaten:",
+    metadataLabel: "Problematische Metadaten:",
     metadataYes: "noch vorhanden",
     metadataNo: "keine mehr",
     archiveSelected: "{count} ausgewählt",
     archiveCreate: "RAR-Archiv erstellen",
-    archiveMetadataError: "Im Archiv siehst du die Metadaten nicht mehr. Beim Entpacken wären sie aber wieder da. Entferne die Metadaten zuerst.",
+    archiveMetadataError: "Im Archiv siehst du die Metadaten nicht mehr. Beim Entpacken wären sie aber wieder da. Entferne problematische Metadaten zuerst.",
     reset: "Zurücksetzen",
-    success: "Geschafft! Alles passt auf die Karte und es sind keine Metadaten mehr übrig! Du hast {steps} Schritte gebraucht.",
-    empty: "Keine Dateien"
+    success: "Geschafft! Alles passt auf die Karte und es sind keine problematischen Metadaten mehr übrig! Du hast {steps} Schritte gebraucht.",
+    empty: "Keine Dateien",
+    deltaSaved: "−{size}",
+    deltaMetaOnly: "Problematische Metadaten entfernt",
+    deltaUnchanged: "Keine Größenänderung",
+    tutorialTitle: "Bedienung üben",
+    tutorialIntro: "Folge den Schritten. Ziel wie später: alles auf 16 GB, problematische Metadaten weg.",
+    tutorialSteps: {
+      hover: "Datei mit der Maus überfahren (Infos im Tooltip)",
+      tool: "Oben eine Maßnahme wählen",
+      click: "Eine Datei anklicken",
+      status: "Statusleiste prüfen (Belegt / Metadaten)"
+    }
   },
   s4Scenarios: {
     meta: {

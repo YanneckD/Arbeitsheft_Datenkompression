@@ -17,7 +17,9 @@ function setupFilesystemWidget(source) {
 
   var TYPE_LABELS = t.typeLabels || {};
 
-  var SCENARIOS = (window.S4_SCENARIOS || []).map(function (def) {
+  var SCENARIOS = (window.S4_SCENARIOS || []).filter(function (def) {
+    return !def.tutorial;
+  }).map(function (def) {
     return {
       id: def.id,
       label: (t.scenarios && t.scenarios[def.id]) || def.id,

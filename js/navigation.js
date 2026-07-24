@@ -84,6 +84,10 @@ function showSection(sectionId) {
   }
 
   window.scrollTo(0, 0);
+
+  window.requestAnimationFrame(function() {
+    window.dispatchEvent(new Event("resize"));
+  });
 }
 
 function setupSectionViews() {

@@ -1,3 +1,20 @@
+function applyAnswerSkeletons(source) {
+  document.querySelectorAll("[data-answer-skeleton]").forEach(function(textarea) {
+    var path = textarea.dataset.answerSkeleton;
+    var skeleton = typeof getLangValue === "function" ? getLangValue(source, path) : undefined;
+    if (typeof skeleton !== "string") {
+      return;
+    }
+    // Leeres Feld oder noch unausgefülltes Gerüst (# TODO) → aktuelles Gerüst setzen.
+    // So überschreibt die Browser-Wiederherstellung keine veraltete Gerüstversion,
+    // ausgefüllte Schülerantworten bleiben aber erhalten.
+    if (!textarea.value || textarea.value.indexOf("# TODO") !== -1) {
+      textarea.value = skeleton;
+      textarea.defaultValue = skeleton;
+    }
+  });
+}
+
 function setupTextareaTabIndent(selector) {
   const indent = "  ";
 

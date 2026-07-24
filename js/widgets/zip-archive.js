@@ -4,6 +4,16 @@ function setupZipArchiveWidget(source) {
   if (!container) { return; }
 
   var ZIP_OVERHEAD = 320;
+  var PROCESS_STEPS = t.processSteps || [
+    "Speicher reservieren",
+    "Datei öffnen",
+    "Daten kopieren",
+    "Datei schließen"
+  ];
+  var STEP_MS = 250;
+  var COPY_STEP_INDEX = 2;
+  // Archiv fertig, wenn beim Einzelversand etwa notiz_05 durch ist
+  var ARCHIVE_DONE_AFTER_FILES = 5;
 
   var FILES = (t.files || []).map(function (f) {
     return {
@@ -33,105 +43,115 @@ function setupZipArchiveWidget(source) {
   var overheadGlossHtml =
     '<span class="gloss" title="' + t.overheadGloss + '">' + t.overheadLabel + '</span>';
   var pendingMark = t.pendingMark || getWidgetLang("common").emptyValue || "";
-
-  var hintText = formatLang(t.hint, {
+  var processIdle = t.processIdle || "Bereit";
+  var processDone = t.processDone || "Fertig";
+  var faqVars = {
     sizeHint: formatTotalHint(totalBytes),
     overhead: overheadGlossHtml
+  };
+
+  var faqItems = (t.faq || []).map(function (item) {
+    return {
+      q: item.q,
+      a: formatLang(item.a, faqVars)
+    };
   });
 
+  var faqHtml = faqItems.map(function (item) {
+    return (
+      '<details class="format-info-details zip-faq-item">' +
+        "<summary>" + item.q + "</summary>" +
+        '<p class="zip-faq-answer">' + item.a + "</p>" +
+      "</details>"
+    );
+  }).join("");
+
   container.classList.remove("widget-placeholder");
-  container.style.cssText = "border:1px solid var(--border);background:#fffdf8;padding:0.8rem 1rem 1rem;border-radius:3px;margin:0.75rem 0";
+  container.classList.add("zip-archive-widget");
 
   var fileRowsHtml = FILES.map(function (f, i) {
     return (
-      '<div id="zip-file-' + i + '" class="zip-file-row" style="' +
-        "display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:3px;" +
-        "border-bottom:1px solid var(--border);font-family:monospace;font-size:13px" +
-      '">' +
-        '<span class="zip-file-status" style="width:18px;text-align:center;font-size:12px;color:var(--muted)">' + pendingMark + '</span>' +
-        '<span style="font-size:14px;flex-shrink:0">\uD83D\uDCC4</span>' +
-        '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + f.name + '</span>' +
-        '<span style="font-size:12px;color:var(--muted);flex-shrink:0">' + formatBytes(f.bytes) + '</span>' +
-      '</div>'
+      '<div id="zip-file-' + i + '" class="zip-file-row">' +
+        '<span class="zip-file-status">' + pendingMark + "</span>" +
+        '<span class="zip-file-icon" aria-hidden="true">\uD83D\uDCC4</span>' +
+        '<span class="zip-file-name">' + f.name + "</span>" +
+        '<span class="zip-file-size">' + formatBytes(f.bytes) + "</span>" +
+      "</div>"
     );
   }).join("");
 
   var treeRowsHtml = FILES.map(function (f, i) {
     var branch = i < FILES.length - 1 ? "\u251C\u2500" : "\u2514\u2500";
     return (
-      '<div id="zip-inner-' + i + '" class="zip-inner-row" style="' +
-        "padding:2px 4px;display:flex;align-items:center;gap:6px;font-size:13px;border-radius:2px" +
-      '">' +
-        '<span class="zip-inner-status" style="width:14px;text-align:center;font-size:11px;color:var(--muted)"></span>' +
-        '<span style="color:var(--muted)">' + branch + '</span>' +
-        '<span style="color:#555">' + f.name + '</span>' +
-      '</div>'
+      '<div id="zip-inner-' + i + '" class="zip-inner-row">' +
+        '<span class="zip-inner-status"></span>' +
+        '<span class="zip-inner-branch">' + branch + "</span>" +
+        '<span class="zip-inner-name">' + f.name + "</span>" +
+      "</div>"
     );
   }).join("");
 
   container.innerHTML =
-    '<div style="text-align:center;margin-bottom:14px">' +
-      '<button id="zip-sim-btn" type="button" style="' +
-        "border:1px solid var(--accent);background:var(--accent);color:#fff;" +
-        "padding:0.45rem 1.2rem;border-radius:3px;cursor:pointer;" +
-        "font-family:'Source Sans 3','Gill Sans',sans-serif;font-size:14px;font-weight:600" +
-      '">' + t.simulateButton + '</button>' +
-    '</div>' +
+    '<div class="zip-sim-controls">' +
+      '<button id="zip-sim-btn" type="button" class="zip-sim-btn">' + t.simulateButton + "</button>" +
+    "</div>" +
 
-    '<div id="zip-columns" style="display:grid;grid-template-columns:1fr 1fr;gap:18px">' +
+    '<div id="zip-columns" class="zip-columns">' +
 
-      '<div style="border:1px solid var(--border);border-radius:4px;overflow:hidden;background:#fff;display:flex;flex-direction:column">' +
-        '<div style="padding:10px 12px 8px;background:var(--bg);border-bottom:1px solid var(--border)">' +
-          '<div style="font-weight:600;font-family:sans-serif;font-size:14px;margin-bottom:2px">' + t.scenarioA + '</div>' +
-          '<div style="font-size:12px;color:var(--muted)">' + t.scenarioADesc + '</div>' +
-        '</div>' +
-        '<div style="flex:1">' + fileRowsHtml + '</div>' +
-        '<div id="zip-stats-a" style="padding:10px 12px;background:var(--bg);border-top:1px solid var(--border);font-size:12px;line-height:1.7">' +
-          '<div><span style="color:var(--muted)">' + t.filesToSend + '</span> <strong id="zip-stat-a-files">10</strong></div>' +
-          '<div><span style="color:var(--muted)">' + t.transfers + '</span> <strong id="zip-stat-a-transfers">10</strong></div>' +
-          '<div style="margin-top:4px"><span style="color:var(--muted)">' + t.totalSize + '</span> <strong id="zip-stat-a-size">' + formatBytes(totalBytes) + '</strong></div>' +
-        '</div>' +
-      '</div>' +
+      '<div class="zip-panel">' +
+        '<div class="zip-panel-head">' +
+          '<div class="zip-panel-title">' + t.scenarioA + "</div>" +
+          '<div class="zip-panel-desc">' + t.scenarioADesc + "</div>" +
+        "</div>" +
+        '<div class="zip-process" id="zip-process-a">' +
+          '<span class="zip-process-label">' + processIdle + "</span>" +
+        "</div>" +
+        '<div class="zip-panel-body">' + fileRowsHtml + "</div>" +
+        '<div id="zip-stats-a" class="zip-stats">' +
+          '<div><span class="zip-stat-label">' + t.transfers + "</span> <strong id=\"zip-stat-a-transfers\">10</strong></div>" +
+          '<div class="zip-stat-size"><span class="zip-stat-label">' + t.totalSize + "</span> <strong id=\"zip-stat-a-size\">" + formatBytes(totalBytes) + "</strong></div>" +
+        "</div>" +
+      "</div>" +
 
-      '<div style="border:1px solid var(--border);border-radius:4px;overflow:hidden;background:#fff;display:flex;flex-direction:column">' +
-        '<div style="padding:10px 12px 8px;background:var(--bg);border-bottom:1px solid var(--border)">' +
-          '<div style="font-weight:600;font-family:sans-serif;font-size:14px;margin-bottom:2px">' + t.scenarioB + '</div>' +
-          '<div style="font-size:12px;color:var(--muted)">' + t.scenarioBDesc + '</div>' +
-        '</div>' +
-        '<div style="padding:10px 12px;flex:1">' +
-          '<div id="zip-archive-header" style="' +
-            "display:flex;justify-content:space-between;align-items:center;padding:8px 10px;" +
-            "background:#f5f2f0;border-radius:3px;border:1px solid var(--border);margin-bottom:8px" +
-          '">' +
-            '<div style="display:flex;align-items:center;gap:8px">' +
-              '<span id="zip-archive-status" style="width:18px;text-align:center;font-size:12px;color:var(--muted)">' + pendingMark + '</span>' +
-              '<span style="font-size:16px">\uD83D\uDCE6</span>' +
-              '<span style="font-weight:600;font-family:monospace;font-size:14px">' + t.archiveName + '</span>' +
-            '</div>' +
-            '<span id="zip-archive-size" style="font-size:12px;color:var(--muted);font-family:monospace">' + formatBytes(archiveBytes) + '</span>' +
-          '</div>' +
-          '<div style="padding-left:8px;border-left:1px dashed var(--border);margin-left:14px;font-family:monospace">' +
-            treeRowsHtml +
-          '</div>' +
-        '</div>' +
-        '<div id="zip-stats-b" style="padding:10px 12px;background:var(--bg);border-top:1px solid var(--border);font-size:12px;line-height:1.7">' +
-          '<div><span style="color:var(--muted)">' + t.filesToSend + '</span> <strong id="zip-stat-b-files">1</strong></div>' +
-          '<div><span style="color:var(--muted)">' + t.transfers + '</span> <strong id="zip-stat-b-transfers">1</strong></div>' +
-          '<div style="margin-top:4px"><span style="color:var(--muted)">' + t.totalSize + '</span> <strong id="zip-stat-b-size">' + formatBytes(archiveBytes) + '</strong></div>' +
-        '</div>' +
-      '</div>' +
+      '<div class="zip-panel">' +
+        '<div class="zip-panel-head">' +
+          '<div class="zip-panel-title">' + t.scenarioB + "</div>" +
+          '<div class="zip-panel-desc">' + t.scenarioBDesc + "</div>" +
+        "</div>" +
+        '<div class="zip-process" id="zip-process-b">' +
+          '<span class="zip-process-label">' + processIdle + "</span>" +
+        "</div>" +
+        '<div class="zip-panel-body zip-panel-body--archive">' +
+          '<div id="zip-archive-header" class="zip-archive-header">' +
+            '<div class="zip-archive-header-main">' +
+              '<span id="zip-archive-status" class="zip-file-status">' + pendingMark + "</span>" +
+              '<span class="zip-archive-icon" aria-hidden="true">\uD83D\uDCE6</span>' +
+              '<span class="zip-archive-name">' + t.archiveName + "</span>" +
+            "</div>" +
+            '<span id="zip-archive-size" class="zip-file-size">' + formatBytes(archiveBytes) + "</span>" +
+          "</div>" +
+          '<div class="zip-tree">' + treeRowsHtml + "</div>" +
+        "</div>" +
+        '<div id="zip-stats-b" class="zip-stats">' +
+          '<div><span class="zip-stat-label">' + t.transfers + "</span> <strong id=\"zip-stat-b-transfers\">1</strong></div>" +
+          '<div class="zip-stat-size"><span class="zip-stat-label">' + t.totalSize + "</span> <strong id=\"zip-stat-b-size\">" + formatBytes(archiveBytes) + "</strong></div>" +
+        "</div>" +
+      "</div>" +
 
-    '</div>' +
+    "</div>" +
 
-    '<div style="margin-top:14px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:3px;font-size:13px;color:var(--muted);font-style:italic;line-height:1.6">' +
-      hintText +
-    '</div>';
+    '<details class="format-info-details zip-faq">' +
+      "<summary>" + (t.faqSummary || "Hinweise") + "</summary>" +
+      '<div class="zip-faq-list">' + faqHtml + "</div>" +
+    "</details>";
 
   var simBtn = document.getElementById("zip-sim-btn");
   var archiveHeader = document.getElementById("zip-archive-header");
   var archiveStatus = document.getElementById("zip-archive-status");
   var statsA = document.getElementById("zip-stats-a");
   var statsB = document.getElementById("zip-stats-b");
+  var processA = document.getElementById("zip-process-a");
+  var processB = document.getElementById("zip-process-b");
   var animating = false;
   var timers = [];
 
@@ -140,79 +160,109 @@ function setupZipArchiveWidget(source) {
     timers = [];
   }
 
+  function setProcess(el, text, active) {
+    el.innerHTML = '<span class="zip-process-label' + (active ? " zip-process-label--active" : "") + '">' + text + "</span>";
+  }
+
   function resetVisuals() {
     for (var i = 0; i < FILES.length; i++) {
       var row = document.getElementById("zip-file-" + i);
       var status = row.querySelector(".zip-file-status");
-      row.style.background = "";
+      row.classList.remove("zip-row--done", "zip-row--active");
       status.textContent = pendingMark;
-      status.style.color = "var(--muted)";
+      status.classList.remove("zip-status--done");
 
       var inner = document.getElementById("zip-inner-" + i);
       var innerStatus = inner.querySelector(".zip-inner-status");
-      inner.style.background = "";
+      inner.classList.remove("zip-row--done");
       innerStatus.textContent = "";
+      innerStatus.classList.remove("zip-status--done");
     }
-    archiveHeader.style.background = "#f5f2f0";
-    archiveHeader.style.borderColor = "var(--border)";
+    archiveHeader.classList.remove("zip-archive-header--done", "zip-archive-header--active");
     archiveStatus.textContent = pendingMark;
-    archiveStatus.style.color = "var(--muted)";
-    statsA.style.outline = "";
-    statsB.style.outline = "";
-  }
-
-  function highlightStats(el) {
-    el.style.outline = "2px solid var(--accent)";
-    el.style.outlineOffset = "2px";
+    archiveStatus.classList.remove("zip-status--done");
+    statsA.classList.remove("zip-stats--highlight");
+    statsB.classList.remove("zip-stats--highlight");
+    setProcess(processA, processIdle, false);
+    setProcess(processB, processIdle, false);
   }
 
   function runSimulation() {
     if (animating) { return; }
     animating = true;
     simBtn.disabled = true;
-    simBtn.style.opacity = "0.65";
-    simBtn.style.cursor = "wait";
+    simBtn.classList.add("zip-sim-btn--busy");
     clearTimers();
     resetVisuals();
 
     var delay = 0;
-    var stepMs = 300;
-    var archiveDoneIndex = FILES.findIndex(function (f) { return f.name === "notiz_06.txt"; });
-    if (archiveDoneIndex < 0) { archiveDoneIndex = 5; }
-    var archiveDoneMs = archiveDoneIndex * stepMs;
+    var fileCycleMs = PROCESS_STEPS.length * STEP_MS;
+    var archiveTargetMs = ARCHIVE_DONE_AFTER_FILES * fileCycleMs;
+    var shortStepsBeforeCopy = COPY_STEP_INDEX;
+    var shortStepsAfterCopy = PROCESS_STEPS.length - COPY_STEP_INDEX - 1;
+    var copyDurationMs = Math.max(
+      STEP_MS,
+      archiveTargetMs - (shortStepsBeforeCopy + shortStepsAfterCopy) * STEP_MS
+    );
 
-    FILES.forEach(function (_f, i) {
+    // Scenario B: kurze Schritte normal, "Daten kopieren" stark gestreckt
+    var bTime = 0;
+    PROCESS_STEPS.forEach(function (stepLabel, stepIdx) {
       timers.push(setTimeout(function () {
-        var row = document.getElementById("zip-file-" + i);
-        var status = row.querySelector(".zip-file-status");
-        row.style.background = "rgba(63,143,75,0.08)";
-        status.textContent = "\u2713";
-        status.style.color = "#3f8f4b";
-      }, delay));
-      delay += stepMs;
+        setProcess(processB, stepLabel, true);
+        if (stepIdx === 0) {
+          archiveHeader.classList.add("zip-archive-header--active");
+        }
+      }, bTime));
+      bTime += stepIdx === COPY_STEP_INDEX ? copyDurationMs : STEP_MS;
     });
 
+    var archiveDoneMs = bTime;
     timers.push(setTimeout(function () {
-      archiveHeader.style.background = "rgba(28,93,140,0.1)";
-      archiveHeader.style.borderColor = "var(--accent)";
+      archiveHeader.classList.remove("zip-archive-header--active");
+      archiveHeader.classList.add("zip-archive-header--done");
       archiveStatus.textContent = "\u2713";
-      archiveStatus.style.color = "#3f8f4b";
+      archiveStatus.classList.add("zip-status--done");
       for (var j = 0; j < FILES.length; j++) {
         var inner = document.getElementById("zip-inner-" + j);
         var innerStatus = inner.querySelector(".zip-inner-status");
-        inner.style.background = "rgba(63,143,75,0.08)";
+        inner.classList.add("zip-row--done");
         innerStatus.textContent = "\u2713";
-        innerStatus.style.color = "#3f8f4b";
+        innerStatus.classList.add("zip-status--done");
       }
+      setProcess(processB, processDone, false);
     }, archiveDoneMs));
 
+    // Scenario A: process sequence for each file
+    FILES.forEach(function (_f, i) {
+      var fileStart = delay;
+      PROCESS_STEPS.forEach(function (stepLabel, stepIdx) {
+        timers.push(setTimeout(function () {
+          var row = document.getElementById("zip-file-" + i);
+          row.classList.add("zip-row--active");
+          setProcess(processA, stepLabel, true);
+        }, fileStart + stepIdx * STEP_MS));
+      });
+
+      timers.push(setTimeout(function () {
+        var row = document.getElementById("zip-file-" + i);
+        var status = row.querySelector(".zip-file-status");
+        row.classList.remove("zip-row--active");
+        row.classList.add("zip-row--done");
+        status.textContent = "\u2713";
+        status.classList.add("zip-status--done");
+      }, fileStart + fileCycleMs));
+
+      delay += fileCycleMs;
+    });
+
     timers.push(setTimeout(function () {
-      highlightStats(statsA);
-      highlightStats(statsB);
+      setProcess(processA, processDone, false);
+      statsA.classList.add("zip-stats--highlight");
+      statsB.classList.add("zip-stats--highlight");
       animating = false;
       simBtn.disabled = false;
-      simBtn.style.opacity = "1";
-      simBtn.style.cursor = "pointer";
+      simBtn.classList.remove("zip-sim-btn--busy");
       simBtn.textContent = t.simulateAgain;
     }, delay + 200));
   }
@@ -228,14 +278,11 @@ function setupZipArchiveWidget(source) {
 
   simBtn.addEventListener("click", runSimulation);
 
-  if (window.matchMedia("(max-width: 640px)").matches) {
-    var cols = document.getElementById("zip-columns");
-    cols.style.gridTemplateColumns = "1fr";
-  }
-
-  window.addEventListener("resize", function () {
+  function updateColumns() {
     var cols = document.getElementById("zip-columns");
     if (!cols) { return; }
-    cols.style.gridTemplateColumns = window.matchMedia("(max-width: 640px)").matches ? "1fr" : "1fr 1fr";
-  });
+    cols.classList.toggle("zip-columns--stacked", window.matchMedia("(max-width: 640px)").matches);
+  }
+  updateColumns();
+  window.addEventListener("resize", updateColumns);
 }

@@ -75,6 +75,7 @@
     const saving = origUnits - rleUnits;
     const hasLongRun = /(.)\1{9,}/.test(text);
     return {
+      len: origUnits,
       saving: saving,
       savingPct: origUnits > 0 ? (saving / origUnits) * 100 : 0,
       hasLongRun: hasLongRun
@@ -135,9 +136,9 @@
   registerWidgetChallenges("widget-s1-rle", {
     stickyComplete: true,
     challenges: [
-      { prompt: t.challenges.save50, test: function(m) { return m.savingPct >= 50; } },
-      { prompt: t.challenges.negativeSaving, test: function(m) { return m.saving < 0; } },
-      { prompt: t.challenges.longRun, test: function(m) { return m.hasLongRun; } }
+      { prompt: t.challenges.save50, test: function(m) { return m.len >= 5 && m.savingPct >= 50; } },
+      { prompt: t.challenges.negativeSaving, test: function(m) { return m.len >= 5 && m.saving < 0; } },
+      { prompt: t.challenges.longRun, test: function(m) { return m.len >= 5 && m.hasLongRun; } }
     ],
     getMetrics: getMetrics,
     onReset: resetWidget

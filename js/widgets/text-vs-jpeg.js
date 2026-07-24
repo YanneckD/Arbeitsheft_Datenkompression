@@ -83,10 +83,27 @@ function setupTextVsJpegWidget(source) {
   const ZOOM_MIN = 1;
   const ZOOM_MAX = 4;
   const MAX_DISPLAY_HEIGHT = 320;
+  let zoomRetryRaf = 0;
+  let zoomRetryCount = 0;
+  const ZOOM_RETRY_MAX = 30;
 
   function applyZoom() {
     if (!imgW || !viewport) { return; }
-    const wrapW = viewport.clientWidth || imageWrap.clientWidth;
+    const wrapW = viewport.clientWidth || (imageWrap && imageWrap.clientWidth) || 0;
+    if (wrapW <= 0) {
+      if (zoomRetryCount < ZOOM_RETRY_MAX) {
+        zoomRetryCount += 1;
+        if (zoomRetryRaf) {
+          window.cancelAnimationFrame(zoomRetryRaf);
+        }
+        zoomRetryRaf = window.requestAnimationFrame(function() {
+          zoomRetryRaf = 0;
+          applyZoom();
+        });
+      }
+      return;
+    }
+    zoomRetryCount = 0;
     const aspect = imgH / imgW;
     let baseW = wrapW;
     let baseH = baseW * aspect;

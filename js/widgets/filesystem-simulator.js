@@ -28,10 +28,13 @@ function setupFilesystemSimulator(source) {
     return {
       id: def.id,
       layout: def.layout,
+      tutorial: !!def.tutorial,
       label: (t.scenarios && t.scenarios[def.id]) || def.id
     };
   });
 
+  var deltaTimers = {};
+  var pendingDelta = {};
   function cloneApplied(source) {
     var a = source || {};
     return { convert: !!a.convert, lossless: !!a.lossless, lossy: !!a.lossy };
@@ -539,15 +542,27 @@ function setupFilesystemSimulator(source) {
       archiveSelection: [],
       archiveCounter: 1,
       archiveError: null,
-      won: false
+      won: false,
+      tutorial: {
+        hovered: false,
+        toolChosen: false,
+        fileClicked: false,
+        statusChecked: false
+      }
     };
   }
 
-  function hasAnyMetadata(files) {
+  function hasProblematicMetadata(files) {
+    if (typeof s4HasProblematicMeta === "function") {
+      return files.some(function (f) { return s4HasProblematicMeta(f); });
+    }
     return files.some(function (f) { return f.metadata && f.metadata.length > 0; });
   }
 
-  function fileHasMetadata(file) {
+  function fileHasProblematicMetadata(file) {
+    if (typeof s4HasProblematicMeta === "function") {
+      return s4HasProblematicMeta(file);
+    }
     return !!(file && file.metadata && file.metadata.length > 0);
   }
 
@@ -558,7 +573,101 @@ function setupFilesystemSimulator(source) {
   function isScenarioComplete(state) {
     return state.steps > 0 &&
       fitsCard(state.files) &&
-      !hasAnyMetadata(state.files);
+      !hasProblematicMetadata(state.files);
+  }
+
+  function setPendingDelta(scenarioId, beforeBytes, afterBytes, clearedProblemMeta) {
+    var saved = beforeBytes - afterBytes;
+    var msg;
+    var kind;
+    if (saved > 0) {
+      msg = formatLang(t.deltaSaved || "−{size}", { size: formatSize(saved) });
+      kind = "saved";
+    } else if (clearedProblemMeta) {
+      msg = t.deltaMetaOnly || "Problematische Metadaten entfernt";
+      kind = "meta";
+    } else if (saved === 0) {
+      msg = t.deltaUnchanged || "Keine Größenänderung";
+      kind = "neutral";
+    } else {
+      msg = "+" + formatSize(-saved);
+      kind = "grow";
+    }
+    pendingDelta[scenarioId] = { msg: msg, kind: kind };
+  }
+
+  function scheduleDeltaFade(scenarioId) {
+    if (deltaTimers[scenarioId]) {
+      clearTimeout(deltaTimers[scenarioId]);
+    }
+    deltaTimers[scenarioId] = setTimeout(function () {
+      var el = document.querySelector('.fss-panel[data-scenario="' + scenarioId + '"] .fss-delta');
+      if (el) {
+        el.classList.add("fss-delta--fade");
+      }
+      pendingDelta[scenarioId] = null;
+      deltaTimers[scenarioId] = null;
+    }, 2800);
+  }
+
+  function tutorialHtml(state) {
+    if (!state || state.id !== "s0") { return ""; }
+    var steps = t.tutorialSteps || {};
+    var tut = state.tutorial || {};
+    function item(done, label) {
+      return (
+        '<li class="fss-tutorial-step' + (done ? " fss-tutorial-step--done" : "") + '">' +
+          '<span class="fss-tutorial-check" aria-hidden="true">' + (done ? "✓" : "") + "</span>" +
+          escHtml(label || "") +
+        "</li>"
+      );
+    }
+    return (
+      '<div class="fss-tutorial" role="region" aria-label="' + escHtml(t.tutorialTitle || "Tutorial") + '">' +
+        "<strong>" + escHtml(t.tutorialTitle || "Tutorial") + "</strong>" +
+        "<p>" + escHtml(t.tutorialIntro || "") + "</p>" +
+        "<ol>" +
+          item(tut.hovered, steps.hover) +
+          item(tut.toolChosen, steps.tool) +
+          item(tut.fileClicked, steps.click) +
+          item(tut.statusChecked, steps.status) +
+        "</ol>" +
+      "</div>"
+    );
+  }
+
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function markTutorialStatus(state) {
+    if (!state || !state.tutorial) { return; }
+    if (state.tutorial.fileClicked || state.steps > 0) {
+      state.tutorial.statusChecked = true;
+    }
+  }
+
+  function updateTutorialChecklist(host, state) {
+    if (!host || !state || !state.tutorial || state.id !== "s0") { return; }
+    var steps = host.querySelectorAll(".fss-tutorial-step");
+    var flags = [
+      state.tutorial.hovered,
+      state.tutorial.toolChosen,
+      state.tutorial.fileClicked,
+      state.tutorial.statusChecked
+    ];
+    steps.forEach(function (li, i) {
+      var done = !!flags[i];
+      li.classList.toggle("fss-tutorial-step--done", done);
+      var check = li.querySelector(".fss-tutorial-check");
+      if (check) {
+        check.textContent = done ? "✓" : "";
+      }
+    });
   }
 
   function toolButtonsHtml(state) {
@@ -581,27 +690,30 @@ function setupFilesystemSimulator(source) {
     var state = states[scenarioDef.id];
     var used = sumBytes(state.files);
     var diff = used - CARD_BYTES;
-    var statsHtml;
-    if (diff > 0) {
-      statsHtml = '<span class="fss-over">' + formatLang(t.statsOver, { size: formatGb(diff) }) + '</span>';
-    } else {
-      statsHtml = '<span class="fss-ok">' + formatLang(t.statsFree, { size: formatGb(-diff) }) + '</span>';
-    }
+    var overCapacity = diff > 0;
+    var hasProblemMeta = hasProblematicMetadata(state.files);
+    var statsClass = "fss-stats-row" +
+      (overCapacity ? " fss-stats-row--over" : " fss-stats-row--ok") +
+      (hasProblemMeta ? " fss-stats-row--meta-warn" : "");
 
-    var metaHtml = hasAnyMetadata(state.files)
-      ? '<span class="fss-meta-warn">' + t.metadataYes + '</span>'
-      : '<span class="fss-meta-ok">' + t.metadataNo + '</span>';
+    var capBadge = overCapacity
+      ? '<span class="fss-stat-badge fss-stat-badge--over">' + formatLang(t.statsOver, { size: formatGb(diff) }) + "</span>"
+      : '<span class="fss-stat-badge fss-stat-badge--ok">' + formatLang(t.statsFree, { size: formatGb(-diff) }) + "</span>";
+
+    var metaBadge = hasProblemMeta
+      ? '<span class="fss-stat-badge fss-stat-badge--meta-warn">' + t.metadataLabel + " " + t.metadataYes + "</span>"
+      : '<span class="fss-stat-badge fss-stat-badge--meta-ok">' + t.metadataLabel + " " + t.metadataNo + "</span>";
 
     var selection = new Set(state.archiveSelection);
     var archiveBar = "";
     if (state.tool === "archive") {
       archiveBar =
         '<div class="fss-archive-bar">' +
-          '<span>' + formatLang(t.archiveSelected, { count: state.archiveSelection.length }) + '</span>' +
-          '<button type="button" class="fss-archive-btn"' + (state.archiveSelection.length < 2 ? " disabled" : "") + '>' +
+          '<span>' + formatLang(t.archiveSelected, { count: state.archiveSelection.length }) + "</span>" +
+          '<button type="button" class="fss-archive-btn"' + (state.archiveSelection.length < 2 ? " disabled" : "") + ">" +
             t.archiveCreate +
-          '</button>' +
-        '</div>';
+          "</button>" +
+        "</div>";
     }
 
     var resultHtml = "";
@@ -611,7 +723,7 @@ function setupFilesystemSimulator(source) {
       resultHtml =
         '<div class="fss-result fss-result--success" role="status">' +
           formatLang(t.success, { steps: state.steps }) +
-        '</div>';
+        "</div>";
     }
 
     var archiveErrorHtml = "";
@@ -619,36 +731,47 @@ function setupFilesystemSimulator(source) {
       archiveErrorHtml =
         '<div class="fss-result fss-result--error fss-result--below-treemap" role="alert">' +
           state.archiveError +
-        '</div>';
+        "</div>";
+    }
+
+    var delta = pendingDelta[scenarioDef.id];
+    var deltaHtml = "";
+    if (delta && delta.msg) {
+      deltaHtml =
+        '<div class="fss-delta fss-delta--' + delta.kind + '" role="status">' +
+          escHtml(delta.msg) +
+        "</div>";
     }
 
     return (
-      '<div class="fss-panel' + (succeeded ? ' fss-panel--success' : '') + '" data-scenario="' + scenarioDef.id + '">' +
+      '<div class="fss-panel' + (succeeded ? " fss-panel--success" : "") + '" data-scenario="' + scenarioDef.id + '">' +
+        tutorialHtml(state) +
         '<div class="fss-toolbar">' +
-          '<div class="fss-tools">' + toolButtonsHtml(state) + '</div>' +
+          '<div class="fss-tools">' + toolButtonsHtml(state) + "</div>" +
           '<p class="fss-tool-hint">' + (
             state.tool && t.tools && t.tools[state.tool] && t.tools[state.tool].hint
               ? t.tools[state.tool].hint
               : (t.noToolHint || "")
-          ) + '</p>' +
-        '</div>' +
+          ) + "</p>" +
+        "</div>" +
         archiveBar +
-        '<div class="fss-stats-row">' +
-          '<span>' + t.statsUsed + ' <strong>' + formatGb(used) + '</strong> (' +
-            countFiles(state.files).toLocaleString("de-DE") + ' ' + t.statsFiles + ')</span>' +
-          '<span>' + statsHtml + '</span>' +
-          '<span>' + formatLang(t.steps, { count: state.steps }) + '</span>' +
-          '<span>' + t.metadataLabel + ' ' + metaHtml + '</span>' +
-        '</div>' +
+        '<div class="' + statsClass + '">' +
+          '<span class="fss-stat-badge">' + t.statsUsed + " <strong>" + formatGb(used) + "</strong> (" +
+            countFiles(state.files).toLocaleString("de-DE") + " " + t.statsFiles + ")</span>" +
+          capBadge +
+          '<span class="fss-stat-badge">' + formatLang(t.steps, { count: state.steps }) + "</span>" +
+          metaBadge +
+        "</div>" +
+        deltaHtml +
         resultHtml +
         '<div class="fss-treemap" id="fss-treemap-' + scenarioDef.id + '">' +
           renderTreemap(state.files, state.layout, selection) +
-        '</div>' +
+        "</div>" +
         archiveErrorHtml +
         '<div class="fss-actions">' +
-          '<button type="button" class="fss-reset">' + t.reset + '</button>' +
-        '</div>' +
-      '</div>'
+          '<button type="button" class="fss-reset">' + t.reset + "</button>" +
+        "</div>" +
+      "</div>"
     );
   }
 
@@ -687,6 +810,9 @@ function setupFilesystemSimulator(source) {
     if (!host) { return; }
     host.innerHTML = renderPanel(def);
     updateSuccessChrome(host, def);
+    if (pendingDelta[def.id]) {
+      scheduleDeltaFade(def.id);
+    }
     requestAnimationFrame(function () {
       refreshTooltipUnderPointer(host, def.id);
     });
@@ -695,10 +821,11 @@ function setupFilesystemSimulator(source) {
   function applyArchive(state, indices) {
     var selected = indices.map(function (i) { return state.files[i]; }).filter(Boolean);
     if (selected.length < 2) { return false; }
-    if (selected.some(fileHasMetadata)) {
+    if (selected.some(fileHasProblematicMetadata)) {
       state.archiveError = t.archiveMetadataError;
       return false;
     }
+    var beforeBytes = sumBytes(state.files);
     var sorted = indices.slice().sort(function (a, b) { return b - a; });
     var archived = {
       name: buildArchiveName(selected),
@@ -715,6 +842,13 @@ function setupFilesystemSimulator(source) {
     state.steps += 1;
     state.archiveSelection = [];
     state.archiveError = null;
+    markTutorialStatus(state);
+    setPendingDelta(
+      state.id,
+      beforeBytes,
+      sumBytes(state.files),
+      false
+    );
     return true;
   }
 
@@ -733,6 +867,9 @@ function setupFilesystemSimulator(source) {
         state.tool = toolBtn.getAttribute("data-tool");
         state.archiveSelection = [];
         state.archiveError = null;
+        if (state.tutorial) {
+          state.tutorial.toolChosen = true;
+        }
         refreshPanel(def);
         return;
       }
@@ -749,6 +886,11 @@ function setupFilesystemSimulator(source) {
       var resetBtn = e.target.closest(".fss-reset");
       if (resetBtn && host.contains(resetBtn)) {
         hideFssTooltip();
+        pendingDelta[def.id] = null;
+        if (deltaTimers[def.id]) {
+          clearTimeout(deltaTimers[def.id]);
+          deltaTimers[def.id] = null;
+        }
         states[def.id] = createState(def.id, def.layout);
         refreshPanel(def);
         return;
@@ -768,17 +910,23 @@ function setupFilesystemSimulator(source) {
         if (pos >= 0) {
           state.archiveSelection.splice(pos, 1);
           state.archiveError = null;
-        } else if (fileHasMetadata(file)) {
+        } else if (fileHasProblematicMetadata(file)) {
           state.archiveError = t.archiveMetadataError;
         } else {
           state.archiveSelection.push(idx);
           state.archiveError = null;
+        }
+        if (state.tutorial) {
+          state.tutorial.fileClicked = true;
+          markTutorialStatus(state);
         }
         refreshPanel(def);
         return;
       }
 
       hideFssTooltip();
+      var beforeBytes = sumBytes(state.files);
+      var fileHadProblem = fileHasProblematicMetadata(file);
       state.steps += 1;
       var updated = null;
       if (state.tool === "convert") {
@@ -790,13 +938,33 @@ function setupFilesystemSimulator(source) {
       }
       if (updated) {
         state.files[idx] = updated;
+        var clearedProblem = fileHadProblem && !fileHasProblematicMetadata(updated);
+        setPendingDelta(
+          state.id,
+          beforeBytes,
+          sumBytes(state.files),
+          clearedProblem
+        );
+      } else {
+        pendingDelta[state.id] = null;
+      }
+      if (state.tutorial) {
+        state.tutorial.fileClicked = true;
+        markTutorialStatus(state);
       }
       refreshPanel(def);
     });
 
     host.addEventListener("mouseover", function (e) {
       var seg = e.target.closest(".fss-segment");
-      if (!seg || !host.contains(seg)) { return; }
+      if (!seg || !host.contains(seg)) {
+        if (activeSeg) {
+          activeSeg.style.filter = "";
+          activeSeg = null;
+          hideFssTooltip();
+        }
+        return;
+      }
       if (seg === activeSeg) {
         positionFssTooltip(e);
         return;
@@ -809,6 +977,11 @@ function setupFilesystemSimulator(source) {
       if (!file) { return; }
       seg.style.filter = "brightness(1.12)";
       showFssTooltip(e, file);
+      var state = states[def.id];
+      if (state && state.tutorial && !state.tutorial.hovered) {
+        state.tutorial.hovered = true;
+        updateTutorialChecklist(host, state);
+      }
     });
 
     host.addEventListener("mouseleave", function (e) {
@@ -822,9 +995,19 @@ function setupFilesystemSimulator(source) {
     });
 
     host.addEventListener("mousemove", function (e) {
-      if (activeSeg && host.contains(activeSeg)) {
-        positionFssTooltip(e);
+      var seg = e.target.closest(".fss-segment");
+      if (!seg || !host.contains(seg)) {
+        if (activeSeg) {
+          activeSeg.style.filter = "";
+          activeSeg = null;
+          hideFssTooltip();
+        }
+        return;
       }
+      if (seg !== activeSeg) {
+        return;
+      }
+      positionFssTooltip(e);
     });
 
     host.addEventListener("focusin", function (e) {
@@ -833,6 +1016,11 @@ function setupFilesystemSimulator(source) {
       var file = fileForSegment(seg, def.id);
       if (!file) { return; }
       showFssTooltip({ clientX: pointer.x, clientY: pointer.y }, file);
+      var state = states[def.id];
+      if (state && state.tutorial && !state.tutorial.hovered) {
+        state.tutorial.hovered = true;
+        updateTutorialChecklist(host, state);
+      }
     });
 
     host.addEventListener("focusout", function (e) {

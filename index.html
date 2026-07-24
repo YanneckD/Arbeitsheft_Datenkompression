@@ -65,7 +65,7 @@
 
       <section class="panel" id="section0" hidden>
         <h2 data-lang="section0.heading"></h2>
-        <p class="section-frame" data-lang="section0.sectionOpener"></p>
+        <p class="section-frame task-intro" data-lang="section0.sectionOpener"></p>
         <div class="section-task">
           <div class="narrative-block">
             <span class="narrative-block-icon" aria-hidden="true">📖</span>
@@ -165,7 +165,7 @@
 
       <section class="panel" id="lossless" hidden>
         <h2 data-lang="lossless.heading"></h2>
-        <p class="section-frame" data-lang="lossless.sectionOpener"></p>
+        <p class="section-frame task-intro" data-lang="lossless.sectionOpener"></p>
 
         <p class="rle-einstieg-pattern" data-lang="lossless.einstiegPattern"></p>
 
@@ -188,7 +188,16 @@
 
         <div class="section-task">
           <p class="task-title" data-lang="lossless.task2.title"></p>
-          <p data-lang="lossless.task2.intro"></p>
+          <p class="task-intro" data-lang="lossless.task2.intro"></p>
+          <div class="task-challenges">
+            <p class="task-challenges-title" data-lang="common.challengeTitle"></p>
+            <p data-lang="lossless.task2.challengesIntro"></p>
+            <ul>
+              <li data-lang="lossless.task2.challenge1"></li>
+              <li data-lang="lossless.task2.challenge2"></li>
+              <li data-lang="lossless.task2.challenge3"></li>
+            </ul>
+          </div>
           <div class="widget-shell">
             <div class="widget-shell-body">
               <div class="widget-placeholder" id="widget-s1-rle"
@@ -199,12 +208,15 @@
           <textarea class="assumption-textarea" id="answer-s1-2a"
                     data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
           <p data-lang="lossless.task2.b.text"></p>
-          <textarea class="assumption-textarea" id="answer-s1-2b"
+          <textarea class="assumption-textarea assumption-textarea--code" id="answer-s1-2b"
+                    data-answer-skeleton="lossless.task2.b.skeleton"
+                    autocomplete="off" spellcheck="false"
                     data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
         </div>
 
         <div class="section-task">
           <p class="task-title" data-lang="lossless.task3.title"></p>
+          <p class="task-intro" data-lang="lossless.task3.intro"></p>
           <div class="widget-placeholder" id="widget-s1-rle-text"></div>
           <p data-lang="lossless.task3.a.text"></p>
           <textarea class="assumption-textarea" id="answer-s1-3a"
@@ -218,13 +230,15 @@
                data-lang="lossless.task3.widgetPlaceholder"></div>
           <hr class="widget-divider">
           <p data-lang="lossless.task3.c.text"></p>
-          <textarea class="assumption-textarea" id="answer-s1-3c"
+          <textarea class="assumption-textarea assumption-textarea--code" id="answer-s1-3c"
+                    data-answer-skeleton="lossless.task3.c.skeleton"
+                    autocomplete="off" spellcheck="false"
                     data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
         </div>
 
         <div class="section-task">
           <p class="task-title" data-lang="lossless.task4.title"></p>
-          <p data-lang="lossless.task4.intro"></p>
+          <p class="task-intro" data-lang="lossless.task4.intro"></p>
           <blockquote class="task-quote" data-lang="lossless.task4.quotePlain"></blockquote>
           <blockquote class="task-quote" data-lang="lossless.task4.quoteEncrypted"></blockquote>
           <p data-lang="lossless.task4.a.text"></p>
@@ -234,7 +248,7 @@
 
         <div class="section-task">
           <p class="task-title" data-lang="lossless.closing.title"></p>
-          <p data-lang="lossless.closing.intro"></p>
+          <p class="task-intro" data-lang="lossless.closing.intro"></p>
           <p data-lang="lossless.closing.text"></p>
           <div class="widget-shell">
             <div class="widget-shell-body">
@@ -252,11 +266,11 @@
 
       <section class="panel" id="lossy" hidden>
         <h2 data-lang="lossy.heading"></h2>
-        <p class="section-frame" data-lang="lossy.sectionOpener"></p>
+        <p class="section-frame task-intro" data-lang="lossy.sectionOpener"></p>
 
         <div class="section-task">
           <p class="task-title" data-lang="lossy.task1.title"></p>
-          <p data-lang="lossy.task1.intro"></p>
+          <p class="task-intro" data-lang="lossy.task1.intro"></p>
           <div class="widget-placeholder" id="widget-s2-bitflip"
                data-lang="lossy.task1.widgetPlaceholder"></div>
           <p data-lang="lossy.task1.a.text"></p>
@@ -266,7 +280,7 @@
 
         <div class="section-task">
           <p class="task-title" data-lang="lossy.task2.title"></p>
-          <p data-lang="lossy.task2.intro"></p>
+          <p class="task-intro" data-lang="lossy.task2.intro"></p>
           <div id="widget-s2-jpeg-slideshow" class="widget-placeholder" style="margin:0.75rem 0"></div>
         </div>
 
@@ -274,7 +288,16 @@
 
         <div class="section-task">
           <p class="task-title" data-lang="lossy.task3.title"></p>
-          <p data-lang="lossy.task3.intro"></p>
+          <p class="task-intro" data-lang="lossy.task3.intro"></p>
+          <div class="task-challenges">
+            <p class="task-challenges-title" data-lang="common.challengeTitle"></p>
+            <p data-lang="lossy.task3.challengesIntro"></p>
+            <ul>
+              <li data-lang="lossy.task3.challenge1"></li>
+              <li data-lang="lossy.task3.challenge2"></li>
+              <li data-lang="lossy.task3.challenge3"></li>
+            </ul>
+          </div>
           <div class="widget-shell">
             <div class="widget-shell-body">
               <div class="widget-placeholder" id="widget-s2-blockavg"
@@ -291,6 +314,7 @@
 
         <div class="section-task">
           <p class="task-title" data-lang="lossy.task4.title"></p>
+          <p class="task-intro" data-lang="lossy.task4.intro"></p>
           <div class="widget-placeholder" id="widget-s2-blocksize"
                data-lang="lossy.task4.widgetPlaceholder"></div>
           <p data-lang="lossy.task4.a.text"></p>
@@ -303,7 +327,7 @@
 
         <div class="section-task">
           <p class="task-title" data-lang="lossy.task5.title"></p>
-          <p data-lang="lossy.task5.intro"></p>
+          <p class="task-intro" data-lang="lossy.task5.intro"></p>
           <p data-lang="lossy.task5.a.text"></p>
           <div class="help-row">
             <button class="help-toggle" type="button"
@@ -338,7 +362,7 @@
 
         <div class="section-task">
           <p class="task-title" data-lang="lossy.closing.title"></p>
-          <p data-lang="lossy.closing.intro"></p>
+          <p class="task-intro" data-lang="lossy.closing.intro"></p>
           <p data-lang="lossy.closing.a.text"></p>
           <div class="widget-shell">
             <div class="widget-shell-body">
@@ -361,7 +385,7 @@
 
       <section class="panel" id="filetypes" hidden>
         <h2 data-lang="filetypes.heading"></h2>
-        <p class="section-frame" data-lang="filetypes.sectionOpener"></p>
+        <p class="section-frame task-intro" data-lang="filetypes.sectionOpener"></p>
 
         <p data-lang="filetypes.intro.p1"></p>
         <p data-lang="filetypes.intro.p2"></p>
@@ -413,7 +437,7 @@
 
         <div class="section-task">
           <p class="task-title" data-lang="filetypes.task3.title"></p>
-          <p data-lang="filetypes.task3.intro"></p>
+          <p class="task-intro" data-lang="filetypes.task3.intro"></p>
           <p data-lang="filetypes.task3.a.text"></p>
           <textarea class="assumption-textarea" id="answer-s3-3a"
                     data-lang-attr="placeholder:common.answerPlaceholder"></textarea>
@@ -483,7 +507,7 @@
 
       <section class="panel" id="final" hidden>
         <h2 data-lang="final.heading"></h2>
-        <p class="section-frame" data-lang="final.sectionOpener"></p>
+        <p class="section-frame task-intro" data-lang="final.sectionOpener"></p>
 
         <div class="section-task">
           <p class="task-title" data-lang="final.task1.title"></p>
@@ -491,6 +515,15 @@
           <div class="widget-placeholder" id="widget-s4-filesystem"
                data-lang="final.task1.widgetPlaceholder"></div>
           <p data-lang="final.task1.a.text"></p>
+          <div class="fss-scenario" data-scenario="s0">
+            <button type="button" class="fss-scenario-open" data-lang="final.task1.a.s0"></button>
+            <div class="widget-shell">
+              <div class="widget-shell-body">
+                <div class="widget-placeholder" id="widget-s4-sim-s0"
+                     data-lang="final.task1.simPlaceholder"></div>
+              </div>
+            </div>
+          </div>
           <div class="fss-scenario" data-scenario="s1">
             <button type="button" class="fss-scenario-open" data-lang="final.task1.a.s1"></button>
             <div class="widget-shell">

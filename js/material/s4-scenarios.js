@@ -42,6 +42,17 @@ window.buildS4Scenarios = function (lang) {
 
   return [
     {
+      id: "s0",
+      layout: "s1",
+      tutorial: true,
+      files: [
+        file("demo_gps.mp4", 18000 * MB, "video", { metadata: [meta.gpsParkSouth] }),
+        file("kamera_probe.mp4", 2000 * MB, "video"),
+        file("uebung_notiz.docx", 200 * MB, "text", { metadata: [meta.authorEditorial] }),
+        file("readme.txt", 80 * MB, "text")
+      ]
+    },
+    {
       id: "s1",
       layout: "s1",
       files: [
@@ -193,9 +204,13 @@ window.getS4MetadataTooltip = function (file, fsLang) {
   var label = fsLang && fsLang.tooltipMetadata;
   if (!label) { return ""; }
   return label + "<br>" + lines.map(function (line) {
-    return String(line)
+    var text = String(line)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
+    if (typeof s4IsProblematicMeta === "function" && s4IsProblematicMeta(line)) {
+      return '<span class="s4-meta-bad">' + text + "</span>";
+    }
+    return '<span class="s4-meta-ok-line">' + text + "</span>";
   }).join("<br>");
 };

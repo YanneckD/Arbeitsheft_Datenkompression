@@ -32,7 +32,9 @@ window.LANG_DE = {
     closeSimulation: "Schließen",
     challengeTitle: "Challenges",
     challengeReset: "Zurücksetzen",
-    challengeSuccess: "Challenge geschafft!",
+    challengeSuccess: "Alle Challenges geschafft!",
+    challengeCloseWarning: "Du hast noch nicht alle Challenges geschafft. Trotzdem schließen?",
+    challengeCloseOpen: "Schließen (Challenges offen)",
     materialFolderGloss: "Wenn vom Materialordner gesprochen wird, ist der Ordner \"Material\" gemeint, welcher im gleichen Ordner wie die index.html Datei liegt. Darin sind die Dateien nach Sektion und Aufgabe sortiert. Klicke auf „Material-Ordner“, um alle Dateien als ZIP herunterzuladen."
   },
   intro: {
@@ -120,17 +122,23 @@ window.LANG_DE = {
     afterTask1: "Wie viel Platz eine Datei benötigt, hängt nicht nur von ihrem Inhalt ab, sondern auch davon, wie dieser Inhalt beschrieben wird. Es gibt Strategien, denselben Inhalt mit weniger Bits darzustellen, ohne irgendetwas wegzulassen. Solche Verfahren nennt man Kompression.",
     task2: {
       title: "Aufgabe 2 - Run-Length Encoding (RLE)",
-      intro: "Run-Length Encoding (RLE) arbeitet mit genau der Idee von oben. Experimentiere im Simulator mit Zeichenketten und beobachte, wie sich Wiederholungen als Tupel darstellen lassen.",
+      intro: "Run-Length Encoding (RLE) arbeitet mit genau der Idee von oben. Öffne die Simulation, experimentiere mit Zeichenketten und beobachte, wie sich Wiederholungen als Tupel darstellen lassen. Löse außerdem die Challenges in der Seitenleiste.",
+      challengesIntro: "Diese Challenges findest du in der Seitenleiste der Simulation. Jede Challenge zählt nur mit einer Zeichenkette von mindestens 5 Zeichen:",
+      challenge1: "Mindestens 50 % Ersparnis erzielen (Zeichenkette mindestens 5 Zeichen lang).",
+      challenge2: "Negative Ersparnis erzielen (mehr Zeichen als vorher; Zeichenkette mindestens 5 Zeichen lang).",
+      challenge3: "Gib eine Zeichenkette mit mindestens 10 gleichen Zeichen hintereinander ein.",
       widgetPlaceholder: "",
       a: {
         text: "a) Wie lässt sich aus der Tupelkette die ursprüngliche Zeichenkette wiederherstellen?"
       },
       b: {
-        text: "b) Beschreibe das RLE-Verfahren in Pseudocode: Wie würde ein vereinfachtes Programm aussehen, das eine Zeichenkette in Tupel umwandelt und aus Tupeln die Zeichenkette wiederherstellt?"
+        text: "b) Beschreibe das RLE-Verfahren in Pseudocode. Wie würde ein Programm aussehen, das eine Zeichenkette in Tupel umwandelt und aus Tupeln die Zeichenkette wiederherstellt?",
+        skeleton: "def encode(text):\n    result = []  # 2D-Array: z.B. [[Zeichen, Anzahl], ...]\n    i = 0\n    while i < len(text):\n        # TODO\n    return result\n\ndef decode(tuples):\n    result = \"\"\n    for item in tuples:\n        # TODO\n    return result"
       }
     },
     task3: {
       title: "Aufgabe 3 - Wörterbuchkompression",
+      intro: "Als Nächstes wird RLE auf einen normalen Fließtext angewendet. Schau dir die Darstellung an und beantworte danach die Fragen.",
       widgetPlaceholder: "Simulation: Wörterbuch-Codierer",
       dictFraming: "Du hast gerade gemerkt, dass RLE bei normalem Fließtext oft nicht gut funktioniert. Schau dir jetzt im Detail an, wie ein anderes Verfahren damit umgeht.",
       a: {
@@ -140,7 +148,8 @@ window.LANG_DE = {
         text: "b) Formuliere eine erste Vermutung: Wie müsste ein neuer Kompressionsalgorithmus im Gegensatz zu RLE vorgehen, um die typischen Strukturen und Wiederholungen eines normalen Fließtextes effektiver ausnutzen zu können?"
       },
       c: {
-        text: "c) Formuliere das Wörterbuchverfahren in Pseudocode: Für die Wörterbuchtabelle kannst du z.B ein 2-Dimensionales Array oder ein Dictionary (wie in Python) verwenden."
+        text: "c) Formuliere das Wörterbuchverfahren in Pseudocode. Hinweis: In dem Gerüst ist <code>text</code> bereits eine Liste von Wörtern (ohne Leerzeichen).",
+        skeleton: "def compress(text):\n    dictionary = []  # 2D-Array: z.B. [[Code, Wort], ...]\n    result = []\n    next_code = 1\n    for word in text:\n        # TODO\n    return result, dictionary\n\ndef decompress(data, dictionary):\n    result = \"\"\n    for item in data:\n        # TODO\n    return result"
       }
     },
     task4: {
@@ -211,7 +220,11 @@ window.LANG_DE = {
     },
     task3: {
       title: "Aufgabe 3 - Was nimmt das Auge wahr?",
-      intro: "Öffne die Simulation. Experimentiere zuerst frei und probiere die Challenges in der Seitenleiste aus.",
+      intro: "Öffne die Simulation. Experimentiere zuerst frei und löse die Challenges in der Seitenleiste. Beantworte danach die Fragen.",
+      challengesIntro: "Diese Challenges findest du in der Seitenleiste der Simulation:",
+      challenge1: "Dateigröße unter 20 % des Originals.",
+      challenge2: "Gesichtsdetails erkennbar.",
+      challenge3: "Augenfarbe erkennbar.",
       widgetPlaceholder: "Simulation: Block-Averaging",
       a: {
         text: "a) Welcher der beiden Regler lässt mehr Reduktion zu, bevor das Bild für dich unbrauchbar wird? Woran begründest du deine Entscheidung?"
@@ -222,12 +235,13 @@ window.LANG_DE = {
     },
     task4: {
       title: "Aufgabe 4 - Wie viel Ersparnis, und wann?",
+      intro: "In dieser Simulation kannst du die Blockgröße schrittweise erhöhen und die geschätzte Dateigröße beobachten. Probiere die Stufen aus und beantworte danach die Fragen.",
       widgetPlaceholder: "Simulation: Block-Averaging mit Blockgrößen-Regler",
       a: {
-        text: "a) Erhöhe die Blockgröße schrittweise von 1x1 auf 64x64 und beobachte die verhältnismäßige Größenanzeige. Bestimme, wo der größte Sprung in der Ersparnis auftritt."
+        text: "a) Erhöhe die Blockgröße schrittweise von 1×1 auf 64×64 und beobachte die verhältnismäßige Größenanzeige. Bestimme, wo der größte Sprung in der Ersparnis auftritt."
       },
       b: {
-        text: "b) Dein Freund schlägt vor, ein Beweisfoto so lange zu komprimieren, bis Details gerade noch erkennbar sind, da er so am meisten Speicher spare. Beurteile diesen Vorschlag anhand deiner Erkenntnisse aus Aufgabe 4a und entwirf eine Empfehlung, die dein Freund allgemein auf Fotos anwenden kann."
+        text: "b) Dein Freund schlägt vor, ein Beweisfoto so lange zu komprimieren, bis Details gerade noch erkennbar sind, da er so am meisten Speicher spare. Beurteile diesen Vorschlag anhand deiner Erkenntnisse aus Aufgabe 4a."
       }
     },
     task5: {
@@ -235,11 +249,11 @@ window.LANG_DE = {
       intro: "Bisher hast du verlustbehaftete Verfahren am Bild kennengelernt: Sie entfernen Informationen, die das Auge kaum wahrnimmt. Ob dasselbe bei Textdokumenten sinnvoll ist, hängt von einer anderen Frage ab: Was passiert, wenn einzelne Bits verändert werden?",
       widgetPlaceholder: "Simulation: Text-Screenshot komprimieren",
       a: {
-        text: "a) In Aufgabe 1 dieser Sektion hast du gesehen, was passiert, wenn genau ein Bit in einem Passwort oder Bild verändert wird. Stelle dir nun vor, ein <span class=\"gloss\" title=\"Verfahren, die Daten verkleinern, indem sie Informationen absichtlich entfernen oder verändern, wie bei den Bildreglern in Aufgabe 3 und 4.\">verlustbehaftetes Verfahren</span> würde dasselbe mit einem Text tun und einzelne Bits verändern oder entfernen.<br><br>Was würde bei einem <span class=\"gloss\" title=\"Ein normaler Fließtext, den du mit einem Textprogramm lesen kannst, wie z. B. eine .txt-Datei mit einem Bericht.\">lesbaren Text</span> passieren? Und was bei einem <span class=\"gloss\" title=\"Text, der mit einem Schlüssel verschlüsselt wurde und ohne diesen Schlüssel wie eine zufällige Zeichenfolge aussieht, wie in Sektion 1, Aufgabe 4.\">verschlüsselten Text</span>? Beschreibe den Unterschied.",
-        hint: "Orientiere dich an deinen Beobachtungen aus Aufgabe 1: Bei welchem Dateityp war ein einzelner Bitfehler sofort sichtbar bzw. fatal? Bei lesbarem Text hängt jeder Buchstabe von exakt den richtigen Bits ab, was passiert, wenn eines davon verändert wird? <br><br>Beispiel: Aus dem Satz \"Die Überwachung wurde fortgesetzt\" könnte \"Die Üxerwachung wurde fortgesetzt\" werden.<br><br> Verschlüsselter Text ist ohne Schlüssel ohnehin nicht lesbar; überlege, ob ein Bitfehler dort denselben Effekt hat wie bei einem Passwort."
+        text: "a) In Aufgabe 1 dieser Sektion hast du gesehen, was passiert, wenn genau ein Bit in einem Passwort oder Bild verändert wird. Stelle dir nun vor, ein <span class=\"gloss\" title=\"Verfahren, die Daten verkleinern, indem sie Informationen absichtlich entfernen oder verändern, wie bei den Bildreglern in Aufgabe 3 und 4.\">verlustbehaftetes Verfahren</span> würde dasselbe mit einem Text tun und einzelne Bits verändern oder entfernen.<br><br>Was würde bei einem <span class=\"gloss\" title=\"Ein normaler Fließtext, den du mit einem Textprogramm lesen kannst, wie z. B. eine .txt-Datei mit einem Bericht.\">lesbaren Text</span> passieren? Und was bei einer <span class=\"gloss\" title=\"Eine Tabelle mit strukturierten Einträgen wie Namen, Telefonnummern oder Adressen, z. B. als .csv-Datei. Jeder Wert muss exakt stimmen, sonst ist der Eintrag unbrauchbar.\">Kontakttabelle</span>? Beschreibe den Unterschied.",
+        hint: "Orientiere dich an deinen Beobachtungen aus Aufgabe 1: Bei welchem Dateityp war ein einzelner Bitfehler sofort sichtbar bzw. fatal? Bei lesbarem Text hängt jeder Buchstabe von exakt den richtigen Bits ab, was passiert, wenn eines davon verändert wird?<br><br>Beispiel: Aus dem Satz \"Die Überwachung wurde fortgesetzt\" könnte \"Die Üxerwachung wurde fortgesetzt\" werden – der Text bleibt oft noch verständlich.<br><br>Bei einer Kontakttabelle kann ein einzelner Bitfehler eine Telefonnummer oder Adresse verfälschen. Überlege, ob der Eintrag dann noch brauchbar ist – ähnlich wie beim Passwort in Aufgabe 1."
       },
       b: {
-        text: "b) Dein Freund schlägt daraufhin vor, statt der Textdatei ein Foto des Textes zu verwenden, da Bilder verlustbehaftet gut komprimiert werden können. Schaue dir im Material-Ordner (<code>Sektion 2</code>) die beiden Dateien im Dateiexplorer an: <code>test.txt</code> und einen JPEG-Screenshot eines Ausschnitts desselben Textes. Betrachte die Dateigrößen. Man könnte das Bild auch noch stärker komprimieren, als JPEG es standardmäßig tut. Das kannst du anhand des Simulators ausprobieren. Beurteile, ob er damit wirklich Speicherplatz einsparen kann.",
+        text: "b) Dein Freund schlägt daraufhin vor, statt der Textdatei ein Foto des Textes zu verwenden, da Bilder verlustbehaftet gut komprimiert werden können. Schaue dir im Material-Ordner (<code>Sektion 2</code>) die beiden Dateien im Dateiexplorer an: <code>test.txt</code> und <code>Screenshot.jpg</code> (JPEG-Screenshot eines Ausschnitts desselben Textes). Betrachte die Dateigrößen. Man könnte das Bild auch noch stärker komprimieren, als JPEG es standardmäßig tut. Das kannst du anhand des Simulators ausprobieren. Beurteile, ob er damit wirklich Speicherplatz einsparen kann.",
         hint: "Ist der Text noch lesbar, nachdem du ihn so stark komprimiert hast, dass er unter der Originalgröße der Textdatei liegt? Und könnte man nicht auch die Textdatei z. B. mit dem Wörterbuchverfahren komprimieren?"
       }
     },
@@ -270,7 +284,7 @@ window.LANG_DE = {
       intro: "Das Werkzeug zeigt dir zwei Dateien mit identischem Textinhalt: einmal als .txt, einmal als .docx.",
       widgetPlaceholder: "Vergleich: .txt vs. .docx",
       a: {
-        text: "a) Beschreibe deine Beobachtungen: Was unterscheidet die beiden Dateien, obwohl ihr Inhalt gleich ist? Betrachte die interne Struktur der .docx-Datei. Welche Bestandteile sind nicht Teil des sichtbaren Texts?"
+        text: "a) Beschreibe deine Beobachtungen: Was unterscheidet die beiden Dateien, obwohl ihr Inhalt gleich ist? Betrachte die interne Struktur der .docx-Datei. Welche <span class=\"gloss\" title=\"Metadaten sind Zusatzinformationen zu einer Datei, z. B. Autor, Erstellungsdatum, Kameraeinstellungen oder Bearbeitungshistorie. Sie sind nicht der eigentliche Inhalt, können aber Rückschlüsse auf die Quelle zulassen.\">Metadaten</span> und anderen Bestandteile sind nicht Teil des sichtbaren Texts?"
       },
       b: {
         text: "b) Erläutere, inwiefern <span class=\"gloss\" title=\"Metadaten sind Zusatzinformationen zu einer Datei, z. B. Autor, Erstellungsdatum, Kameraeinstellungen oder Bearbeitungshistorie. Sie sind nicht der eigentliche Inhalt, können aber Rückschlüsse auf die Quelle zulassen.\">Metadaten</span> in einer Datei für deinen Freund ein Problem darstellen könnten."
@@ -282,9 +296,9 @@ window.LANG_DE = {
     },
     task2: {
       title: "Aufgabe 2 - Metadaten als Sicherheitsrisiko",
-      intro: "Schaue dir im Material-Ordner die Word-Datei an und lies die Metadaten aus:<br><strong>Windows:</strong> Rechtsklick → Eigenschaften → Details<br><strong>macOS:</strong> Datei markieren → ⌘+I → Weitere Informationen<br><strong>Linux:</strong> Bei den meisten Desktop-Umgebungen wie bei Windows: Rechtsklick → Eigenschaften. Sonst frag deine Lehrkraft.",
+      intro: "Schaue dir im Material-Ordner die Word-Datei an und lies die <span class=\"gloss\" title=\"Metadaten sind Zusatzinformationen zu einer Datei, z. B. Autor, Erstellungsdatum, Kameraeinstellungen oder Bearbeitungshistorie. Sie sind nicht der eigentliche Inhalt, können aber Rückschlüsse auf die Quelle zulassen.\">Metadaten</span> aus:<br><strong>Windows:</strong> Rechtsklick → Eigenschaften → Details<br><strong>macOS:</strong> Datei markieren → ⌘+I → Weitere Informationen<br><strong>Linux:</strong> Bei den meisten Desktop-Umgebungen wie bei Windows: Rechtsklick → Eigenschaften. Sonst frag deine Lehrkraft.",
       a: {
-        text: "a) Nenne die gespeicherten Informationen und beurteile jede für die Situation deines Freundes: unkritisch oder problematisch?"
+        text: "a) Nenne die gespeicherten <span class=\"gloss\" title=\"Metadaten sind Zusatzinformationen zu einer Datei, z. B. Autor, Erstellungsdatum, Kameraeinstellungen oder Bearbeitungshistorie. Sie sind nicht der eigentliche Inhalt, können aber Rückschlüsse auf die Quelle zulassen.\">Metadaten</span> und beurteile jeden Eintrag für die Situation deines Freundes: unkritisch oder problematisch?"
       },
       c: {
         text: "c) Dein Freund will die gefährlichen Einträge einzeln von Hand löschen. Beurteile diesen Ansatz und benenne eine grundlegendere Lösung.",
@@ -366,14 +380,15 @@ window.LANG_DE = {
     intro: {
       p1: "Du hast drei Werkzeuge kennengelernt: verlustfreie Kompression, verlustbehaftete Kompression und die bewusste Wahl von Dateiformaten.",
       p2: "In der Realität liegt selten eine einzige Datei vor, sondern ein Paket aus sehr unterschiedlichen Dateitypen. Welches Werkzeug für welche Datei sinnvoll ist, entscheidest du anhand ihrer Eigenschaften.",
-      p3: "Die Treemap zeigt drei Szenarien mit realistischen Dateigrößen in Megabyte. Ziel: alles auf eine 16-GB-Karte. Aktuell passt nichts davon."
+      p3: "Die Treemap zeigt drei Szenarien mit realistischen Dateigrößen in Megabyte. Zusätzlich gibt es ein kurzes Tutorial (Szenario 0) zur Bedienung. Ziel: alles auf eine 16-GB-Karte, problematische Metadaten entfernt. Aktuell passt nichts davon."
     },
     task1: {
       title: "Aufgabe 1 - Überblick verschaffen",
-      note: "Es gibt drei verschiedene Pakete auf unterschiedlichen Datenträgern. Dein Ziel ist es, die jeweiligen Daten vollständig auf eine 16-GB-Speicherkarte zu bekommen. Jedes Paket erfordert dafür andere Maßnahmen. Genauere Informationen zu den Dateien erhälst du beim drüberhovern. Schaue dir ersteinmal die Szenarien an und schau, ob du alle Dateitypen kennst. Falls nicht: Es gibt unten eine Erklärung zu allen Dateitypen.",
+      note: "Es gibt drei verschiedene Pakete auf unterschiedlichen Datenträgern (plus Tutorial). Dein Ziel ist es, die jeweiligen Daten vollständig auf eine 16-GB-Speicherkarte zu bekommen und problematische Metadaten zu entfernen. Jedes Paket erfordert dafür andere Maßnahmen. Genauere Informationen zu den Dateien erhälst du beim drüberhovern. Schaue dir ersteinmal die Szenarien an und schau, ob du alle Dateitypen kennst. Falls nicht: Es gibt unten eine Erklärung zu allen Dateitypen.",
       widgetPlaceholder: "[Widget: Dateisystem-Treemap mit drei Szenarien]",
       a: {
-        text: "a) Öffne für jedes Szenario den Simulator. Wähle oben eine Maßnahme (in metadatenfreies Format umwandeln / Metadaten entfernen, verlustfrei komprimieren, verlustbehaftet komprimieren oder archivieren) und klicke auf die betroffenen Dateien in der Treemap. Ziel: Alles muss auf die 16-GB-Karte passen. Beim Archivieren wählst du mehrere Dateien aus und fasst sie mit einem Klick zusammen. Falsche Klicks zählen mit, auch wenn sich nichts ändert.",
+        text: "a) Starte mit dem Tutorial (Szenario 0), um die Treemap-Bedienung zu üben. Öffne danach für jedes Szenario den Simulator. Wähle oben eine Maßnahme (in metadatenfreies Format umwandeln / Metadaten entfernen, verlustfrei komprimieren, verlustbehaftet komprimieren oder archivieren) und klicke auf die betroffenen Dateien in der Treemap. Ziel: Alles muss auf die 16-GB-Karte passen, und problematische Metadaten müssen entfernt sein. Beim Archivieren wählst du mehrere Dateien aus und fasst sie mit einem Klick zusammen. Falsche Klicks zählen mit, auch wenn sich nichts ändert.",
+        s0: "Szenario 0 (Tutorial): Simulator öffnen",
         s1: "Szenario 1: Simulator öffnen",
         s2: "Szenario 2: Simulator öffnen",
         s3: "Szenario 3: Simulator öffnen"
