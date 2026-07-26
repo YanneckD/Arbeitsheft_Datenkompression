@@ -170,7 +170,41 @@ window.LANG_DE = {
   },
   losslessOptional: {
     heading: "Zusatz: Verschlüsselung",
-    todo: "TODO, aber nicht mehr diese Abgabe :("
+    task1: {
+      title: "Aufgabe 1 - Muster in den Daten",
+      intro: "Erinnere dich an RLE und das Wörterbuchverfahren aus Sektion 1.",
+      a: {
+        text: "a) Beschreibe getrennt für RLE und für das Wörterbuchverfahren, worauf das jeweilige Verfahren angewiesen ist, damit es Daten verkleinern kann."
+      },
+      b: {
+        text: "b) Formuliere daraus die gemeinsame Voraussetzung beider Verfahren. Begründe, warum beide scheitern, wenn diese Voraussetzung in den Daten fehlt."
+      },
+      hint: "Denk an die Ente-Fuchs-Dachs-Zeichenkette und an den Fließtext aus Sektion 1. Was wurde dort jeweils ausgenutzt, und was haben beide Fälle gemeinsam?"
+    },
+    task2: {
+      title: "Aufgabe 2 - Verschlüsselung und Strukturen",
+      intro: "Vergleiche die drei Texte.",
+      quotePlain: "Die Überwachung der Zielperson wurde fortgesetzt. Während der Überwachung der Zielperson wurden alle Daten erfasst.",
+      quoteCaesar: "Glh Üehuzdfkxqj ghu Clhosuhuvrq zxugh iruwjhvhwcw. Zäkuhqg ghu Üehuzdfkxqj ghu Clhosuhuvrq zxughq dooh Gdwhq huidvvw.",
+      quoteEncrypted: "RGllIMOcYmVyd2FjaHVuZyBkZXIgWmllbHBlcnNvbiB3dXJkZSBmb3J0Z2VzZXR6dC4gV8OkaHJlbmQgZGVyIMOcYmVyd2FjaHVuZyBkZXIgWmllbHBlcnNvbiB3dXJkZW4gYWxsZSBEYXRlbiBlcmZhc3N0Lg==",
+      a: {
+        text: "a) Welche Strukturen sind im Klartext erkennbar? Inwiefern bleiben sie im zweiten Text erkennbar, und was passiert damit im dritten Text?"
+      },
+      b: {
+        text: "b) Welcher der beiden verschlüsselten Texte eignet sich besser, um Inhalte geheim zu halten? Begründe danach warum gute Verschlüsselungsmethoden die Muster in den Daten verstecken."
+      },
+      hint: "Achte auf wiederholte Wörter und darauf, ob du im zweiten bzw. dritten Text noch entsprechende Muster erkennen kannst. Welchen Text kann man vermutlich leichter entschlüsseln ohne den Schlüssel zu kennen?"
+    },
+    closing: {
+      title: "Abschlussaufgabe",
+      a: {
+        text: "a) Dein Freund verschlüsselt einen langen Bericht und will ihn danach noch mit RLE oder Wörterbuchkompression verkleinern. Begründe, warum das kaum gelingt. Beziehe dich auf beide vorigen Aufgaben."
+      },
+      b: {
+        text: "b) Die Datei liegt noch unverschlüsselt vor. Wäre es besser, zuerst zu komprimieren und danach zu verschlüsseln? Begründe deine Einschätzung."
+      },
+      hint: "Überlege, in welchem Schritt die Muster in den Daten noch vorhanden sind und wann sie verloren gehen."
+    }
   },
   lossy: {
     heading: "Sektion 2: Verlustbehaftete Kompression",
